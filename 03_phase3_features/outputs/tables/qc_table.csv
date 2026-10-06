@@ -1,0 +1,401 @@
+participant_id,song_id,file,reader,reference,n_ica_weights,clean_s,n_flat_channels,n_extreme_channels,flagged_channels,epochs_total,epochs_overlap_bad,epochs_over_amp,epochs_kept,epochs_kept_75uv,included,exclusion_reason
+sub-01,t01,sub-01_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-01,t02,sub-01_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,3,"F10, F9, FT10",60,0,0,60,60,TRUE,NA
+sub-01,t03,sub-01_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-01,t04,sub-01_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,4,"F10, AF8, F9, FT10",60,0,0,60,60,TRUE,NA
+sub-01,t05,sub-01_ses-t05_task-music_eeg.set,R.matlab,common,0,112,0,2,"F10, F9",60,6,1,53,47,TRUE,NA
+sub-01,t06,sub-01_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,0,60,58,TRUE,NA
+sub-01,t07,sub-01_ses-t07_task-music_eeg.set,R.matlab,common,0,111,0,1,F9,60,7,0,53,53,TRUE,NA
+sub-01,t08,sub-01_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-01,t09,sub-01_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, AF8, AF7, F9, FT10",60,0,1,59,58,TRUE,NA
+sub-01,t13,sub-01_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,0,60,59,TRUE,NA
+sub-01,t15,sub-01_ses-t15_task-music_eeg.set,R.matlab,common,0,115,0,2,"F10, F9",60,3,1,56,49,TRUE,NA
+sub-01,t17,sub-01_ses-t17_task-music_eeg.set,R.matlab,common,0,119,0,6,"F10, AF8, AF7, F9, FT9, FT10",60,1,1,58,51,TRUE,NA
+sub-01,t18,sub-01_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, Fp1, AF7, F9, FT9",60,0,0,60,60,TRUE,NA
+sub-01,t20,sub-01_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,59,TRUE,NA
+sub-01,t23,sub-01_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,2,58,58,TRUE,NA
+sub-01,t24,sub-01_ses-t24_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,2,1,57,56,TRUE,NA
+sub-01,t25,sub-01_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,3,"F10, AF7, F9",60,0,0,60,59,TRUE,NA
+sub-01,t26,sub-01_ses-t26_task-music_eeg.set,R.matlab,common,0,114,0,1,F9,60,4,0,56,53,TRUE,NA
+sub-01,t27,sub-01_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,0,60,60,TRUE,NA
+sub-01,t30,sub-01_ses-t30_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,2,0,58,57,TRUE,NA
+sub-02,t01,sub-02_ses-t01_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,7,0,53,53,TRUE,NA
+sub-02,t02,sub-02_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,2,"Pz, POz",60,0,2,58,54,TRUE,NA
+sub-02,t03,sub-02_ses-t03_task-music_eeg.set,R.matlab,common,0,116,1,0,T10,60,3,0,57,56,TRUE,NA
+sub-02,t04,sub-02_ses-t04_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-02,t05,sub-02_ses-t05_task-music_eeg.set,R.matlab,common,0,118,1,0,T10,60,1,0,59,59,TRUE,NA
+sub-02,t06,sub-02_ses-t06_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-02,t07,sub-02_ses-t07_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-02,t08,sub-02_ses-t08_task-music_eeg.set,R.matlab,common,0,117,1,1,"P4, T10",60,2,1,57,57,TRUE,NA
+sub-02,t09,sub-02_ses-t09_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-02,t13,sub-02_ses-t13_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-02,t15,sub-02_ses-t15_task-music_eeg.set,R.matlab,common,0,119,0,2,"Pz, POz",60,1,3,56,51,TRUE,NA
+sub-02,t17,sub-02_ses-t17_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,1,5,54,54,TRUE,NA
+sub-02,t18,sub-02_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,1,POz,60,0,0,60,59,TRUE,NA
+sub-02,t20,sub-02_ses-t20_task-music_eeg.set,R.matlab,common,0,118,0,2,"POz, TP10",60,1,2,57,57,TRUE,NA
+sub-02,t23,sub-02_ses-t23_task-music_eeg.set,R.matlab,common,0,118,1,0,T10,60,2,0,58,58,TRUE,NA
+sub-02,t24,sub-02_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,2,"Pz, POz",60,0,0,60,60,TRUE,NA
+sub-02,t25,sub-02_ses-t25_task-music_eeg.set,R.matlab,common,0,117,1,0,T10,60,3,0,57,56,TRUE,NA
+sub-02,t26,sub-02_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,59,TRUE,NA
+sub-02,t27,sub-02_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,1,POz,60,0,0,60,60,TRUE,NA
+sub-02,t30,sub-02_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,1,POz,60,0,2,58,57,TRUE,NA
+sub-03,t01,sub-03_ses-t01_task-music_eeg.set,R.matlab,common,0,117,0,1,O2,60,2,0,58,58,TRUE,NA
+sub-03,t02,sub-03_ses-t02_task-music_eeg.set,R.matlab,common,0,107,0,1,Fp1,60,9,1,50,50,TRUE,NA
+sub-03,t03,sub-03_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-03,t04,sub-03_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-03,t05,sub-03_ses-t05_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,6,0,54,54,TRUE,NA
+sub-03,t06,sub-03_ses-t06_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,5,0,55,54,TRUE,NA
+sub-03,t07,sub-03_ses-t07_task-music_eeg.set,R.matlab,common,0,110,0,1,Fp1,60,7,0,53,53,TRUE,NA
+sub-03,t08,sub-03_ses-t08_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,1,0,59,59,TRUE,NA
+sub-03,t09,sub-03_ses-t09_task-music_eeg.set,R.matlab,common,0,104,0,3,"Fp1, FT9, T9",60,11,5,44,40,TRUE,NA
+sub-03,t13,sub-03_ses-t13_task-music_eeg.set,R.matlab,common,0,111,0,4,"AF8, Fp1, FT9, T9",60,6,0,54,50,TRUE,NA
+sub-03,t15,sub-03_ses-t15_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,2,0,58,58,TRUE,NA
+sub-03,t17,sub-03_ses-t17_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,8,0,52,52,TRUE,NA
+sub-03,t18,sub-03_ses-t18_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,5,0,55,55,TRUE,NA
+sub-03,t20,sub-03_ses-t20_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,3,0,57,56,TRUE,NA
+sub-03,t23,sub-03_ses-t23_task-music_eeg.set,R.matlab,common,0,100,0,1,Fp1,60,14,0,46,46,TRUE,NA
+sub-03,t24,sub-03_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-03,t25,sub-03_ses-t25_task-music_eeg.set,R.matlab,common,0,114,0,1,Fp1,60,5,2,53,52,TRUE,NA
+sub-03,t26,sub-03_ses-t26_task-music_eeg.set,R.matlab,common,0,109,0,1,Fp1,60,7,0,53,53,TRUE,NA
+sub-03,t27,sub-03_ses-t27_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,0,58,58,TRUE,NA
+sub-03,t30,sub-03_ses-t30_task-music_eeg.set,R.matlab,common,0,105,0,0,,60,9,1,50,48,TRUE,NA
+sub-04,t01,sub-04_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,4,"F10, Fp2, AFz, Fp1",60,0,0,60,60,TRUE,NA
+sub-04,t02,sub-04_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,4,"F10, Fp2, AFz, Fp1",60,0,0,60,60,TRUE,NA
+sub-04,t03,sub-04_ses-t03_task-music_eeg.set,R.matlab,common,0,112,0,4,"F10, Fp2, F9, FT9",60,4,0,56,56,TRUE,NA
+sub-04,t04,sub-04_ses-t04_task-music_eeg.set,R.matlab,common,0,114,0,6,"F10, Fp2, Fp1, F9, FT9, FT10",60,4,0,56,56,TRUE,NA
+sub-04,t05,sub-04_ses-t05_task-music_eeg.set,R.matlab,common,0,104,0,4,"F10, Fp2, F9, FT9",60,10,0,50,50,TRUE,NA
+sub-04,t06,sub-04_ses-t06_task-music_eeg.set,R.matlab,common,0,114,0,2,"F10, F9",60,4,0,56,51,TRUE,NA
+sub-04,t07,sub-04_ses-t07_task-music_eeg.set,R.matlab,common,0,105,0,1,F9,60,8,1,51,44,TRUE,NA
+sub-04,t08,sub-04_ses-t08_task-music_eeg.set,R.matlab,common,0,88,0,7,"F10, AF8, Fp2, Fp1, F9, FT9, FT10",60,19,0,41,41,TRUE,NA
+sub-04,t09,sub-04_ses-t09_task-music_eeg.set,R.matlab,common,0,116,0,4,"F10, Fp2, Fp1, F9",60,2,1,57,56,TRUE,NA
+sub-04,t13,sub-04_ses-t13_task-music_eeg.set,R.matlab,common,0,118,0,1,F9,60,1,4,55,40,TRUE,NA
+sub-04,t15,sub-04_ses-t15_task-music_eeg.set,R.matlab,common,0,118,0,4,"F10, Fp2, Fp1, F9",60,2,0,58,56,TRUE,NA
+sub-04,t17,sub-04_ses-t17_task-music_eeg.set,R.matlab,common,0,108,0,9,"F10, AF8, Fp2, AFz, Fp1, AF7, F9, FT9, FT10",60,7,0,53,52,TRUE,NA
+sub-04,t18,sub-04_ses-t18_task-music_eeg.set,R.matlab,common,0,109,0,7,"F10, Fp2, AFz, Fp1, F9, FT9, T9",60,6,0,54,54,TRUE,NA
+sub-04,t20,sub-04_ses-t20_task-music_eeg.set,R.matlab,common,0,108,0,7,"F10, Fp2, AFz, Fp1, F9, FT9, T9",60,7,0,53,53,TRUE,NA
+sub-04,t23,sub-04_ses-t23_task-music_eeg.set,R.matlab,common,0,102,0,8,"F10, AF8, Fp2, AFz, Fp1, F9, FT9, T9",60,11,0,49,49,TRUE,NA
+sub-04,t24,sub-04_ses-t24_task-music_eeg.set,R.matlab,common,0,113,0,4,"F10, AF7, F9, FT10",60,4,0,56,56,TRUE,NA
+sub-04,t25,sub-04_ses-t25_task-music_eeg.set,R.matlab,common,0,108,0,2,"F10, F9",60,7,0,53,49,TRUE,NA
+sub-04,t26,sub-04_ses-t26_task-music_eeg.set,R.matlab,common,0,110,0,6,"F10, Fp2, AFz, Fp1, F9, FT9",60,7,0,53,52,TRUE,NA
+sub-04,t27,sub-04_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,3,"F10, F9, T10",60,0,0,60,60,TRUE,NA
+sub-04,t30,sub-04_ses-t30_task-music_eeg.set,R.matlab,common,0,109,0,1,F9,60,9,0,51,42,TRUE,NA
+sub-05,t01,sub-05_ses-t01_task-music_eeg.set,R.matlab,common,0,118,1,0,T10,60,2,0,58,56,TRUE,NA
+sub-05,t02,sub-05_ses-t02_task-music_eeg.set,R.matlab,common,0,120,1,2,"F10, PO8, T10",60,0,0,60,59,TRUE,NA
+sub-05,t03,sub-05_ses-t03_task-music_eeg.set,R.matlab,common,0,117,1,0,T10,60,2,0,58,58,TRUE,NA
+sub-05,t04,sub-05_ses-t04_task-music_eeg.set,R.matlab,common,0,120,1,2,"T7, TP10, T10",60,0,0,60,60,TRUE,NA
+sub-05,t05,sub-05_ses-t05_task-music_eeg.set,R.matlab,common,0,115,0,1,T10,60,4,0,56,56,TRUE,NA
+sub-05,t06,sub-05_ses-t06_task-music_eeg.set,R.matlab,common,0,119,1,0,T10,60,1,1,58,57,TRUE,NA
+sub-05,t07,sub-05_ses-t07_task-music_eeg.set,R.matlab,common,0,120,1,1,"PO8, T10",60,0,1,59,58,TRUE,NA
+sub-05,t08,sub-05_ses-t08_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,3,0,57,57,TRUE,NA
+sub-05,t09,sub-05_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,55,TRUE,NA
+sub-05,t13,sub-05_ses-t13_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-05,t15,sub-05_ses-t15_task-music_eeg.set,R.matlab,common,0,116,1,0,T10,60,3,0,57,55,TRUE,NA
+sub-05,t17,sub-05_ses-t17_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-05,t18,sub-05_ses-t18_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-05,t20,sub-05_ses-t20_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,58,TRUE,NA
+sub-05,t23,sub-05_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,2,"T7, T10",60,0,0,60,60,TRUE,NA
+sub-05,t24,sub-05_ses-t24_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,5,1,54,53,TRUE,NA
+sub-05,t25,sub-05_ses-t25_task-music_eeg.set,R.matlab,common,0,120,1,1,"TP7, T10",60,0,0,60,59,TRUE,NA
+sub-05,t26,sub-05_ses-t26_task-music_eeg.set,R.matlab,common,0,116,1,1,"FT9, T10",60,3,0,57,54,TRUE,NA
+sub-05,t27,sub-05_ses-t27_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-05,t30,sub-05_ses-t30_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-06,t01,sub-06_ses-t01_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,2,0,58,56,TRUE,NA
+sub-06,t02,sub-06_ses-t02_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,3,0,57,57,TRUE,NA
+sub-06,t03,sub-06_ses-t03_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,3,1,56,56,TRUE,NA
+sub-06,t04,sub-06_ses-t04_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,5,53,45,TRUE,NA
+sub-06,t05,sub-06_ses-t05_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,3,0,57,57,TRUE,NA
+sub-06,t06,sub-06_ses-t06_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,2,0,58,57,TRUE,NA
+sub-06,t07,sub-06_ses-t07_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,3,0,57,53,TRUE,NA
+sub-06,t08,sub-06_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,57,TRUE,NA
+sub-06,t09,sub-06_ses-t09_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,0,58,55,TRUE,NA
+sub-06,t13,sub-06_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,2,58,56,TRUE,NA
+sub-06,t15,sub-06_ses-t15_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,3,0,57,57,TRUE,NA
+sub-06,t17,sub-06_ses-t17_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,2,1,57,52,TRUE,NA
+sub-06,t18,sub-06_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-06,t20,sub-06_ses-t20_task-music_eeg.set,R.matlab,common,0,113,0,0,,60,5,0,55,55,TRUE,NA
+sub-06,t23,sub-06_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,54,TRUE,NA
+sub-06,t24,sub-06_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,1,F6,60,0,0,60,58,TRUE,NA
+sub-06,t25,sub-06_ses-t25_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,1,0,59,58,TRUE,NA
+sub-06,t26,sub-06_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-06,t27,sub-06_ses-t27_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,3,2,55,55,TRUE,NA
+sub-06,t30,sub-06_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-07,t01,sub-07_ses-t01_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-07,t02,sub-07_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,2,58,55,TRUE,NA
+sub-07,t03,sub-07_ses-t03_task-music_eeg.set,R.matlab,common,0,101,0,3,"F10, F9, T10",60,10,0,50,47,TRUE,NA
+sub-07,t04,sub-07_ses-t04_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,51,TRUE,NA
+sub-07,t05,sub-07_ses-t05_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,57,TRUE,NA
+sub-07,t06,sub-07_ses-t06_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,53,TRUE,NA
+sub-07,t07,sub-07_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, Fp2, AF7, F9, P8",60,0,0,60,60,TRUE,NA
+sub-07,t08,sub-07_ses-t08_task-music_eeg.set,R.matlab,common,0,120,1,2,"F10, F9, T10",60,0,0,60,55,TRUE,NA
+sub-07,t09,sub-07_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,3,"F10, AF7, F9",60,0,0,60,58,TRUE,NA
+sub-07,t13,sub-07_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,2,"F9, P8",60,0,0,60,58,TRUE,NA
+sub-07,t15,sub-07_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,51,TRUE,NA
+sub-07,t17,sub-07_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,4,56,50,TRUE,NA
+sub-07,t18,sub-07_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,2,"PO8, T10",60,0,0,60,60,TRUE,NA
+sub-07,t20,sub-07_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,1,59,56,TRUE,NA
+sub-07,t23,sub-07_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-07,t24,sub-07_ses-t24_task-music_eeg.set,R.matlab,common,0,109,0,2,"F9, P8",60,7,0,53,52,TRUE,NA
+sub-07,t25,sub-07_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,0,60,58,TRUE,NA
+sub-07,t26,sub-07_ses-t26_task-music_eeg.set,R.matlab,common,0,120,1,1,"F9, T10",60,0,0,60,58,TRUE,NA
+sub-07,t27,sub-07_ses-t27_task-music_eeg.set,R.matlab,common,0,120,1,1,"F9, T10",60,0,2,58,56,TRUE,NA
+sub-07,t30,sub-07_ses-t30_task-music_eeg.set,R.matlab,common,0,118,0,2,"F10, F9",60,2,2,56,54,TRUE,NA
+sub-08,t01,sub-08_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t02,sub-08_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t03,sub-08_ses-t03_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,6,0,54,54,TRUE,NA
+sub-08,t04,sub-08_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t05,sub-08_ses-t05_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,2,58,57,TRUE,NA
+sub-08,t06,sub-08_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t07,sub-08_ses-t07_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,1,0,59,59,TRUE,NA
+sub-08,t08,sub-08_ses-t08_task-music_eeg.set,R.matlab,common,0,119,0,0,,60,1,0,59,59,TRUE,NA
+sub-08,t09,sub-08_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-08,t13,sub-08_ses-t13_task-music_eeg.set,R.matlab,common,0,113,0,1,C2,60,4,1,55,53,TRUE,NA
+sub-08,t15,sub-08_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t17,sub-08_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-08,t18,sub-08_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t20,sub-08_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t23,sub-08_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t24,sub-08_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t25,sub-08_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t26,sub-08_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-08,t27,sub-08_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-08,t30,sub-08_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t01,sub-09_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-09,t02,sub-09_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,2,58,49,TRUE,NA
+sub-09,t03,sub-09_ses-t03_task-music_eeg.set,R.matlab,common,0,120,1,1,"F10, T10",60,0,1,59,54,TRUE,NA
+sub-09,t04,sub-09_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,56,TRUE,NA
+sub-09,t05,sub-09_ses-t05_task-music_eeg.set,R.matlab,common,0,120,1,1,"AF8, T10",60,0,0,60,60,TRUE,NA
+sub-09,t06,sub-09_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,4,"F10, P7, PO7, FT10",60,0,0,60,60,TRUE,NA
+sub-09,t07,sub-09_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,28,TRUE,NA
+sub-09,t08,sub-09_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t09,sub-09_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t13,sub-09_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-09,t15,sub-09_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-09,t17,sub-09_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,1,PO7,60,0,0,60,60,TRUE,NA
+sub-09,t18,sub-09_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t20,sub-09_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-09,t23,sub-09_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,2,58,57,TRUE,NA
+sub-09,t24,sub-09_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-09,t25,sub-09_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,60,TRUE,NA
+sub-09,t26,sub-09_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t27,sub-09_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-09,t30,sub-09_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-10,t01,sub-10_ses-t01_task-music_eeg.set,R.matlab,common,0,116,0,1,F10,60,3,2,55,55,TRUE,NA
+sub-10,t02,sub-10_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, AF8",60,0,0,60,60,TRUE,NA
+sub-10,t03,sub-10_ses-t03_task-music_eeg.set,R.matlab,common,0,119,0,1,F9,60,1,0,59,59,TRUE,NA
+sub-10,t04,sub-10_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, FT10",60,0,0,60,59,TRUE,NA
+sub-10,t05,sub-10_ses-t05_task-music_eeg.set,R.matlab,common,0,120,0,2,"CPz, Cz",60,0,0,60,60,TRUE,NA
+sub-10,t06,sub-10_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, FT10",60,0,0,60,60,TRUE,NA
+sub-10,t07,sub-10_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,59,TRUE,NA
+sub-10,t08,sub-10_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,60,TRUE,NA
+sub-10,t09,sub-10_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,59,TRUE,NA
+sub-10,t13,sub-10_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,57,TRUE,NA
+sub-10,t15,sub-10_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,58,TRUE,NA
+sub-10,t17,sub-10_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,60,TRUE,NA
+sub-10,t18,sub-10_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,2,58,57,TRUE,NA
+sub-10,t20,sub-10_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-10,t23,sub-10_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,59,TRUE,NA
+sub-10,t24,sub-10_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,57,TRUE,NA
+sub-10,t25,sub-10_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, FT10",60,0,0,60,60,TRUE,NA
+sub-10,t26,sub-10_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,60,TRUE,NA
+sub-10,t27,sub-10_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,57,TRUE,NA
+sub-10,t30,sub-10_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-11,t01,sub-11_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,1,PO7,60,0,0,60,57,TRUE,NA
+sub-11,t02,sub-11_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,56,TRUE,NA
+sub-11,t03,sub-11_ses-t03_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,4,0,56,55,TRUE,NA
+sub-11,t04,sub-11_ses-t04_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,3,2,55,52,TRUE,NA
+sub-11,t05,sub-11_ses-t05_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-11,t06,sub-11_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-11,t07,sub-11_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,55,TRUE,NA
+sub-11,t08,sub-11_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,3,"P7, PO7, O1",60,0,0,60,60,TRUE,NA
+sub-11,t09,sub-11_ses-t09_task-music_eeg.set,R.matlab,common,0,107,0,3,"P7, PO7, O1",60,9,0,51,49,TRUE,NA
+sub-11,t13,sub-11_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-11,t15,sub-11_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,55,TRUE,NA
+sub-11,t17,sub-11_ses-t17_task-music_eeg.set,R.matlab,common,0,119,0,1,PO7,60,1,0,59,53,TRUE,NA
+sub-11,t18,sub-11_ses-t18_task-music_eeg.set,R.matlab,common,0,118,0,1,PO7,60,2,0,58,57,TRUE,NA
+sub-11,t20,sub-11_ses-t20_task-music_eeg.set,R.matlab,common,0,118,0,2,"P7, PO7",60,1,0,59,57,TRUE,NA
+sub-11,t23,sub-11_ses-t23_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,3,0,57,57,TRUE,NA
+sub-11,t24,sub-11_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,1,PO7,60,0,1,59,54,TRUE,NA
+sub-11,t25,sub-11_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,1,PO7,60,0,0,60,55,TRUE,NA
+sub-11,t26,sub-11_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,49,TRUE,NA
+sub-11,t27,sub-11_ses-t27_task-music_eeg.set,R.matlab,common,0,117,0,1,PO7,60,2,0,58,52,TRUE,NA
+sub-11,t30,sub-11_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,40,TRUE,NA
+sub-12,t01,sub-12_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, AF7, FT9, O2, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t02,sub-12_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,7,"F10, AF8, Fp2, AF3, AF7, F9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t03,sub-12_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,7,"F10, AF8, Fp2, AF7, F9, FT9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t04,sub-12_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,4,"F10, Fp1, AF7, F9",60,0,0,60,60,TRUE,NA
+sub-12,t05,sub-12_ses-t05_task-music_eeg.set,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE,"processing error: FILE TRUNCATED: expected 8777000 values, found 5481485 (62%)"
+sub-12,t06,sub-12_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,6,"F10, Fp2, Fp1, AF7, F9, FT9",60,0,0,60,60,TRUE,NA
+sub-12,t07,sub-12_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,6,"F10, AF8, Fp1, AF7, F9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t08,sub-12_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,9,"F10, AF8, Fp2, Fz, AFz, Fp1, AF7, FT9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t09,sub-12_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,6,"F10, Fp1, AF3, AF7, F9, FT9",60,0,0,60,60,TRUE,NA
+sub-12,t13,sub-12_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,7,"F10, AF8, Fp2, AF7, F9, FT9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t15,sub-12_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,10,"F10, AF8, Fp2, AFz, Fp1, AF3, AF7, F9, FT9, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t17,sub-12_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, AF8, Fp2, F9, FT9",60,0,0,60,60,TRUE,NA
+sub-12,t18,sub-12_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,11,"F10, AF8, AF4, Fp2, Fp1, AF3, AF7, F9, FT9, FC2, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t20,sub-12_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,8,"F10, AF8, Fp2, AF7, F9, FT9, T10, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t23,sub-12_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, Fp2, Fp1, T10, FT10",60,0,0,60,60,TRUE,NA
+sub-12,t24,sub-12_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,11,"F10, AF8, Fp2, Fp1, AF3, AF7, F9, FT9, T10, FT10, F8",60,0,0,60,60,TRUE,NA
+sub-12,t25,sub-12_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, AF8, AF7, F9, T10",60,0,0,60,60,TRUE,NA
+sub-12,t26,sub-12_ses-t26_task-music_eeg.set,R.matlab,common,0,119,0,5,"F10, AF8, F9, FT9, T10",60,1,0,59,59,TRUE,NA
+sub-12,t27,sub-12_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,60,TRUE,NA
+sub-12,t30,sub-12_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,10,"F10, AF8, Fp2, Fp1, AF3, AF7, F9, FT9, TP10, FT10",60,0,0,60,60,TRUE,NA
+sub-13,t01,sub-13_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-13,t02,sub-13_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,1,P8,60,0,0,60,58,TRUE,NA
+sub-13,t03,sub-13_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t04,sub-13_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,54,TRUE,NA
+sub-13,t05,sub-13_ses-t05_task-music_eeg.set,R.matlab,common,0,120,0,2,"PO7, P8",60,0,0,60,60,TRUE,NA
+sub-13,t06,sub-13_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t07,sub-13_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,55,TRUE,NA
+sub-13,t08,sub-13_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-13,t09,sub-13_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t13,sub-13_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t15,sub-13_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,2,"PO7, P8",60,0,0,60,60,TRUE,NA
+sub-13,t17,sub-13_ses-t17_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,27,TRUE,NA
+sub-13,t18,sub-13_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,2,"PO7, P8",60,0,0,60,60,TRUE,NA
+sub-13,t20,sub-13_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t23,sub-13_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-13,t24,sub-13_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,57,TRUE,NA
+sub-13,t25,sub-13_ses-t25_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,57,TRUE,NA
+sub-13,t26,sub-13_ses-t26_task-music_eeg.set,R.matlab,common,0,120,1,2,"CP1, P2, P8",60,0,0,60,60,TRUE,NA
+sub-13,t27,sub-13_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-13,t30,sub-13_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-14,t01,sub-14_ses-t01_task-music_eeg.set,R.matlab,common,0,71,0,0,,60,29,0,31,30,TRUE,NA
+sub-14,t02,sub-14_ses-t02_task-music_eeg.set,R.matlab,common,0,109,1,0,F9,60,6,0,54,49,TRUE,NA
+sub-14,t03,sub-14_ses-t03_task-music_eeg.set,R.matlab,common,0,119,1,0,T10,60,1,0,59,59,TRUE,NA
+sub-14,t04,sub-14_ses-t04_task-music_eeg.set,R.matlab,common,0,105,0,0,,60,8,4,48,25,TRUE,NA
+sub-14,t05,sub-14_ses-t05_task-music_eeg.set,R.matlab,common,0,116,1,0,T10,60,3,1,56,53,TRUE,NA
+sub-14,t06,sub-14_ses-t06_task-music_eeg.set,R.matlab,common,0,55,0,3,"F10, T10, FT10",60,34,0,26,26,FALSE,only 26 clean epochs (< 30)
+sub-14,t07,sub-14_ses-t07_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,59,TRUE,NA
+sub-14,t08,sub-14_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,4,56,54,TRUE,NA
+sub-14,t09,sub-14_ses-t09_task-music_eeg.set,R.matlab,common,0,118,1,1,"F10, T10",60,1,0,59,57,TRUE,NA
+sub-14,t13,sub-14_ses-t13_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-14,t15,sub-14_ses-t15_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,59,TRUE,NA
+sub-14,t17,sub-14_ses-t17_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,5,2,53,46,TRUE,NA
+sub-14,t18,sub-14_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,54,TRUE,NA
+sub-14,t20,sub-14_ses-t20_task-music_eeg.set,R.matlab,common,0,117,0,1,F10,60,2,1,57,56,TRUE,NA
+sub-14,t23,sub-14_ses-t23_task-music_eeg.set,R.matlab,common,0,108,0,0,,60,8,1,51,46,TRUE,NA
+sub-14,t24,sub-14_ses-t24_task-music_eeg.set,R.matlab,common,0,120,1,1,"F10, T10",60,0,2,58,57,TRUE,NA
+sub-14,t25,sub-14_ses-t25_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,5,3,52,47,TRUE,NA
+sub-14,t26,sub-14_ses-t26_task-music_eeg.set,R.matlab,common,0,113,0,1,F10,60,5,0,55,55,TRUE,NA
+sub-14,t27,sub-14_ses-t27_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,2,0,58,55,TRUE,NA
+sub-14,t30,sub-14_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,1,F10,60,0,0,60,57,TRUE,NA
+sub-15,t01,sub-15_ses-t01_task-music_eeg.set,R.matlab,common,0,118,0,1,F9,60,2,3,55,45,TRUE,NA
+sub-15,t02,sub-15_ses-t02_task-music_eeg.set,R.matlab,common,0,118,0,1,T10,60,1,1,58,57,TRUE,NA
+sub-15,t03,sub-15_ses-t03_task-music_eeg.set,R.matlab,common,0,119,0,0,,60,1,3,56,54,TRUE,NA
+sub-15,t04,sub-15_ses-t04_task-music_eeg.set,R.matlab,common,0,116,0,2,"F10, F9",60,2,3,55,41,TRUE,NA
+sub-15,t05,sub-15_ses-t05_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,0,58,46,TRUE,NA
+sub-15,t06,sub-15_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,4,56,49,TRUE,NA
+sub-15,t07,sub-15_ses-t07_task-music_eeg.set,R.matlab,common,0,120,1,4,"F10, AF8, F9, TP9, T10",60,0,1,59,59,TRUE,NA
+sub-15,t08,sub-15_ses-t08_task-music_eeg.set,R.matlab,common,0,113,0,0,,60,5,0,55,51,TRUE,NA
+sub-15,t09,sub-15_ses-t09_task-music_eeg.set,R.matlab,common,0,111,0,1,T10,60,7,0,53,53,TRUE,NA
+sub-15,t13,sub-15_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,58,TRUE,NA
+sub-15,t15,sub-15_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,60,TRUE,NA
+sub-15,t17,sub-15_ses-t17_task-music_eeg.set,R.matlab,common,0,120,1,2,"F10, F9, T10",60,0,0,60,57,TRUE,NA
+sub-15,t18,sub-15_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-15,t20,sub-15_ses-t20_task-music_eeg.set,R.matlab,common,0,119,0,3,"F10, F9, T10",60,1,0,59,59,TRUE,NA
+sub-15,t23,sub-15_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,58,TRUE,NA
+sub-15,t24,sub-15_ses-t24_task-music_eeg.set,R.matlab,common,0,115,0,2,"F10, F9",60,4,0,56,56,TRUE,NA
+sub-15,t25,sub-15_ses-t25_task-music_eeg.set,R.matlab,common,0,117,0,2,"F10, F9",60,2,0,58,55,TRUE,NA
+sub-15,t26,sub-15_ses-t26_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,8,4,48,39,TRUE,NA
+sub-15,t27,sub-15_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,2,58,58,TRUE,NA
+sub-15,t30,sub-15_ses-t30_task-music_eeg.set,R.matlab,common,0,116,0,2,"F10, F9",60,2,0,58,54,TRUE,NA
+sub-16,t01,sub-16_ses-t01_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,5,0,55,53,TRUE,NA
+sub-16,t02,sub-16_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-16,t03,sub-16_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-16,t04,sub-16_ses-t04_task-music_eeg.set,R.matlab,common,0,118,0,2,"F10, F9",60,1,0,59,59,TRUE,NA
+sub-16,t05,sub-16_ses-t05_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,8,0,52,51,TRUE,NA
+sub-16,t06,sub-16_ses-t06_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,3,0,57,57,TRUE,NA
+sub-16,t07,sub-16_ses-t07_task-music_eeg.set,R.matlab,common,0,120,0,1,C1,60,0,0,60,60,TRUE,NA
+sub-16,t08,sub-16_ses-t08_task-music_eeg.set,R.matlab,common,0,118,0,0,,60,1,0,59,58,TRUE,NA
+sub-16,t09,sub-16_ses-t09_task-music_eeg.set,R.matlab,common,0,119,0,0,,60,1,1,58,58,TRUE,NA
+sub-16,t13,sub-16_ses-t13_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,3,0,57,55,TRUE,NA
+sub-16,t15,sub-16_ses-t15_task-music_eeg.set,R.matlab,common,0,110,0,0,,60,6,0,54,54,TRUE,NA
+sub-16,t17,sub-16_ses-t17_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,4,0,56,55,TRUE,NA
+sub-16,t18,sub-16_ses-t18_task-music_eeg.set,R.matlab,common,0,114,0,1,F10,60,4,0,56,56,TRUE,NA
+sub-16,t20,sub-16_ses-t20_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,2,1,57,56,TRUE,NA
+sub-16,t23,sub-16_ses-t23_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-16,t24,sub-16_ses-t24_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-16,t25,sub-16_ses-t25_task-music_eeg.set,R.matlab,common,0,108,0,0,,60,9,0,51,51,TRUE,NA
+sub-16,t26,sub-16_ses-t26_task-music_eeg.set,R.matlab,common,0,107,0,0,,60,10,0,50,50,TRUE,NA
+sub-16,t27,sub-16_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-16,t30,sub-16_ses-t30_task-music_eeg.set,R.matlab,common,0,113,0,0,,60,4,2,54,50,TRUE,NA
+sub-17,t01,sub-17_ses-t01_task-music_eeg.set,R.matlab,common,0,106,0,0,,60,9,0,51,51,TRUE,NA
+sub-17,t02,sub-17_ses-t02_task-music_eeg.set,R.matlab,common,0,109,0,0,,60,6,1,53,51,TRUE,NA
+sub-17,t03,sub-17_ses-t03_task-music_eeg.set,R.matlab,common,0,100,0,0,,60,14,0,46,46,TRUE,NA
+sub-17,t04,sub-17_ses-t04_task-music_eeg.set,R.matlab,common,0,107,0,0,,60,8,1,51,48,TRUE,NA
+sub-17,t05,sub-17_ses-t05_task-music_eeg.set,R.matlab,common,0,92,0,0,,60,18,0,42,42,TRUE,NA
+sub-17,t06,sub-17_ses-t06_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,7,0,53,51,TRUE,NA
+sub-17,t07,sub-17_ses-t07_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,4,1,55,55,TRUE,NA
+sub-17,t08,sub-17_ses-t08_task-music_eeg.set,R.matlab,common,0,102,0,0,,60,12,0,48,48,TRUE,NA
+sub-17,t09,sub-17_ses-t09_task-music_eeg.set,R.matlab,common,0,94,0,0,,60,18,3,39,35,TRUE,NA
+sub-17,t13,sub-17_ses-t13_task-music_eeg.set,R.matlab,common,0,110,0,0,,60,6,0,54,54,TRUE,NA
+sub-17,t15,sub-17_ses-t15_task-music_eeg.set,R.matlab,common,0,92,0,0,,60,19,0,41,40,TRUE,NA
+sub-17,t17,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE,EEG file missing from dataset
+sub-17,t18,sub-17_ses-t18_task-music_eeg.set,R.matlab,common,0,110,0,0,,60,7,0,53,53,TRUE,NA
+sub-17,t20,sub-17_ses-t20_task-music_eeg.set,R.matlab,common,0,102,0,0,,60,10,0,50,50,TRUE,NA
+sub-17,t23,sub-17_ses-t23_task-music_eeg.set,R.matlab,common,0,107,0,0,,60,9,0,51,51,TRUE,NA
+sub-17,t24,sub-17_ses-t24_task-music_eeg.set,R.matlab,common,0,107,0,0,,60,8,0,52,52,TRUE,NA
+sub-17,t25,sub-17_ses-t25_task-music_eeg.set,R.matlab,common,0,104,0,0,,60,10,2,48,41,TRUE,NA
+sub-17,t26,sub-17_ses-t26_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,5,0,55,55,TRUE,NA
+sub-17,t27,sub-17_ses-t27_task-music_eeg.set,R.matlab,common,0,113,0,0,,60,5,0,55,55,TRUE,NA
+sub-17,t30,sub-17_ses-t30_task-music_eeg.set,R.matlab,common,0,104,0,0,,60,10,0,50,50,TRUE,NA
+sub-18,t01,sub-18_ses-t01_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,5,1,54,53,TRUE,NA
+sub-18,t02,sub-18_ses-t02_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-18,t03,sub-18_ses-t03_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-18,t04,sub-18_ses-t04_task-music_eeg.set,R.matlab,common,0,120,0,2,"F10, F9",60,0,0,60,60,TRUE,NA
+sub-18,t05,sub-18_ses-t05_task-music_eeg.set,R.matlab,common,0,117,1,0,T10,60,2,0,58,57,TRUE,NA
+sub-18,t06,sub-18_ses-t06_task-music_eeg.set,R.matlab,common,0,120,0,5,"F10, AF7, F9, FT9, T10",60,0,0,60,60,TRUE,NA
+sub-18,t07,sub-18_ses-t07_task-music_eeg.set,R.matlab,common,0,120,1,1,"F9, T10",60,0,1,59,59,TRUE,NA
+sub-18,t08,sub-18_ses-t08_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,0,60,60,TRUE,NA
+sub-18,t09,sub-18_ses-t09_task-music_eeg.set,R.matlab,common,0,116,1,4,"F10, AF8, AF7, F9, T10",60,3,0,57,57,TRUE,NA
+sub-18,t13,sub-18_ses-t13_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-18,t15,sub-18_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-18,t17,sub-18_ses-t17_task-music_eeg.set,R.matlab,common,0,0.001,0,0,,60,60,0,0,0,FALSE,only 0 clean epochs (< 30)
+sub-18,t18,sub-18_ses-t18_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,5,0,55,55,TRUE,NA
+sub-18,t20,sub-18_ses-t20_task-music_eeg.set,R.matlab,common,0,111,0,1,AFz,60,6,1,53,51,TRUE,NA
+sub-18,t23,sub-18_ses-t23_task-music_eeg.set,R.matlab,common,0,120,1,1,"F9, T10",60,0,0,60,60,TRUE,NA
+sub-18,t24,sub-18_ses-t24_task-music_eeg.set,R.matlab,common,0,73,1,0,T10,60,26,3,31,31,TRUE,NA
+sub-18,t25,sub-18_ses-t25_task-music_eeg.set,R.matlab,common,0,117,1,0,T10,60,2,0,58,58,TRUE,NA
+sub-18,t26,sub-18_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-18,t27,sub-18_ses-t27_task-music_eeg.set,R.matlab,common,0,120,1,0,T10,60,0,1,59,59,TRUE,NA
+sub-18,t30,sub-18_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,1,F9,60,0,0,60,60,TRUE,NA
+sub-19,t01,sub-19_ses-t01_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,59,TRUE,NA
+sub-19,t02,sub-19_ses-t02_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-19,t03,sub-19_ses-t03_task-music_eeg.set,R.matlab,common,0,111,0,0,,60,5,3,52,51,TRUE,NA
+sub-19,t04,sub-19_ses-t04_task-music_eeg.set,R.matlab,common,0,115,0,0,,60,3,0,57,56,TRUE,NA
+sub-19,t05,sub-19_ses-t05_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-19,t06,sub-19_ses-t06_task-music_eeg.set,R.matlab,common,0,116,0,0,,60,4,0,56,56,TRUE,NA
+sub-19,t07,sub-19_ses-t07_task-music_eeg.set,R.matlab,common,0,98,0,1,FT9,60,12,2,46,42,TRUE,NA
+sub-19,t08,sub-19_ses-t08_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,59,TRUE,NA
+sub-19,t09,sub-19_ses-t09_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,58,TRUE,NA
+sub-19,t13,sub-19_ses-t13_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,4,0,56,56,TRUE,NA
+sub-19,t15,sub-19_ses-t15_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-19,t17,sub-19_ses-t17_task-music_eeg.set,R.matlab,common,0,119,0,0,,60,1,0,59,58,TRUE,NA
+sub-19,t18,sub-19_ses-t18_task-music_eeg.set,R.matlab,common,0,120,0,1,T10,60,0,0,60,59,TRUE,NA
+sub-19,t20,sub-19_ses-t20_task-music_eeg.set,R.matlab,common,0,120,0,1,T10,60,0,0,60,58,TRUE,NA
+sub-19,t23,sub-19_ses-t23_task-music_eeg.set,R.matlab,common,0,109,0,0,,60,6,0,54,54,TRUE,NA
+sub-19,t24,sub-19_ses-t24_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,1,57,56,TRUE,NA
+sub-19,t25,sub-19_ses-t25_task-music_eeg.set,R.matlab,common,0,114,0,0,,60,4,0,56,56,TRUE,NA
+sub-19,t26,sub-19_ses-t26_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-19,t27,sub-19_ses-t27_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,1,59,58,TRUE,NA
+sub-19,t30,sub-19_ses-t30_task-music_eeg.set,R.matlab,common,0,120,0,0,,60,0,0,60,60,TRUE,NA
+sub-20,t01,sub-20_ses-t01_task-music_eeg.set,R.matlab,common,0,117,0,5,"F10, Fp1, AF7, F9, FT10",60,2,0,58,58,TRUE,NA
+sub-20,t02,sub-20_ses-t02_task-music_eeg.set,R.matlab,common,0,112,0,2,"F10, F9",60,4,5,51,44,TRUE,NA
+sub-20,t03,sub-20_ses-t03_task-music_eeg.set,R.matlab,common,0,111,0,2,"F10, F9",60,6,0,54,54,TRUE,NA
+sub-20,t04,sub-20_ses-t04_task-music_eeg.set,R.matlab,common,0,111,0,3,"F10, AF7, F9",60,6,0,54,53,TRUE,NA
+sub-20,t05,sub-20_ses-t05_task-music_eeg.set,R.matlab,common,0,112,0,0,,60,5,8,47,28,TRUE,NA
+sub-20,t06,sub-20_ses-t06_task-music_eeg.set,R.matlab,common,0,115,0,5,"F10, AF7, F9, FT9, FT10",60,3,0,57,56,TRUE,NA
+sub-20,t07,sub-20_ses-t07_task-music_eeg.set,R.matlab,common,0,107,0,2,"F10, F9",60,10,0,50,49,TRUE,NA
+sub-20,t08,sub-20_ses-t08_task-music_eeg.set,R.matlab,common,0,106,0,3,"F10, F9, FT10",60,8,0,52,52,TRUE,NA
+sub-20,t09,sub-20_ses-t09_task-music_eeg.set,R.matlab,common,0,111,0,7,"F10, F9, FT9, T9, PO4, P2, FT10",60,5,0,55,55,TRUE,NA
+sub-20,t13,sub-20_ses-t13_task-music_eeg.set,R.matlab,common,0,113,0,2,"F10, FT10",60,4,0,56,51,TRUE,NA
+sub-20,t15,sub-20_ses-t15_task-music_eeg.set,R.matlab,common,0,115,0,6,"F10, AF8, Fp1, AF7, F9, FT10",60,3,0,57,57,TRUE,NA
+sub-20,t17,sub-20_ses-t17_task-music_eeg.set,R.matlab,common,0,117,0,0,,60,2,13,45,30,TRUE,NA
+sub-20,t18,sub-20_ses-t18_task-music_eeg.set,R.matlab,common,0,109,0,1,F10,60,7,0,53,52,TRUE,NA
+sub-20,t20,sub-20_ses-t20_task-music_eeg.set,R.matlab,common,0,110,0,2,"F10, F9",60,7,1,52,52,TRUE,NA
+sub-20,t23,sub-20_ses-t23_task-music_eeg.set,R.matlab,common,0,112,0,2,"F10, F9",60,7,0,53,48,TRUE,NA
+sub-20,t24,sub-20_ses-t24_task-music_eeg.set,R.matlab,common,0,107,0,1,F9,60,8,3,49,37,TRUE,NA
+sub-20,t25,sub-20_ses-t25_task-music_eeg.set,R.matlab,common,0,109,0,2,"F10, F9",60,7,0,53,51,TRUE,NA
+sub-20,t26,sub-20_ses-t26_task-music_eeg.set,R.matlab,common,0,112,0,2,"F10, Fp1",60,7,0,53,49,TRUE,NA
+sub-20,t27,sub-20_ses-t27_task-music_eeg.set,R.matlab,common,0,98,0,1,F9,60,14,10,36,18,TRUE,NA
+sub-20,t30,sub-20_ses-t30_task-music_eeg.set,R.matlab,common,0,111,0,4,"F10, AF7, F9, FT10",60,6,0,54,54,TRUE,NA

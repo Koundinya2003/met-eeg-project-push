@@ -1,0 +1,301 @@
+---
+title: "Subjective Emotion and EEG Band Power During Music Listening"
+subtitle: "A preregistered within-person analysis of the MET dataset (OpenNeuro ds008701)"
+author: "Aditya Koundinya"
+date: today
+format:
+  html:
+    toc: true
+    number-sections: true
+    embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(tidyverse)
+library(knitr)
+
+source(here::here("00_setup", "config.R"))
+
+p3_tab <- file.path(P3_OUT, "tables")
+p4_tab <- file.path(P4_OUT, "tables")
+
+qc           <- read_csv(file.path(p3_tab, "qc_table.csv"), show_col_types = FALSE)
+trials       <- read_csv(file.path(p4_tab, "analysis_trials.csv"), show_col_types = FALSE)
+confirmatory <- read_csv(file.path(p4_tab, "step18_confirmatory_H1_H2.csv"), show_col_types = FALSE)
+deviation    <- read_csv(file.path(p4_tab, "step19_consensus_deviation.csv"), show_col_types = FALSE)
+h3           <- read_csv(file.path(p4_tab, "step20_H3_random_slopes.csv"), show_col_types = FALSE)
+exploratory  <- read_csv(file.path(p4_tab, "step21_exploratory_grid.csv"), show_col_types = FALSE)
+sensitivity  <- read_csv(file.path(p4_tab, "step22_sensitivity.csv"), show_col_types = FALSE)
+step17       <- read_csv(file.path(p4_tab, "step17_pooling_demo.csv"), show_col_types = FALSE)
+final_tbl    <- read_csv(file.path(P5_OUT, "tables", "final_results_table.csv"), show_col_types = FALSE)
+
+# fig(phase_output_folder, file name)
+fig <- function(out_dir, name) knitr::include_graphics(file.path(out_dir, "figures", name))
+
+h1 <- confirmatory |> filter(str_starts(hypothesis, "H1:"))
+h2 <- confirmatory |> filter(str_starts(hypothesis, "H2:"))
+ci_txt <- function(row, d = 3) sprintf(paste0("%.", d, "f, 95%% CI [%.", d, "f, %.", d, "f], p = %.3g"),
+                                       row$estimate, row$ci_low, row$ci_high, row$p)
+```
+
+<!--
+HOW TO USE THIS TEMPLATE
+- Numbers, tables and figures update automatically from each phase's outputs/ folder.
+- Every "[WRITE]" block is yours. Replace it with your own words.
+- Keep four things apart: what the data show / what the statistics show /
+  what we infer / what remains uncertain.
+-->
+
+# Introduction
+
+**[WRITE]** 2–3 paragraphs. Cover:
+- music as an emotion inducer
+- the valence/arousal (circumplex) framework and the SAM scale
+- what scalp EEG measures (summed postsynaptic potentials of aligned cortical pyramidal cells) and what it does not (deep structures such as the amygdala; "emotion" itself)
+- why alpha power and frontal alpha asymmetry have been proposed as correlates of arousal and of approach/withdrawal motivation, and the mixed replication record of FAA
+
+# Research question
+
+Within individuals, is self-reported emotional experience (valence and arousal) during 2-minute music excerpts associated with EEG band power, and does any association persist for the person-specific part of the experience beyond what is shared across listeners for the same song?
+
+# Hypotheses
+
+Preregistered (see `02_phase2_eeg_inspection/PREREGISTRATION.md`, committed before any EEG–rating analysis):
+
+- **H1:** higher within-person arousal is associated with lower posterior alpha (8–13 Hz) power.
+- **H2:** higher within-person valence is associated with greater relative left-frontal activity (higher FAA).
+- **H3:** the strength of these relationships varies between participants.
+
+# Dataset
+
+- **Participants:** 20 (ages 21–29; 10 F, 10 M).
+- **Design:** each participant listened to the same 20 songs. Each recording lasts 131 s: about 5 s of silence, 120 s of music, then silence.
+- **Song set:** four songs in each intended category (HVHA, HVLA, LVHA, LVLA, Neutral).
+- **Ratings:** after each song, participants rated valence (1–9), arousal (1–9), liking (1–5) and familiarity (1–5).
+- **EEG:** 66 channels plus EOG, sampled at 1000 Hz, provided already preprocessed.
+- **Available data:** `r sum(!is.na(qc$file))` recordings. The EEG for sub-17/song t17 is missing.
+
+**Documented discrepancies between the metadata and the data:**
+- The files are EEGLAB `.set`, not BrainVision as the README states.
+- Amplitudes are in µV, although `channels.tsv` says V.
+- There is no music-onset marker.
+- Flat channels are labelled "good" in `channels.tsv`.
+
+# Methods
+
+## Ratings analysis
+**[WRITE]** Describe:
+- the range checks and the exclusion of sub-01/t27
+- the scale-use descriptives
+- the crossed random-effects variance decomposition
+- the leave-one-out song consensus and the personal deviation
+
+## EEG preprocessing
+
+**Inherited preprocessing (not modifiable):**
+- 0.5–70 Hz band-pass filter
+- 50 Hz notch, visible as a dip in the spectra
+- average reference (the channels sum to ≈ 0)
+- probable upstream removal of ocular artifacts, since Fp1/Fp2 do not track the EOG, although no ICA weights are stored
+
+**Our preprocessing:**
+- **Music window:** 5–125 s.
+- **Bad channels:** flat (SD < 0.5 µV) or |robust z of log SD| > 3. Flagged channels were set to missing.
+- **Epochs:** 2-s non-overlapping.
+  - epochs overlapping a provided "bad" annotation were removed
+  - epochs in which any channel exceeded ±100 µV were removed
+- **Trial exclusion:** trials with fewer than 30 clean epochs were excluded.
+- **Not done:** no re-filtering, re-referencing or ICA.
+
+```{r qc-summary}
+qc |>
+  summarise(
+    `Participant–song pairs` = n(),
+    `EEG recordings`         = sum(!is.na(file)),
+    Included                 = sum(included),
+    Excluded                 = sum(!included),
+    `Recordings with flagged channels` = sum(!is.na(flagged_channels) & flagged_channels != "")
+  ) |>
+  kable(caption = "Quality control summary")
+```
+
+```{r qc-exclusions}
+qc |>
+  filter(!included) |>
+  select(participant_id, song_id, exclusion_reason) |>
+  kable(caption = "Every excluded recording and the reason")
+```
+
+## Feature extraction
+- **Spectra:** Hann-tapered FFT of each epoch, averaged across epochs (Welch), giving 0.5 Hz resolution.
+- **Band power:** the area under the PSD in δ 1–4, θ 4–8, α 8–13, β 13–30 and γ 30–45 Hz, log10-transformed.
+- **H1 outcome:** posterior alpha, the mean over O1, O2, Oz, PO3, PO4, POz and Pz.
+- **H2 outcome:** FAA = ln(α F4) − ln(α F3).
+
+## Statistical analysis
+**[WRITE]** In your own words, explain:
+- why trials are not independent (pseudoreplication)
+- the split into within- and between-person parts
+- the mixed models and the singular-fit fallback
+- the consensus/deviation model with song as a crossed random effect
+- the H3 likelihood-ratio test
+- the exploratory FDR correction
+- the sensitivity analyses
+
+# Results
+
+## Ratings
+```{r}
+#| out-width: 80%
+#| fig-cap: "Song-level mean ratings coloured by intended category (manipulation check)."
+fig(P1_OUT, "p1_song_map.png")
+```
+
+**[WRITE]** Describe:
+- the variance proportions (song vs. person vs. residual) for valence and arousal
+- the valence–arousal correlation (pooled and within-person)
+- the manipulation check
+
+These results are **descriptive**.
+
+## EEG data quality and sanity checks
+```{r}
+#| layout-ncol: 2
+fig(P3_OUT, "p3_band_by_roi.png")
+fig(P3_OUT, "p3_alpha_topography.png")
+```
+
+**[WRITE]** Is alpha posterior-dominant? How large are the between-person differences?
+
+## Why pooling misleads
+```{r}
+step17 |>
+  mutate(across(c(r, ci_low, ci_high), ~ round(.x, 3)), p = signif(p, 3)) |>
+  kable(caption = "Same question, three analyses")
+```
+
+## Confirmatory results
+
+- **H1:** within-person arousal slope on posterior log10 alpha = `r ci_txt(h1)`. Random structure: `r h1$random_structure`. Supported: **`r h1$supported`**.
+- **H2:** within-person valence slope on FAA = `r ci_txt(h2)`. Random structure: `r h2$random_structure`. Supported: **`r h2$supported`**.
+
+```{r}
+final_tbl |> kable(caption = "All confirmatory tests (alpha = .025 for H1/H2; .05 for H3)")
+```
+
+```{r}
+#| out-width: 90%
+fig(P5_OUT, "p5_confirmatory_summary.png")
+```
+
+## Person-specific experience vs. song consensus
+```{r}
+deviation |>
+  select(hypothesis, estimate, ci_low, ci_high, p, random_structure) |>
+  mutate(across(where(is.numeric), ~ signif(.x, 3))) |>
+  kable()
+```
+
+**[WRITE]** Explain what the **deviation** slopes say about the person-specific experience. Explain why the **consensus** slopes cannot be separated from acoustics.
+
+## Individual differences (H3)
+```{r}
+#| out-width: 100%
+fig(P4_OUT, "p4_step20_forest.png")
+```
+
+**[WRITE]** Give the slope SD and its CI, and the mixture p-value. Explain shrinkage. Is there evidence that people truly differ, or is the spread consistent with noise from about 20 trials per person?
+
+## Exploratory analyses (not confirmatory)
+```{r}
+#| out-width: 100%
+fig(P4_OUT, "p4_step21_exploratory_heatmap.png")
+```
+
+```{r}
+exploratory |>
+  filter(fdr_hit) |>
+  select(roi, band, predictor, estimate, t, p, q_fdr, muscle_flag) |>
+  mutate(across(where(is.numeric), ~ signif(.x, 3))) |>
+  kable(caption = "Exploratory effects surviving FDR (q < .05), if any")
+```
+
+## Robustness
+```{r}
+#| out-width: 100%
+fig(P4_OUT, "p4_step22_sensitivity.png")
+```
+
+**[WRITE]** Do the conclusions change across the sensitivity models or the leave-one-subject-out analyses?
+
+# Discussion
+
+**[WRITE]** Write 3–5 paragraphs, using `05_phase5_report/outputs/tables/interpretation_worksheet.csv` as your outline.
+
+- Answer the research question directly.
+- For a null result, state which effect sizes the CI rules out. Don't write "no effect".
+- Compare with the literature on alpha and arousal and on FAA and valence.
+- Avoid reverse inference.
+- Correlation is not causation: ratings were given *after* each song and EEG is averaged over 2 minutes, so neither causes the other in this design.
+
+# Limitations
+
+**[WRITE]** Cover at least the following:
+- **Dataset:**
+  - N = 20 and 20 songs
+  - one retrospective rating per 2-minute excerpt (no moment-to-moment emotion)
+  - compressed low-valence range
+  - presentation order (if not recoverable)
+- **Measurement:**
+  - scalp EEG cannot see deep emotion circuitry
+  - volume conduction
+  - the music-onset time is assumed
+- **Preprocessing:**
+  - inherited, partly undocumented steps
+  - no ICA
+  - flagged channels dropped, not interpolated
+  - gamma is muscle-sensitive
+- **Statistics:**
+  - power to detect small within-person effects
+  - limited ability to estimate random slopes with about 20 trials per person
+  - ordinal ratings treated as numeric
+- **Interpretation:**
+  - acoustic confounds of the song consensus
+  - reverse inference
+
+# Conclusion
+
+**[WRITE]** One paragraph: what we can and cannot conclude.
+
+# References
+
+**[WRITE]** Find and verify each one, then format consistently:
+
+- **Music and emotion:**
+  - Russell (1980), the circumplex model of affect
+  - Bradley & Lang (1994), the Self-Assessment Manikin
+  - Juslin & Västfjäll (2008), emotional responses to music
+- **EEG signals:**
+  - Klimesch (1999), EEG alpha and theta oscillations
+  - Muthukumaraswamy (2013), high-frequency brain activity and muscle artifacts
+- **Frontal asymmetry:**
+  - Davidson (1992), emotion and affective style: hemispheric substrates
+  - Allen, Coan & Nazarian (2004), issues and assumptions in frontal EEG asymmetry research
+- **Statistics:**
+  - Hurlbert (1984), pseudoreplication
+  - Bates, Mächler, Bolker & Walker (2015), lme4
+  - Barr, Levy, Scheepers & Tily (2013), random-effects structure
+  - Benjamini & Hochberg (1995), false discovery rate
+- **Data and tools:**
+  - Pernet et al. (2019), EEG-BIDS
+  - the MET dataset: Cheang, W. L., OpenNeuro ds008701, doi:10.18112/openneuro.ds008701.v1.0.4
+
+# Appendix: software
+
+```{r}
+sessionInfo()
+```

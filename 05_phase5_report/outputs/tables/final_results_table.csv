@@ -1,0 +1,9 @@
+test,type,estimate_95ci,standardized,p,supported
+H1: posterior alpha ~ within-person arousal,confirmatory,"0.003 [-0.003, 0.008]","0.05 [-0.05, 0.15]",0.355,FALSE
+H2: FAA ~ within-person valence,confirmatory,"0.001 [-0.009, 0.011]","0.01 [-0.10, 0.11]",0.903,FALSE
+H1 person-specific: alpha ~ arousal deviation,confirmatory,"0.005 [-0.005, 0.014]","0.05 [-0.05, 0.15]",0.342,FALSE
+"H1 song consensus (descriptive, confounded with acoustics)",descriptive,"0.002 [-0.005, 0.008]","0.03 [-0.08, 0.13]",0.625,NA
+H2 person-specific: FAA ~ valence deviation,confirmatory,"0.006 [-0.008, 0.020]","0.04 [-0.06, 0.15]",0.386,FALSE
+"H2 song consensus (descriptive, confounded with acoustics)",descriptive,"-0.005 [-0.019, 0.009]","-0.03 [-0.14, 0.07]",0.507,NA
+H3 for H1 (alpha ~ arousal),confirmatory,"slope SD = 0.000 [NA, NA]",NA,0.949,FALSE
+H3 for H2 (FAA ~ valence),confirmatory,"slope SD = 0.006 [NA, NA]",NA,0.424,FALSE

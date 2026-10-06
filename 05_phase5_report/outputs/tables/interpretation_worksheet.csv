@@ -1,0 +1,13 @@
+finding,type,what_data_show,what_stats_show,what_we_infer,what_is_uncertain
+Ratings: song vs person variance (Phase 1),descriptive,,,,
+Manipulation check: categories vs ratings (Phase 1),descriptive,,,,
+Valence-arousal correlation (Phase 1),descriptive,,,,
+QC: exclusions and flagged channels (Phase 3),descriptive,,,,
+Step 17: naive vs two-stage vs between-person,methodological,,,,
+H1: posterior alpha ~ within-person arousal,confirmatory,,,,
+H2: FAA ~ within-person valence,confirmatory,,,,
+Person-specific (deviation) effects,confirmatory,,,,
+Song consensus effects,descriptive,,,,
+H3: individual differences in slopes,confirmatory,,,,
+Exploratory grid,exploratory,,,,
+Sensitivity + LOSO,robustness,,,,
