@@ -4,6 +4,8 @@ A preregistered within-person analysis of how self-reported emotional experience
 
 **Status:** ✓ Complete — all analysis scripts run, results analysed, preregistration committed
 
+**Read the paper:** [The Song or the Self? A preregistered search for personal musical emotion in scalp EEG](paper/paper.pdf) (PDF, about 10 pages plus references). Its LaTeX source and figure script are in `paper/`.
+
 ---
 
 ## The Research Question
@@ -189,6 +191,11 @@ met_eeg_project/
 ├── results/
 │   ├── figures/                   ratings/, eeg_inspection/, features/, statistics/, summary/
 │   └── tables/                    ratings/, features/, statistics/, summary/
+├── paper/
+│   ├── paper.pdf                  The research paper
+│   ├── paper.tex                  LaTeX source of the paper
+│   ├── make_figures.py            Builds the paper figures from results/tables
+│   └── figures/                   Figures used in the paper
 ├── report/
 │   └── report.qmd                 Quarto report built from the results folder
 ├── docs/
