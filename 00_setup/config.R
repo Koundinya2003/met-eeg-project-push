@@ -6,8 +6,17 @@
 # Everything else is relative to the project folder.
 # ============================================================
 
-# Where the BIDS dataset lives (read-only; never modified)
-dataset_path <- "/Users/adityakkoundinya/Documents/ds008701-full"
+# Where the BIDS dataset lives (read-only; never modified).
+# Default: data/ds008701 inside this project, filled by
+# 00_setup/download_data.sh. To use a copy elsewhere, set the
+# environment variable MET_DATA to its folder before running.
+dataset_path <- Sys.getenv("MET_DATA", unset = here::here("data", "ds008701"))
+
+if (!file.exists(file.path(dataset_path, "dataset_description.json"))) {
+  stop("MET dataset not found at '", dataset_path, "'. ",
+       "Run 00_setup/download_data.sh from the project folder, ",
+       "or set MET_DATA to the dataset folder.")
+}
 
 
 # Each phase keeps its code AND its outputs together.

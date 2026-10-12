@@ -121,6 +121,15 @@ Effect sizes are standardized within person slopes. H3 p values use the preregis
 ### Prerequisites
 R ≥ 4.0 with: tidyverse, lme4, here, readr, ggplot2, patchwork, quarto
 
+### Get the data (not stored in this repository)
+The raw EEG (about 14 GB) is public on OpenNeuro, so it is downloaded rather than kept in git. From the project folder run:
+
+```bash
+bash 00_setup/download_data.sh
+```
+
+This places OpenNeuro ds008701 version 1.0.4 (the exact version analysed) in `data/ds008701`, which `00_setup/config.R` uses by default. If you already have the dataset elsewhere, set the environment variable `MET_DATA` to its folder instead.
+
 ### Quick start
 ```r
 # Open the project in RStudio
@@ -161,7 +170,8 @@ quarto::quarto_render(here::here("05_phase5_report", "report.qmd"))
 ```
 met-eeg-project/
 ├── 00_setup/                      Dataset path & utility functions
-│   ├── config.R                   Configuration
+│   ├── config.R                   Configuration (dataset path: data/ds008701 or $MET_DATA)
+│   ├── download_data.sh           Downloads the raw EEG from OpenNeuro
 │   └── eeg_functions.R            EEG reading, preprocessing, feature extraction
 ├── 01_phase1_ratings/             Rating exploration & variance decomposition
 │   ├── 01_ratings.R
@@ -182,7 +192,11 @@ met-eeg-project/
 │   └── outputs/ → final_results_table.csv, interpretation_worksheet.csv
 ├── run_all.R                      Rebuild everything
 ├── README.md                      This file
-├── MET_project_overview.pdf       7 page plain language overview (written before results were seen)
+├── docs/
+│   ├── MET_project_overview.pdf   7 page plain language overview (written before results were seen)
+│   ├── learning_guide/            Beginner learning guide (PDF, HTML source, Welch figure)
+│   └── corrections_prompt.md      Review checklist used for the October 2026 corrections
+├── data/                          Raw dataset, downloaded locally (ignored by git)
 └── met-eeg-project.Rproj
 ```
 
