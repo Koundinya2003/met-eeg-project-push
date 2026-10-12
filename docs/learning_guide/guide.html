@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Music, Emotion and EEG: A Learning Guide</title>
+<style>
+@page { size: A4; margin: 20mm 18mm 22mm 18mm; }
+:root { --ink:#1d2433; --soft:#5a6475; --accent:#2f5d8a; --accent2:#8a4b2f; --line:#d8dde6; --bg1:#f3f6fa; --bg2:#fbf6ef; --bg3:#f2f7f1; --bg4:#f8f1f4; }
+html { font-size: 10.6pt; }
+body { font-family: "Georgia", "DejaVu Serif", serif; color: var(--ink); line-height: 1.5; margin: 0; background:#fff; }
+h1, h2, h3, h4, .sans { font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; }
+h1 { font-size: 21pt; color: var(--accent); margin: 0 0 6pt 0; padding-top: 4pt; break-before: page; border-bottom: 2px solid var(--accent); padding-bottom: 4pt; }
+h1.first { break-before: auto; }
+h2 { font-size: 14.5pt; color: var(--accent); margin: 16pt 0 5pt 0; break-after: avoid; }
+h3 { font-size: 12pt; margin: 12pt 0 4pt 0; color: #233; break-after: avoid; }
+h4 { font-size: 11pt; margin: 0 0 4pt 0; color: var(--accent2); }
+p { margin: 4pt 0 6pt 0; }
+ul, ol { margin: 3pt 0 6pt 0; padding-left: 18pt; }
+li { margin: 1.5pt 0; }
+table { border-collapse: collapse; width: 100%; margin: 6pt 0 10pt 0; font-size: 9.2pt; break-inside: auto; }
+th, td { border: 1px solid var(--line); padding: 3.5pt 5pt; vertical-align: top; text-align: left; }
+th { background: var(--bg1); font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; font-size: 8.8pt; }
+tr { break-inside: avoid; }
+code, .mono { font-family: "DejaVu Sans Mono", Menlo, monospace; font-size: 8.8pt; background: #f1f3f6; padding: 0 2pt; border-radius: 2pt; }
+pre { font-family: "DejaVu Sans Mono", Menlo, monospace; font-size: 8.5pt; background: #f1f3f6; border: 1px solid var(--line); padding: 6pt 8pt; border-radius: 4pt; white-space: pre-wrap; break-inside: avoid; margin: 5pt 0 8pt 0; }
+.concept { border: 1px solid var(--line); border-left: 4px solid var(--accent); background: #fff; padding: 7pt 10pt 6pt 10pt; margin: 9pt 0 11pt 0; border-radius: 3pt; }
+.concept .tag { display: inline-block; font-family: "DejaVu Sans", Arial, sans-serif; font-size: 7.6pt; padding: 1pt 5pt; border-radius: 8pt; margin-left: 6pt; vertical-align: middle; color: #fff; }
+.tC { background: #2f5d8a; } .tT { background: #3d7a4a; } .tM { background: #8a4b2f; } .tI { background: #7a7f88; }
+.lbl { font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; font-weight: bold; font-size: 8.6pt; color: var(--soft); text-transform: uppercase; letter-spacing: .4pt; margin: 6pt 0 1pt 0; }
+.box { padding: 7pt 10pt; border-radius: 4pt; margin: 8pt 0 10pt 0; break-inside: avoid; }
+.note { background: var(--bg1); border: 1px solid #c9d6e6; }
+.warn { background: var(--bg2); border: 1px solid #e3cfb2; }
+.good { background: var(--bg3); border: 1px solid #c4dcc0; }
+.flag { background: var(--bg4); border: 1px solid #e2c3d1; }
+.box b.h { font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; display:block; margin-bottom: 2pt; }
+figure { margin: 8pt 0 10pt 0; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; max-height: 92mm; border: 1px solid var(--line); }
+figcaption { font-size: 8.8pt; color: var(--soft); margin-top: 3pt; text-align: left; }
+.cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; }
+.cover h1 { break-before: auto; border: none; font-size: 30pt; line-height: 1.15; }
+.cover .sub { font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; font-size: 13pt; color: var(--soft); margin-top: 6pt; }
+.cover .meta { margin-top: 30pt; font-size: 10pt; color: var(--soft); }
+.toc { columns: 2; column-gap: 20pt; font-size: 9.6pt; }
+.toc p { margin: 1.5pt 0; break-inside: avoid; }
+.small { font-size: 8.8pt; color: var(--soft); }
+.keep { break-inside: avoid; }
+.legend span { display:inline-block; margin-right: 10pt; font-size: 8.6pt; }
+.bib p { margin: 3pt 0 7pt 0; padding-left: 14pt; text-indent: -14pt; break-inside: avoid; }
+.bib .ann { display:block; text-indent: 0; color: #364152; font-size: 9.2pt; margin-top: 1pt; }
+.status { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 7.5pt; padding: 0 4pt; border-radius: 6pt; border: 1px solid #aab; color: #445; }
+a { color: var(--accent); text-decoration: none; }
+svg text { font-family: "DejaVu Sans", Arial, sans-serif; }
+.gl dt { font-weight: bold; font-family: "Helvetica Neue", "DejaVu Sans", Arial, sans-serif; margin-top: 5pt; break-after: avoid; }
+.gl dd { margin: 0 0 3pt 12pt; }
+.ans p { margin: 2pt 0 5pt 0; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="sans small">A personal study guide</div>
+  <h1 class="first">Music, Emotion and the Brain:<br>Understanding Your EEG Project from the Ground Up</h1>
+  <div class="sub">A beginner friendly curriculum, project walkthrough, code tour, methods review and annotated bibliography for the MET EEG analysis (OpenNeuro ds008701)</div>
+  <div class="meta">
+    Prepared for Aditya Koundinya<br>
+    Built from the project repository (scripts, outputs, preregistration, README, overview PDF) and the public dataset page<br>
+    Version 1, 9 October 2026
+  </div>
+  <div class="box note" style="margin-top:28pt">
+    <b class="h">How this guide is written</b>
+    I write the way I would talk to you across a desk. Each big idea gets the same six part treatment: what it means in plain words, why it matters, a picture or analogy, how it shows up in your project, the usual mistakes, and a quick self check. Answers to the self checks are at the back. A note on style: this guide never uses dash characters. Where a scientific title or formula normally contains one, I write a space or the word "minus" instead, and DOIs that contain dashes are given as clickable links rather than printed text.
+  </div>
+</section>
+
+<!-- CONTENTS -->
+<h1>Contents</h1>
+<div class="toc">
+<p><b>Part 0. Start here</b></p>
+<p>0.1 Executive overview of your project</p>
+<p>0.2 Your research question in plain English</p>
+<p>0.3 Where you are now: an honest knowledge gap analysis</p>
+<p>0.4 The knowledge map and the four kinds of knowledge</p>
+<p>0.5 The staged learning roadmap</p>
+<p><b>Part 1. Emotion and music</b> (Stage 1)</p>
+<p><b>Part 2. The brain and EEG</b> (Stage 2)</p>
+<p><b>Part 3. Signals and spectra</b> (Stage 3)</p>
+<p><b>Part 4. Cleaning EEG: preprocessing</b> (Stage 4)</p>
+<p><b>Part 5. From spectra to features</b> (Stage 5)</p>
+<p><b>Part 6. Research design</b> (Stage 6)</p>
+<p><b>Part 7. Statistics for repeated measures</b> (Stage 7)</p>
+<p><b>Part 8. Interpretation and honesty</b> (Stage 8)</p>
+<p><b>Part 9. Your dataset, file by file</b></p>
+<p><b>Part 10. Your code, script by script</b></p>
+<p><b>Part 11. Your results, explained</b></p>
+<p><b>Part 12. Methods review: issues found and how to fix them</b></p>
+<p><b>Part 13. Common mistakes and how to avoid them</b></p>
+<p><b>Part 14. Exercises, checkpoints and the first lessons</b></p>
+<p><b>Part 15. Glossary in plain English</b></p>
+<p><b>Part 16. Annotated bibliography and learning resources</b></p>
+<p><b>Appendix. Answers to the self checks</b></p>
+</div>
+
+<div class="box note" style="margin-top:14pt">
+<b class="h">Concept labels used throughout</b>
+<div class="legend">
+<span><span class="concept" style="display:inline;border:none;padding:0;margin:0"><span class="tag tC" style="margin:0">Conceptual</span></span> you must understand the idea</span>
+<span><span class="tag tT" style="margin:0;display:inline-block;color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Technical</span> you must be able to do it in R</span>
+<span><span class="tag tM" style="margin:0;display:inline-block;color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Methodology</span> you must be able to justify it</span>
+<span><span class="tag tI" style="margin:0;display:inline-block;color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Implementation detail</span> safe to treat as a black box for now</span>
+</div>
+</div>
+
+<div class="box warn">
+<b class="h">What counts as evidence in this guide</b>
+Every scientific claim is tied to a source in Part 16. I mark claims as <b>established</b> (broad agreement across many studies), <b>supported but debated</b> (real evidence, but replication or interpretation is contested), or <b>open</b> (genuinely unresolved). Facts about your dataset come from your own files, your scripts, and the OpenNeuro dataset page, which I read on 9 October 2026. Where I could not check something, I say so.
+</div>
+
+<!-- PART 0 -->
+<h1>Part 0. Start here</h1>
+
+<h2>0.1 Executive overview of your project</h2>
+<p>Twenty adults each listened to the same twenty songs, about two minutes of music per song, while their brain's electrical activity was recorded from 66 scalp electrodes. After each song they rated how pleasant it felt (valence, 1 to 9), how energised it made them feel (arousal, 1 to 9), how much they liked it (1 to 5) and how familiar it was (1 to 5).</p>
+<p>Your project asks a careful question: <b>when a particular person feels more aroused or more positive than usual, does their EEG look different in a predictable way?</b> And, more strictly: does that hold for the <i>personal</i> part of the feeling, the part that differs from how everyone else felt about the same song?</p>
+<p>You built a five phase pipeline in R:</p>
+<ol>
+<li><b>Phase 1, ratings.</b> Checks the ratings, measures how much of each rating comes from the song versus the person, and splits each rating into "song consensus" and "personal deviation".</li>
+<li><b>Phase 2, inspecting one recording.</b> Opens a single EEG file, checks units, reference, filters, blinks and bad channels.</li>
+<li><b>Phase 3, features.</b> Cleans all 399 recordings the same way, computes power spectra, and summarises them as band power, regional averages and frontal alpha asymmetry.</li>
+<li><b>Phase 4, statistics.</b> Tests the three preregistered hypotheses with mixed effects models, then runs exploratory and robustness analyses.</li>
+<li><b>Phase 5, report.</b> Builds final tables and a Quarto report template.</li>
+</ol>
+<p><b>Where the results stand.</b> None of the preregistered hypotheses was supported. The estimated within person relationships were very close to zero, and the confidence intervals are narrow enough to rule out moderate effects. That is a real, publishable kind of result if it is reported carefully. Part 11 explains exactly what it does and does not mean.</p>
+
+<div class="box flag">
+<b class="h">Three things I found that you should know about straight away</b>
+<ol>
+<li><b>The README cites the wrong dataset authors.</b> It says "Koelsch, S., et al. (2019)". The OpenNeuro record for ds008701 lists Weng Lam Cheang (2026) as the author, version 1.0.4. Your <code>report.qmd</code> has the correct citation. Fix the README.</li>
+<li><b>The README results table does not match your outputs.</b> For example it gives H1 as minus 0.08 with p = 0.33, but your output table gives 0.003 with p = 0.355. Part 11 has the true numbers.</li>
+<li><b>The dataset's current README describes BrainVision files and 130 second recordings</b>, while your files are EEGLAB <code>.set</code> files of 131 seconds. Your copy may be an earlier release. Record which version you downloaded before you call this a documentation error (Part 9).</li>
+</ol>
+</div>
+
+<h2>0.2 Your research question in plain English</h2>
+<p>Here is your preregistered question:</p>
+<div class="box note"><i>Within individuals, is self reported emotional experience (valence and arousal) during 2 minute music excerpts associated with EEG band power, and does any association persist for the person specific part of the experience, beyond what is shared across listeners for the same song?</i></div>
+<p>Let me translate it phrase by phrase.</p>
+<table>
+<tr><th style="width:30%">Phrase</th><th>What it really means</th></tr>
+<tr><td>"Within individuals"</td><td>We compare each person only with themselves. Not "do happy people have more alpha than sad people" but "when <i>you</i> feel happier than <i>your own</i> average, is <i>your</i> alpha different from <i>your own</i> average?"</td></tr>
+<tr><td>"self reported emotional experience"</td><td>What people said they felt, on rating scales, after each song. Not what the music "expresses", and not a direct measure of emotion.</td></tr>
+<tr><td>"associated with"</td><td>Goes together with, statistically. Not "causes".</td></tr>
+<tr><td>"EEG band power"</td><td>How strong the brain's electrical rhythms are in particular speed ranges, averaged over two minutes.</td></tr>
+<tr><td>"person specific part of the experience"</td><td>How much your rating differed from everyone else's rating of the same song.</td></tr>
+<tr><td>"beyond what is shared across listeners"</td><td>Because everyone heard the same sound, anything that follows the personal part cannot be explained by the sound itself.</td></tr>
+</table>
+<p><b>Why it matters.</b> Lots of studies claim to "decode emotion from EEG". Many of them cannot tell whether the EEG followed the feeling or just the sound (a loud, fast song changes the EEG whether or not anyone feels anything). Your design asks the stricter version of the question. That is the scientific contribution.</p>
+
+<h2>0.3 Where you are now: an honest knowledge gap analysis</h2>
+<p>From the repository, the project is technically advanced: it reads raw MATLAB files byte by byte, validates its spectrum code on a known sine wave, uses mixed models with a preregistered fallback rule, and runs leave one subject out checks. You told me you rushed through this with an AI assistant. So the gap is not "the project is missing things"; the gap is that <b>the project is ahead of your understanding</b>. That is fixable, and the code gives us a perfect textbook.</p>
+<table>
+<tr><th style="width:28%">Area</th><th>What the project already does</th><th>What you need to be able to do yourself</th></tr>
+<tr><td>Emotion science</td><td>Uses valence and arousal ratings from the Self Assessment Manikin</td><td>Explain the circumplex model, felt versus perceived emotion, and why one rating after two minutes is a limitation</td></tr>
+<tr><td>EEG physics and physiology</td><td>Treats data as microvolts at 66 sites, average referenced</td><td>Explain where the signal comes from, what a reference is, and what EEG cannot see</td></tr>
+<tr><td>Signal processing</td><td>Hann windowed FFT, Welch averaging, band integration</td><td>Explain a spectrum, frequency resolution, leakage, why we log transform</td></tr>
+<tr><td>Preprocessing</td><td>Bad channel rules, epoch rejection, a 30 epoch minimum</td><td>Justify each threshold and say what would change if it moved</td></tr>
+<tr><td>Features</td><td>Posterior alpha, frontal alpha asymmetry, 7 regions</td><td>Explain what each feature is thought to index and how contested that is</td></tr>
+<tr><td>Design</td><td>Within person design, consensus versus deviation split, preregistration</td><td>Defend the design against "the music confounds it" and "the sample is too small"</td></tr>
+<tr><td>Statistics</td><td>lme4 mixed models, centring, REML, profile CIs, likelihood ratio tests, FDR</td><td>Read a model formula aloud, explain every number in the output, and spot a bad model</td></tr>
+<tr><td>R programming</td><td>tidyverse pipelines, functions, arrays, purrr, ggplot2, Quarto</td><td>Run one phase, inspect objects, change one setting, and see what happens</td></tr>
+<tr><td>Writing</td><td>Report template with every [WRITE] block empty</td><td>Write the introduction, methods, results and discussion in your own words</td></tr>
+</table>
+
+<h2>0.4 The knowledge map and the four kinds of knowledge</h2>
+<p>Below is the whole map of what the project needs. The arrows show prerequisites: you need the thing at the tail before the thing at the head makes sense.</p>
+
+<figure>
+<svg viewBox="0 0 760 400" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6475"/></marker></defs>
+<g font-size="11">
+<rect x="10" y="20" width="160" height="56" rx="8" fill="#e8eef6" stroke="#2f5d8a"/><text x="90" y="43" text-anchor="middle" font-weight="bold">Stage 0</text><text x="90" y="61" text-anchor="middle">R and data basics</text>
+<rect x="10" y="120" width="160" height="56" rx="8" fill="#e8eef6" stroke="#2f5d8a"/><text x="90" y="143" text-anchor="middle" font-weight="bold">Stage 1</text><text x="90" y="161" text-anchor="middle">Emotion and music</text>
+<rect x="10" y="220" width="160" height="56" rx="8" fill="#e8eef6" stroke="#2f5d8a"/><text x="90" y="243" text-anchor="middle" font-weight="bold">Stage 2</text><text x="90" y="261" text-anchor="middle">Brain and EEG basics</text>
+<rect x="205" y="220" width="160" height="56" rx="8" fill="#e8f2e6" stroke="#3d7a4a"/><text x="285" y="243" text-anchor="middle" font-weight="bold">Stage 3</text><text x="285" y="261" text-anchor="middle">Signals and spectra</text>
+<rect x="400" y="220" width="160" height="56" rx="8" fill="#e8f2e6" stroke="#3d7a4a"/><text x="480" y="243" text-anchor="middle" font-weight="bold">Stage 4</text><text x="480" y="261" text-anchor="middle">Preprocessing</text>
+<rect x="595" y="220" width="155" height="56" rx="8" fill="#e8f2e6" stroke="#3d7a4a"/><text x="672" y="243" text-anchor="middle" font-weight="bold">Stage 5</text><text x="672" y="261" text-anchor="middle">Features (alpha, FAA)</text>
+<rect x="205" y="120" width="160" height="56" rx="8" fill="#f6ece6" stroke="#8a4b2f"/><text x="285" y="143" text-anchor="middle" font-weight="bold">Stage 6</text><text x="285" y="161" text-anchor="middle">Research design</text>
+<rect x="400" y="120" width="160" height="56" rx="8" fill="#f6ece6" stroke="#8a4b2f"/><text x="480" y="143" text-anchor="middle" font-weight="bold">Stage 7</text><text x="480" y="161" text-anchor="middle">Repeated measures stats</text>
+<rect x="595" y="120" width="155" height="56" rx="8" fill="#f6ece6" stroke="#8a4b2f"/><text x="672" y="143" text-anchor="middle" font-weight="bold">Stage 8</text><text x="672" y="161" text-anchor="middle">Interpretation</text>
+<rect x="400" y="320" width="350" height="56" rx="8" fill="#f1f1f3" stroke="#7a7f88"/><text x="575" y="343" text-anchor="middle" font-weight="bold">Stage 9: your code, results, report</text><text x="575" y="361" text-anchor="middle">Run, inspect, change, write</text>
+</g>
+<g stroke="#5a6475" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+<line x1="90" y1="76" x2="90" y2="118"/>
+<line x1="90" y1="176" x2="90" y2="218"/>
+<line x1="170" y1="248" x2="203" y2="248"/>
+<line x1="365" y1="248" x2="398" y2="248"/>
+<line x1="560" y1="248" x2="593" y2="248"/>
+<line x1="170" y1="148" x2="203" y2="148"/>
+<line x1="365" y1="148" x2="398" y2="148"/>
+<line x1="560" y1="148" x2="593" y2="148"/>
+<line x1="672" y1="220" x2="672" y2="178"/>
+<line x1="672" y1="276" x2="672" y2="318"/>
+<line x1="480" y1="176" x2="480" y2="318"/>
+</g>
+<text x="380" y="395" text-anchor="middle" font-size="10" fill="#5a6475">Blue: foundations. Green: EEG pipeline. Brown: research methods. Grey: applying it to your files.</text>
+</svg>
+<figcaption>Figure 0.1. Prerequisite map. Stages 1 and 2 can be learned in parallel; Stage 7 needs Stage 6; Stage 8 needs both the EEG branch and the statistics branch.</figcaption>
+</figure>
+
+<p>The labels below tell you how deeply to learn each item.</p>
+<table>
+<tr><th style="width:24%">Kind</th><th>Items for your project</th></tr>
+<tr><td><span class="tag tC" style="color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Conceptual</span><br>must understand</td><td>Valence and arousal; felt versus perceived emotion; where EEG comes from; what a reference is; frequency and power; alpha and what it is thought to index; frontal asymmetry theory and its controversy; within versus between person; pseudoreplication; stimulus confounding; what a confidence interval is; why a null is not proof of absence; correlation versus causation</td></tr>
+<tr><td><span class="tag tT" style="color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Technical</span><br>must be able to do</td><td>Run each phase in R; read tibbles and arrays; use <code>filter</code>, <code>mutate</code>, <code>group_by</code>, <code>summarise</code>, joins and pivots; plot a spectrum; fit and read an <code>lmer</code> model; centre a predictor; extract a CI; render the Quarto report</td></tr>
+<tr><td><span class="tag tM" style="color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Methodology</span><br>must justify</td><td>Preregistration and deviations; exclusion rules; threshold choices; ROI choices; random effects structure and the singular fit fallback; the consensus and deviation split; Bonferroni versus FDR; sensitivity analyses; what effect sizes your CIs rule out</td></tr>
+<tr><td><span class="tag tI" style="color:#fff;padding:1pt 5pt;border-radius:8pt;font-size:7.6pt">Implementation detail</span><br>black box for now</td><td>The byte level MATLAB fallback reader; the exact FFT scaling constant; lme4's optimiser; how Satterthwaite degrees of freedom are computed; how profile likelihood intervals are computed; Quarto's rendering internals</td></tr>
+</table>
+
+<h2>0.5 The staged learning roadmap</h2>
+<p>Do not try to learn everything at once. Each stage ends with a checkpoint. Do not move on until you can pass it without looking at notes. Time estimates assume about six to eight focused hours a week.</p>
+<table>
+<tr><th style="width:9%">Stage</th><th style="width:20%">Topic</th><th>You will learn</th><th style="width:28%">Checkpoint (pass before moving on)</th><th style="width:8%">Time</th></tr>
+<tr><td>0</td><td>R and data basics</td><td>Projects, <code>here</code>, tibbles, the pipe, the five core dplyr verbs, ggplot2 basics, reading CSV and TSV</td><td>Load <code>analysis_trials.csv</code>, compute each participant's mean arousal, and plot it</td><td>1 to 2 weeks</td></tr>
+<tr><td>1</td><td>Emotion and music</td><td>Valence, arousal, circumplex, SAM, felt versus perceived emotion, induction mechanisms</td><td>Explain in two minutes why a song can be rated "sad" yet "pleasant"</td><td>1 week</td></tr>
+<tr><td>2</td><td>Brain and EEG basics</td><td>Neurons to scalp, electrodes, 10/20 system, sampling rate, reference, volume conduction, artefacts</td><td>Draw how a cortical signal reaches an electrode and explain average reference</td><td>1 to 2 weeks</td></tr>
+<tr><td>3</td><td>Signals and spectra</td><td>Frequency, Fourier idea, power spectrum, Welch, windowing, resolution, 1/f, log power</td><td>Explain why a 2 second epoch gives 0.5 Hz resolution, then reproduce <code>p3_validation_sine.png</code></td><td>2 weeks</td></tr>
+<tr><td>4</td><td>Preprocessing</td><td>Filters, notch, artefacts, bad channels, epochs, rejection thresholds</td><td>Run <code>preprocess()</code> on one file and explain every element of its output</td><td>1 to 2 weeks</td></tr>
+<tr><td>5</td><td>Features</td><td>Band power, ROIs, posterior alpha, frontal alpha asymmetry</td><td>Compute FAA by hand for one trial from <code>bandpower_channels.csv</code></td><td>1 week</td></tr>
+<tr><td>6</td><td>Research design</td><td>Variables, hypotheses, confounds, preregistration, the consensus and deviation split</td><td>Defend your design against three critiques in writing</td><td>1 week</td></tr>
+<tr><td>7</td><td>Statistics</td><td>Pseudoreplication, centring, mixed models, random slopes, singular fits, CIs, LRT, multiple comparisons, power, equivalence</td><td>Fit the H1 model yourself and explain every line of <code>summary()</code></td><td>3 weeks</td></tr>
+<tr><td>8</td><td>Interpretation</td><td>Nulls, effect sizes, causation, reverse inference, limitations</td><td>Write the results paragraph for H1 without using the words "no effect"</td><td>1 week</td></tr>
+<tr><td>9</td><td>Apply</td><td>Fix the issues in Part 12, rerun, write the report</td><td>A rendered report you can defend line by line</td><td>3 to 4 weeks</td></tr>
+</table>
+<div class="box good"><b class="h">The rhythm of every lesson</b>
+Read the concept here. Open the matching file. Run a small piece. Look at the output. Change one thing. Predict what will happen before you run it again. Write two sentences in your own words in a learning log. This rhythm is what turns "the AI wrote it" into "I understand it".</div>
+
+<!-- PART 1 -->
+<h1>Part 1. Emotion and music (Stage 1)</h1>
+<p>Before any brain waves, we need to be clear about the thing we are trying to relate them to: emotional experience.</p>
+
+<div class="concept"><h4>1.1 Valence and arousal <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Valence is how pleasant or unpleasant something feels. Arousal is how activated or energised you feel, from sleepy and calm to wired and excited. They are two separate dials. Russell's circumplex model proposes that many everyday emotion words can be placed on a circle defined by these two dials: excited is pleasant and high arousal, relaxed is pleasant and low arousal, tense is unpleasant and high arousal, gloomy is unpleasant and low arousal (Russell, 1980). <span class="status">established as a useful description; whether it captures everything about emotion is debated</span></p>
+<p class="lbl">Why it matters</p>
+<p>Your hypotheses are built on these two dials: arousal for H1 and valence for H2. If the dials were not distinct, the hypotheses would blur together.</p>
+<p class="lbl">Picture it</p>
+<p>Think of a light dimmer (arousal) and a colour filter from cold blue to warm orange (valence). Any mood is one setting of both.</p>
+<figure>
+<svg viewBox="0 0 520 300" width="72%" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="150" x2="480" y2="150" stroke="#333"/><line x1="260" y1="20" x2="260" y2="280" stroke="#333"/>
+<circle cx="260" cy="150" r="115" fill="none" stroke="#9fb3cc" stroke-dasharray="4 4"/>
+<text x="485" y="154" font-size="12">pleasant</text><text x="2" y="154" font-size="12">unpleasant</text>
+<text x="232" y="15" font-size="12">high arousal</text><text x="232" y="296" font-size="12">low arousal</text>
+<g font-size="12" fill="#2f5d8a"><text x="345" y="72">excited, joyful</text><text x="345" y="240">calm, content</text><text x="70" y="72">tense, angry</text><text x="70" y="240">sad, bored</text></g>
+<g font-size="11" fill="#8a4b2f"><text x="345" y="88">HVHA songs</text><text x="345" y="256">HVLA songs</text><text x="70" y="88">LVHA songs</text><text x="70" y="256">LVLA songs</text><text x="268" y="168">N (neutral)</text></g>
+</svg>
+<figcaption>Figure 1.1. The two dials, and where the dataset's five song categories were meant to fall.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>Your Phase 1 song map (<code>p1_song_map.png</code>) shows that arousal separated the songs well, but valence was squeezed: songs meant to be "negative" were mildly unpleasant at most. That matters for H2: if valence barely varies, there is little variation to relate to the EEG.</p>
+<p class="lbl">Common mistakes</p>
+<ul><li>Treating valence and arousal as if they were measured on a ruler with equal spacing. They are 1 to 9 picture scales; the step from 2 to 3 may not equal the step from 7 to 8.</li>
+<li>Assuming high arousal means negative. Joy is high arousal and positive.</li></ul>
+<p class="lbl">Check yourself</p>
+<p>Q1.1 A participant rates a song valence 8, arousal 2. Where on the circle is it, and which song category would you guess?</p>
+</div>
+
+<div class="concept"><h4>1.2 The Self Assessment Manikin (SAM) <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>SAM is a set of cartoon figures that people pick from to report pleasure, arousal and dominance without needing emotion words (Bradley and Lang, 1994). Your dataset used it for valence and arousal on 1 to 9 scales.</p>
+<p class="lbl">Why it matters</p>
+<p>It is quick and language free, so it is standard. But it is still a self report, given once, after the music ended.</p>
+<p class="lbl">Picture it</p>
+<p>It is like a restaurant asking you to tap a smiley face on the way out. Useful, but it compresses a whole meal into one tap, and it is shaped by the last course and by how you generally use smileys.</p>
+<p class="lbl">In your project</p>
+<p>Each trial has exactly one valence and one arousal number for a 120 second excerpt. Any moment to moment changes in feeling, such as a chorus that gives chills, are invisible. Your EEG is also averaged over the whole excerpt, so both sides of the comparison are two minute summaries.</p>
+<p class="lbl">Common mistakes</p>
+<ul><li>Reading a SAM rating as "the emotion the brain had". It is a memory based judgement given afterwards.</li>
+<li>Forgetting that people use scales differently. Some never go below 4. That is why Phase 1 checks "scale use" and why Phase 4 centres ratings within each person.</li></ul>
+<p class="lbl">Check yourself</p>
+<p>Q1.2 Name two reasons why a single rating after the song might not match what the person felt during the song.</p>
+</div>
+
+<div class="concept"><h4>1.3 Felt emotion versus perceived emotion <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Music can <i>express</i> an emotion that you recognise ("this sounds sad") without you <i>feeling</i> it, and sometimes you feel something different ("sad music I enjoy"). Researchers call these perceived and felt emotion, and they do not always match (Gabrielsson, 2002). <span class="status">established distinction</span></p>
+<p class="lbl">Why it matters</p>
+<p>Your research question is about subjective experience, so it needs felt emotion. Whether participants rated felt or perceived emotion depends on the instructions, which the dataset page does not describe in detail.</p>
+<p class="lbl">Picture it</p>
+<p>An actor can portray grief perfectly while feeling proud of the performance.</p>
+<p class="lbl">In your project</p>
+<p>The song categories (HVHA, LVLA and so on) are about what the songs were chosen to express. The ratings are what people reported. That gap is exactly why your Phase 1 manipulation check exists. Write in your limitations that the rating instructions (felt or perceived) are not documented, unless you can find them.</p>
+<p class="lbl">Common mistakes</p>
+<p>Using the song category as if it were the listener's feeling. Your project correctly uses ratings instead.</p>
+<p class="lbl">Check yourself</p>
+<p>Q1.3 Why is "sad but pleasant" not a contradiction?</p>
+</div>
+
+<div class="concept"><h4>1.4 How music produces emotion <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Juslin and V&auml;stfj&auml;ll (2008) argued that music can trigger emotion through several routes: reflexes to sudden or loud sounds, learned associations, emotional contagion (mimicking the music's expression), mental imagery, personal memories, and expectations about where the music will go. <span class="status">influential framework; individual mechanisms are still being tested</span></p>
+<p class="lbl">Why it matters</p>
+<p>Some routes are shared by everyone (a loud crash startles nearly anyone), others are personal (a song that reminds <i>you</i> of a breakup). This is the scientific basis for splitting ratings into "song consensus" and "personal deviation".</p>
+<p class="lbl">Picture it</p>
+<p>The same song is a common key, but each person's lock (memories, taste, mood that day) is different.</p>
+<p class="lbl">In your project</p>
+<p>Your README reports that the song accounts for roughly half of valence variation and two thirds of arousal variation, with person level rating habits only about 4%. The remainder, the "personal reaction" share (about 47% for valence and 29% for arousal), is what the personal deviation tries to capture. Note that it also contains plain measurement noise.</p>
+<p class="lbl">Common mistakes</p>
+<p>Calling the residual "personal experience" without the word "plus noise". If someone would give a different rating on a second hearing, that inconsistency also lands in the residual.</p>
+<p class="lbl">Check yourself</p>
+<p>Q1.4 Which of the six mechanisms would you expect to vary most between people, and why?</p>
+</div>
+
+<div class="concept"><h4>1.5 What EEG can and cannot tell us about emotion <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Music evoked emotions involve deep structures such as the amygdala, hippocampus and the reward system (nucleus accumbens), as well as cortex (Koelsch, 2014). Scalp EEG mainly picks up activity from the outer cortex. So EEG sees only part of the emotional brain, and it sees it blurred.</p>
+<p class="lbl">Why it matters</p>
+<p>A null result from scalp EEG band power does not mean "the brain does not respond to emotion". It means this particular coarse summary did not track the ratings.</p>
+<p class="lbl">Picture it</p>
+<p>Listening to a stadium crowd from outside the stadium: you hear when the whole crowd roars together, but you cannot hear one person shouting.</p>
+<p class="lbl">Common mistakes</p>
+<p>Saying "EEG measures emotion". It measures voltage. Emotion is an interpretation layered on top.</p>
+<p class="lbl">Check yourself</p>
+<p>Q1.5 Rewrite "alpha measures arousal" into a sentence a careful scientist would accept.</p>
+</div>
+
+<!-- PART 2 -->
+<h1>Part 2. The brain and EEG (Stage 2)</h1>
+
+<div class="concept"><h4>2.1 Where the EEG signal comes from <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Neurons communicate with tiny electrical currents. A single neuron is far too weak to detect through the skull. But in the cortex, large pyramidal neurons line up in parallel like trees in a planted forest. When thousands to millions of them receive synaptic input at the same time, their small currents add up to a field strong enough to reach the scalp as a few to tens of microvolts (Nunez and Srinivasan, 2006; Cohen, 2014). <span class="status">established</span></p>
+<p class="lbl">Why it matters</p>
+<p>EEG favours activity that is <b>synchronised</b> and <b>near the surface</b>. Rhythms such as alpha are visible precisely because many neurons fire in step.</p>
+<p class="lbl">Picture it</p>
+<p>One person clapping in a stadium is inaudible from outside. Fifty thousand people clapping in rhythm is easy to hear.</p>
+<figure>
+<svg viewBox="0 0 640 230" width="88%" xmlns="http://www.w3.org/2000/svg">
+<rect x="20" y="20" width="600" height="28" fill="#f6e3c8" stroke="#c9a46b"/><text x="30" y="39" font-size="12">scalp, with electrodes</text>
+<circle cx="200" cy="20" r="9" fill="#2f5d8a"/><circle cx="320" cy="20" r="9" fill="#2f5d8a"/><circle cx="440" cy="20" r="9" fill="#2f5d8a"/>
+<rect x="20" y="48" width="600" height="26" fill="#ece9e2" stroke="#b7b0a1"/><text x="30" y="66" font-size="12">skull (smears the signal)</text>
+<rect x="20" y="74" width="600" height="18" fill="#dfeaf2" stroke="#9fb3cc"/><text x="30" y="88" font-size="11">fluid and membranes</text>
+<rect x="20" y="92" width="600" height="80" fill="#f4e7ef" stroke="#c497b0"/><text x="30" y="110" font-size="12">cortex</text>
+<g stroke="#8a4b2f" stroke-width="2">
+<line x1="240" y1="165" x2="240" y2="105"/><line x1="260" y1="165" x2="260" y2="105"/><line x1="280" y1="165" x2="280" y2="105"/><line x1="300" y1="165" x2="300" y2="105"/><line x1="320" y1="165" x2="320" y2="105"/><line x1="340" y1="165" x2="340" y2="105"/><line x1="360" y1="165" x2="360" y2="105"/><line x1="380" y1="165" x2="380" y2="105"/><line x1="400" y1="165" x2="400" y2="105"/>
+</g>
+<g fill="#8a4b2f"><polygon points="235,165 245,165 240,157"/><polygon points="255,165 265,165 260,157"/><polygon points="275,165 285,165 280,157"/><polygon points="295,165 305,165 300,157"/><polygon points="315,165 325,165 320,157"/><polygon points="335,165 345,165 340,157"/><polygon points="355,165 365,165 360,157"/><polygon points="375,165 385,165 380,157"/><polygon points="395,165 405,165 400,157"/></g>
+<rect x="20" y="172" width="600" height="40" fill="#eef0f3" stroke="#c0c6cf"/><text x="30" y="196" font-size="12">deep structures (amygdala, reward system): mostly invisible to scalp EEG</text>
+<text x="430" y="135" font-size="11">aligned pyramidal cells,</text><text x="430" y="150" font-size="11">active together</text>
+</svg>
+<figcaption>Figure 2.1. Why EEG mostly reflects synchronised activity in the outer cortex, blurred by the skull.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>Your posterior alpha and frontal alpha outcomes are big, synchronised cortical rhythms. That is the kind of signal EEG is good at.</p>
+<p class="lbl">Common mistakes</p>
+<p>Thinking an electrode over a region records only that region. Because of volume conduction (2.4), each electrode picks up a weighted mix of many sources.</p>
+<p class="lbl">Check yourself</p>
+<p>Q2.1 Why would a small, deep structure like the amygdala contribute little to scalp EEG?</p>
+</div>
+
+<div class="concept"><h4>2.2 Electrodes, montages and the 10/20 naming system <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Electrode names tell you where they sit. The letter is the region: Fp frontopolar, F frontal, C central, T temporal, P parietal, O occipital, with combinations like PO (parieto occipital) and FC (fronto central). Odd numbers are on the left, even numbers on the right, and "z" means the midline. So F3 is left frontal, F4 is right frontal, Oz is the back midline.</p>
+<p class="lbl">Why it matters</p>
+<p>Your hypotheses are defined by electrode names: posterior alpha uses O1, O2, Oz, PO3, PO4, POz and Pz; frontal asymmetry uses F3 and F4.</p>
+<p class="lbl">Picture it</p>
+<figure>
+<svg viewBox="0 0 360 330" width="52%" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="180" cy="170" rx="140" ry="150" fill="#fbfbfd" stroke="#333"/>
+<polygon points="165,22 180,5 195,22" fill="#fbfbfd" stroke="#333"/>
+<text x="150" y="16" font-size="10">nose</text>
+<g font-size="11" text-anchor="middle">
+<circle cx="140" cy="60" r="12" fill="#eef"/><text x="140" y="64">Fp1</text><circle cx="220" cy="60" r="12" fill="#eef"/><text x="220" y="64">Fp2</text>
+<circle cx="120" cy="110" r="13" fill="#f6d9c8" stroke="#8a4b2f"/><text x="120" y="114">F3</text>
+<circle cx="180" cy="110" r="12" fill="#eef"/><text x="180" y="114">Fz</text>
+<circle cx="240" cy="110" r="13" fill="#f6d9c8" stroke="#8a4b2f"/><text x="240" y="114">F4</text>
+<circle cx="70" cy="115" r="12" fill="#eef"/><text x="70" y="119">F7</text><circle cx="290" cy="115" r="12" fill="#eef"/><text x="290" y="119">F8</text>
+<circle cx="110" cy="170" r="12" fill="#eef"/><text x="110" y="174">C3</text><circle cx="180" cy="170" r="12" fill="#eef"/><text x="180" y="174">Cz</text><circle cx="250" cy="170" r="12" fill="#eef"/><text x="250" y="174">C4</text>
+<circle cx="50" cy="170" r="12" fill="#eef"/><text x="50" y="174">T7</text><circle cx="310" cy="170" r="12" fill="#eef"/><text x="310" y="174">T8</text>
+<circle cx="180" cy="228" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="180" y="232">Pz</text>
+<circle cx="140" cy="262" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="140" y="266">PO3</text><circle cx="180" cy="262" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="180" y="266">POz</text><circle cx="220" cy="262" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="220" y="266">PO4</text>
+<circle cx="145" cy="298" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="145" y="302">O1</text><circle cx="180" cy="302" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="180" y="306">Oz</text><circle cx="215" cy="298" r="13" fill="#d6e4f2" stroke="#2f5d8a"/><text x="215" y="302">O2</text>
+</g>
+<text x="8" y="325" font-size="10">left</text><text x="325" y="325" font-size="10">right</text>
+</svg>
+<figcaption>Figure 2.2. Simplified top view (not to scale; your cap has 66 sites). Blue: the posterior alpha region used for H1. Brown: F3 and F4, used for frontal alpha asymmetry in H2.</figcaption>
+</figure>
+<p class="lbl">Common mistakes</p>
+<p>Mixing up left and right. Odd is left. Your FAA formula uses F4 (right) first.</p>
+<p class="lbl">Check yourself</p>
+<p>Q2.2 Where is PO4? Which hemisphere is T7 on?</p>
+</div>
+
+<div class="concept"><h4>2.3 Sampling rate and the Nyquist limit <span class="tag tT">Technical</span></h4>
+<p class="lbl">In plain words</p>
+<p>A continuous voltage is stored as a list of snapshots. Your data has 1000 snapshots per second (1000 Hz). The fastest rhythm you can represent is half the sampling rate, the Nyquist frequency, here 500 Hz. Your band of interest stops at 45 Hz, so 1000 Hz is more than enough.</p>
+<p class="lbl">Why it matters</p>
+<p>It sets the size of your data (66 channels times 131,000 samples per recording) and the time axis: sample number <i>n</i> happens at time (n minus 1) divided by 1000 seconds.</p>
+<p class="lbl">Picture it</p>
+<p>A film camera at 24 frames per second can make a fast spinning wheel look like it turns backwards. Sampling too slowly makes fast things masquerade as slow ones (aliasing).</p>
+<p class="lbl">In your project</p>
+<p>In <code>preprocess()</code>, the line that builds <code>time_s</code> converts sample indices into seconds, and the music window keeps samples from 5 s up to, but not including, 125 s.</p>
+<p class="lbl">Check yourself</p>
+<p>Q2.3 How many samples are in one of your 2 second epochs?</p>
+</div>
+
+<div class="concept"><h4>2.4 The reference, and volume conduction <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Voltage is always a difference between two points. An EEG "channel" is the voltage at one electrode <i>relative to</i> a reference. Choose a different reference and every channel changes. With an <b>average reference</b>, the reference is the mean of all electrodes, so the channels sum to roughly zero at every moment. Separately, the head is a conductor, so activity from one source spreads to many electrodes: this is <b>volume conduction</b>.</p>
+<p class="lbl">Why it matters</p>
+<p>Frontal alpha asymmetry compares F4 with F3. If the reference itself carries alpha, it can distort that comparison. Methodological reviews of FAA recommend checking more than one reference scheme (Allen, Coan and Nazarian, 2004; Smith et al., 2017). <span class="status">established methodological concern</span></p>
+<p class="lbl">Picture it</p>
+<p>Measuring the height of everyone in a room. You can measure from the floor, or from the average person's height. The differences between people stay the same, but each individual number changes, and if the floor is wobbly, everyone's number wobbles with it.</p>
+<p class="lbl">In your project</p>
+<p>Phase 2 discovered that the 66 channels sum to about zero, so the data were average referenced upstream. Your code deliberately does not re reference. That is a reasonable choice, but for FAA it should be a named limitation or a sensitivity check (Part 12).</p>
+<p class="lbl">Common mistakes</p>
+<p>Believing a channel "belongs" to the brain area under it. Believing the reference does not matter for power. It does, especially for asymmetry measures.</p>
+<p class="lbl">Check yourself</p>
+<p>Q2.4 If every channel had the same 10 Hz rhythm in perfect sync, what would average referencing do to it?</p>
+</div>
+
+<div class="concept"><h4>2.5 Artefacts: signals that are not brain <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Many things other than the brain create voltage at the scalp. Blinks and eye movements make large slow waves, strongest at the front (Fp1, Fp2). Jaw and neck muscle tension creates fast, spiky activity that overlaps the beta and gamma bands (Muthukumaraswamy, 2013). Mains electricity creates line noise at 50 Hz in Europe and Asia (60 Hz in the Americas). Loose electrodes produce flat lines or huge drifts.</p>
+<p class="lbl">Why it matters</p>
+<p>Artefacts can create fake relationships. For example, people might tense their jaw during exciting music. That would raise gamma power and correlate with arousal without any brain involvement.</p>
+<p class="lbl">Picture it</p>
+<p>Recording a quiet conversation in a café: the coffee machine, the door slam and the hum of the fridge are all in your recording.</p>
+<p class="lbl">In your project</p>
+<p>Phase 2 found blinks are barely visible at Fp1 (correlation with the eye channel about minus 0.09), suggesting ocular artefacts were removed upstream, though no record of that exists. Phase 3 flags gamma results as muscle sensitive. Both are good habits.</p>
+<p class="lbl">Common mistakes</p>
+<p>Treating "not visible" as "removed". A weak blink correlation is consistent with removal, but it could also mean the eye channel itself was cleaned. Say "probably", as your preregistration does.</p>
+<p class="lbl">Check yourself</p>
+<p>Q2.5 Which of your five bands is most at risk from muscle activity, and which from eye movements?</p>
+</div>
+
+<!-- PART 3 -->
+<h1>Part 3. Signals and spectra (Stage 3)</h1>
+
+<div class="concept"><h4>3.1 Frequency and the Fourier idea <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Any wiggly signal can be described as a sum of simple waves (sines) of different speeds and sizes. The speed is the frequency, measured in hertz (cycles per second). The Fourier transform is the mathematical tool that finds how much of each frequency is present. The fast Fourier transform (FFT) is just an efficient way to compute it.</p>
+<p class="lbl">Why it matters</p>
+<p>All your outcomes are statements about frequency: "how much 8 to 13 Hz activity is there?"</p>
+<p class="lbl">Picture it</p>
+<p>A chord on a piano sounds like one thing, but your ear can tell it is three notes. The Fourier transform is the ear that splits the chord into notes.</p>
+<figure>
+<svg viewBox="0 0 640 170" width="92%" xmlns="http://www.w3.org/2000/svg">
+<g fill="none" stroke-width="1.6">
+<path d="M10,40 C25,15 40,15 55,40 S85,65 100,40 S130,15 145,40 S175,65 190,40" stroke="#2f5d8a"/>
+<path d="M10,95 C14,85 18,85 22,95 S30,105 34,95 S42,85 46,95 S54,105 58,95 S66,85 70,95 S78,105 82,95 S90,85 94,95 S102,105 106,95 S114,85 118,95 S126,105 130,95 S138,85 142,95 S150,105 154,95 S162,85 166,95 S174,105 178,95 S186,85 190,95" stroke="#3d7a4a"/>
+<path d="M260,70 C270,40 280,45 290,70 S305,95 315,72 S330,40 340,68 S352,98 365,72 S380,42 390,70 S402,96 415,70 S430,44 440,70" stroke="#8a4b2f"/>
+</g>
+<text x="10" y="128" font-size="11">slow wave (alpha like)</text><text x="10" y="145" font-size="11">plus fast wave (beta like)</text>
+<text x="200" y="74" font-size="22">=</text><text x="268" y="128" font-size="11">what the electrode records</text>
+<line x1="470" y1="140" x2="630" y2="140" stroke="#333"/><line x1="470" y1="140" x2="470" y2="20" stroke="#333"/>
+<rect x="500" y="40" width="14" height="100" fill="#2f5d8a"/><rect x="580" y="85" width="14" height="55" fill="#3d7a4a"/>
+<text x="492" y="156" font-size="10">10 Hz</text><text x="573" y="156" font-size="10">20 Hz</text><text x="476" y="30" font-size="10">power</text>
+</svg>
+<figcaption>Figure 3.1. A recorded signal (middle) is a mixture; the spectrum (right) tells you how much of each frequency it contains.</figcaption>
+</figure>
+<p class="lbl">Common mistakes</p>
+<p>Thinking "a 10 Hz rhythm" means neurons fire 10 times a second. It means the summed field oscillates at that rate.</p>
+<p class="lbl">Check yourself</p>
+<p>Q3.1 A rhythm completes 25 cycles in 2 seconds. What is its frequency, and which of your bands is it in?</p>
+<p class="lbl">Learn more</p>
+<p>A visual introduction that many beginners find helpful is the 3Blue1Brown video "But what is the Fourier Transform? A visual introduction". Cohen (2014), chapters 10 and 11, is the research level version.</p>
+</div>
+
+<div class="concept"><h4>3.2 Power spectral density, and Welch's method <span class="tag tT">Technical</span></h4>
+<p class="lbl">In plain words</p>
+<p>The power spectrum says how much signal energy sits at each frequency. "Density" means it is expressed per hertz (µV² per Hz), so the area under the curve over a range of frequencies gives the power in that range. Welch's method (Welch, 1967) cuts a long recording into short segments, computes a spectrum for each, and averages them. Averaging makes the estimate far less noisy.</p>
+<p class="lbl">Why it matters</p>
+<p>A single spectrum from one long piece of noisy data jumps around wildly from bin to bin. Averaging 60 short spectra gives a smooth, trustworthy curve.</p>
+<p class="lbl">Picture it</p>
+<p>Judging a restaurant from one meal versus from sixty meals.</p>
+<p class="lbl">In your project</p>
+<p><code>epoch_psd()</code> computes one spectrum per 2 second epoch per channel; <code>compute_features()</code> then averages the spectra of the kept epochs. That average is exactly Welch's method with non overlapping segments. Phase 3, step 13 tests the code on a synthetic sine wave of known power and checks the answer (<code>p3_validation_sine.png</code>). That validation step is excellent practice: keep it and describe it in your methods.</p>
+<p class="lbl">Check yourself</p>
+<p>Q3.2 If you used 4 second epochs instead of 2 second ones, what would happen to the number of epochs averaged and to the frequency resolution?</p>
+</div>
+
+<div class="concept"><h4>3.3 Frequency resolution, windows and leakage <span class="tag tI">Implementation detail</span></h4>
+<p class="lbl">In plain words</p>
+<p>The spacing between frequency bins is 1 divided by the segment length. A 2 second epoch gives 0.5 Hz steps: 0, 0.5, 1.0, 1.5 Hz and so on. Chopping a signal abruptly creates false energy at neighbouring frequencies (spectral leakage). Multiplying each segment by a smooth bell shaped "Hann window" that fades to zero at the edges reduces leakage.</p>
+<p class="lbl">Why it matters</p>
+<p>It explains two lines of your code: <code>EPOCH_S</code> equal to 2 gives 0.5 Hz resolution, and the <code>hann</code> vector in <code>epoch_psd()</code>.</p>
+<p class="lbl">In your project</p>
+<p>Your bands use half open intervals: alpha includes 8.0 Hz up to 12.5 Hz, and the bin at exactly 13.0 Hz belongs to beta. That avoids counting any bin twice. The normalisation constant (<code>srate * window_power</code>) and the doubling of non edge bins make the units come out as µV² per Hz. You can treat those constants as a black box, as long as the sine validation passes.</p>
+<p class="lbl">Check yourself</p>
+<p>Q3.3 Which frequency bins (in Hz) are summed to make your theta band?</p>
+</div>
+
+<div class="concept"><h4>3.4 Frequency bands and the 1/f background <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>By convention the spectrum is divided into bands: delta (1 to 4 Hz), theta (4 to 8), alpha (8 to 13), beta (13 to 30) and gamma (30 to 45 in your project). The exact edges vary between labs. Under the rhythmic peaks there is a smooth background where power falls as frequency rises, often called "1/f" or the aperiodic component. Recent work shows that changes in this background can masquerade as changes in band power (Donoghue et al., 2020). <span class="status">bands are conventions; the aperiodic issue is well supported and increasingly standard to address</span></p>
+<p class="lbl">Why it matters</p>
+<p>If the whole background shifted up for a trial, alpha "band power" would rise even if the alpha rhythm itself did not change. Band power mixes the two.</p>
+<p class="lbl">Picture it</p>
+<p>Measuring how tall a hill is by its height above sea level, when what you care about is its height above the plain it sits on.</p>
+<figure>
+<img src="../../02_phase2_eeg_inspection/outputs/figures/p2_first_psd.png" alt="Power spectrum from Phase 2">
+<figcaption>Figure 3.2. Your Phase 2 spectrum. Note the downward sloping background, the alpha bump near 10 Hz (stronger at O1 than at Fz), and the dip at 50 Hz from an undocumented notch filter.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>Your bands match common practice. Separating the alpha peak from the background (with the specparam method, formerly FOOOF) would be a strong robustness or extension analysis.</p>
+<p class="lbl">Check yourself</p>
+<p>Q3.4 Why might a trial with more muscle tension show higher power in every band at once?</p>
+</div>
+
+<div class="concept"><h4>3.5 Why we take logarithms of power <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>Power values are always positive and heavily skewed: a few trials have very large power. Taking the log makes the distribution roughly symmetric and turns multiplicative changes into additive ones. A change of 0.1 in log10 power means power was multiplied by about 1.26.</p>
+<p class="lbl">Why it matters</p>
+<p>Mixed models assume residuals that are roughly symmetric and similar in size. Raw power usually violates that; log power usually does not.</p>
+<p class="lbl">In your project</p>
+<p>Your H1 outcome is mean log10 alpha power over the posterior channels. FAA uses natural logs, which is the field's convention. Your H1 slope of 0.0026 log10 units per rating point means about a 0.6% change in alpha power per point of arousal: tiny.</p>
+<p class="lbl">Check yourself</p>
+<p>Q3.5 If log10 power goes up by 1, by what factor did power change?</p>
+</div>
+
+<!-- PART 4 -->
+<h1>Part 4. Cleaning EEG: preprocessing (Stage 4)</h1>
+<p>Preprocessing means every step between the raw file and the numbers you analyse. Each step is a decision, and each decision could in principle change the result. That is why your project fixed them in advance, in one file (<code>00_setup/eeg_functions.R</code>), and wrote them into the preregistration.</p>
+
+<figure>
+<svg viewBox="0 0 760 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6475"/></marker></defs>
+<g font-size="10.5" text-anchor="middle">
+<rect x="5" y="30" width="95" height="70" rx="6" fill="#e8eef6" stroke="#2f5d8a"/><text x="52" y="55">Read .set file</text><text x="52" y="70">66 EEG + EOG</text><text x="52" y="85">131,000 samples</text>
+<rect x="115" y="30" width="95" height="70" rx="6" fill="#e8eef6" stroke="#2f5d8a"/><text x="162" y="55">Mark "bad"</text><text x="162" y="70">annotated</text><text x="162" y="85">seconds</text>
+<rect x="225" y="30" width="95" height="70" rx="6" fill="#e8eef6" stroke="#2f5d8a"/><text x="272" y="55">Keep music</text><text x="272" y="70">window</text><text x="272" y="85">5 to 125 s</text>
+<rect x="335" y="30" width="95" height="70" rx="6" fill="#e8f2e6" stroke="#3d7a4a"/><text x="382" y="55">Flag bad</text><text x="382" y="70">channels</text><text x="382" y="85">(set to NA)</text>
+<rect x="445" y="30" width="95" height="70" rx="6" fill="#e8f2e6" stroke="#3d7a4a"/><text x="492" y="55">Cut 60 epochs</text><text x="492" y="70">of 2 s</text>
+<rect x="555" y="30" width="95" height="70" rx="6" fill="#e8f2e6" stroke="#3d7a4a"/><text x="602" y="50">Drop epochs:</text><text x="602" y="65">overlap bad, or</text><text x="602" y="80">over 100 µV</text>
+<rect x="665" y="30" width="90" height="70" rx="6" fill="#f6ece6" stroke="#8a4b2f"/><text x="710" y="55">Keep trial if</text><text x="710" y="70">30 or more</text><text x="710" y="85">epochs left</text>
+</g>
+<g stroke="#5a6475" stroke-width="1.5" marker-end="url(#a2)"><line x1="100" y1="65" x2="113" y2="65"/><line x1="210" y1="65" x2="223" y2="65"/><line x1="320" y1="65" x2="333" y2="65"/><line x1="430" y1="65" x2="443" y2="65"/><line x1="540" y1="65" x2="553" y2="65"/><line x1="650" y1="65" x2="663" y2="65"/></g>
+<text x="380" y="130" font-size="10.5" text-anchor="middle" fill="#5a6475">Not done on purpose: no new filtering, no re referencing, no ICA (these were inherited or unavailable).</text>
+</svg>
+<figcaption>Figure 4.1. Your preprocessing pipeline, as implemented in <code>preprocess()</code> and <code>compute_features()</code>.</figcaption>
+</figure>
+
+<div class="concept"><h4>4.1 Filtering, and the filters you inherited <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>A filter removes frequencies you do not want. A band pass filter keeps a range (here 0.5 to 70 Hz). A notch filter cuts out a narrow slice (here 50 Hz line noise). Filters can distort signals, so you should not filter more than necessary, and you should know what was done before you received the data.</p>
+<p class="lbl">In your project</p>
+<p>You inherited 0.5 to 70 Hz filtering and an undocumented 50 Hz notch, which you detected yourself from the dip in the spectrum. Because your bands stop at 45 Hz, neither filter cuts into them. Choosing not to filter again was sensible.</p>
+<p class="lbl">Common mistakes</p>
+<p>Refiltering already filtered data "to be safe", or analysing gamma right next to a notch.</p>
+<p class="lbl">Check yourself</p>
+<p>Q4.1 Why is the 50 Hz notch harmless for your five bands?</p>
+</div>
+
+<div class="concept"><h4>4.2 Bad channels <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>Sometimes an electrode loses contact (a flat line) or picks up huge noise. Your rules: a channel is "flat" if its standard deviation is below 0.5 µV; it is "extreme" if its log standard deviation is more than 3 robust z units from the median of all channels in that recording. A robust z uses the median and the MAD (median absolute deviation) instead of the mean and SD, so a few bad channels cannot hide each other.</p>
+<p class="lbl">Why it matters</p>
+<p>One dead channel inside the posterior region would drag the regional average down, and a flagged F3 or F4 would make FAA impossible for that trial.</p>
+<p class="lbl">Picture it</p>
+<p>Spotting the one student shouting in a quiet classroom is easier if "normal" is set by the median student, not the class average that the shouter has already inflated.</p>
+<p class="lbl">In your project</p>
+<p>213 of 399 recordings had at least one flagged channel (from <code>qc_summary.csv</code>). Flagged channels are set to missing, not interpolated, so regional averages use only the channels that remain. That keeps the data honest, but it means a region's average is built from slightly different channels in different trials.</p>
+<p class="lbl">Check yourself</p>
+<p>Q4.2 Why are the bad channel rules computed on log SD and not on raw SD?</p>
+</div>
+
+<div class="concept"><h4>4.3 Epochs and rejection thresholds <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>The 120 second music window is cut into sixty 2 second pieces (epochs). An epoch is thrown away if it overlaps a segment the dataset marked "bad", or if any good channel exceeds plus or minus 100 µV. A trial needs at least 30 surviving epochs (60 seconds) to be analysed. A stricter 75 µV version is kept for a sensitivity analysis.</p>
+<p class="lbl">Why it matters</p>
+<p>It balances two risks: keeping artefacts (too lenient) and throwing away so much data that estimates become noisy or biased (too strict).</p>
+<p class="lbl">In your project</p>
+<p>The code records each epoch's maximum amplitude before applying the threshold. That clever design lets the same preprocessing produce both the 100 µV and 75 µV versions. Your H1 and H2 results barely changed under 75 µV (Part 11), which is reassuring.</p>
+<p class="lbl">Common mistakes</p>
+<p>Choosing thresholds after looking at the EEG and rating relationship. Yours were fixed beforehand. Keep it that way.</p>
+<p class="lbl">Check yourself</p>
+<p>Q4.3 A trial has 25 epochs overlapping "bad" segments and 8 more over 100 µV. Is it included?</p>
+</div>
+
+<div class="concept"><h4>4.4 ICA, and why your project does not use it <span class="tag tI">Implementation detail</span></h4>
+<p class="lbl">In plain words</p>
+<p>Independent component analysis (ICA) separates the recording into statistically independent sources, so that eye and muscle components can be removed. It is standard in EEGLAB and MNE.</p>
+<p class="lbl">In your project</p>
+<p>No ICA weights are stored in the files, and the blink check suggests ocular artefacts were already removed upstream. Not running ICA is defensible, but list it as a limitation, especially for beta and gamma, which muscle activity can contaminate.</p>
+</div>
+
+<!-- PART 5 -->
+<h1>Part 5. From spectra to features (Stage 5)</h1>
+
+<div class="concept"><h4>5.1 Band power and regions of interest <span class="tag tT">Technical</span></h4>
+<p class="lbl">In plain words</p>
+<p>Band power is the area under the spectrum between two frequencies. In code, that is the sum of the PSD values in the band's bins times the 0.5 Hz bin width. A region of interest (ROI) is a group of nearby channels. Averaging their log power gives a more stable number than any single channel.</p>
+<p class="lbl">In your project</p>
+<p><code>band_power_table()</code> does the area calculation and also computes relative power (band power divided by total 1 to 45 Hz power). <code>roi_features()</code> averages log10 power over the available channels in each of seven ROIs.</p>
+<figure>
+<img src="../../03_phase3_features/outputs/figures/p3_band_by_roi.png" alt="Band power by ROI">
+<figcaption>Figure 5.1. Your Phase 3 band power by region. A sanity check, not a result: it confirms the features look like real EEG.</figcaption>
+</figure>
+<p class="lbl">Check yourself</p>
+<p>Q5.1 What is the difference between absolute and relative band power, and why might relative power be less affected by skull thickness?</p>
+</div>
+
+<div class="concept"><h4>5.2 Posterior alpha <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Alpha is the 8 to 13 Hz rhythm, strongest over the back of the head, especially when people are awake but relaxed with eyes closed. It drops when people open their eyes, attend to something, or become more engaged (Klimesch, 1999). A widely cited theory says alpha reflects active inhibition of brain areas not needed for the task (Jensen and Mazaheri, 2010). <span class="status">alpha suppression with visual input and attention is established; the link to emotional arousal is supported but less consistent</span></p>
+<p class="lbl">Why it matters</p>
+<p>This is the basis of H1: more aroused, more engaged, less alpha. A study of natural music listening using ICA found that arousal was associated with suppressed alpha (Rogenmoser et al., 2016). Your prediction was reasonable.</p>
+<p class="lbl">Picture it</p>
+<p>Alpha is like an idling engine. When you put your foot down (engage), the idle hum gives way to other sounds.</p>
+<figure>
+<img src="../../03_phase3_features/outputs/figures/p3_alpha_topography.png" alt="Alpha topography">
+<figcaption>Figure 5.2. Your alpha topography: strongest at the back, as expected. This is a key validity check for the pipeline.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>Did participants have their eyes open or closed while listening? The dataset page does not say, and eye state hugely affects posterior alpha. Find out if you can, and mention it either way.</p>
+<p class="lbl">Common mistakes</p>
+<p>Calling alpha "the relaxation wave" as if it were a direct readout of calmness. It is affected by eye state, attention, drowsiness, age and skull thickness.</p>
+<p class="lbl">Check yourself</p>
+<p>Q5.2 Give two reasons why posterior alpha might differ between two songs that have nothing to do with emotion.</p>
+</div>
+
+<div class="concept"><h4>5.3 Frontal alpha asymmetry (FAA) <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>FAA compares alpha power over the right frontal area (F4) and the left frontal area (F3). Your formula is: FAA equals ln(alpha at F4) minus ln(alpha at F3). Because alpha is treated as the inverse of activity, a <b>higher</b> FAA means relatively more alpha on the right, which is read as relatively <b>more left frontal activity</b>. Davidson's model links relatively more left frontal activity with positive or approach related states (Davidson, 1992).</p>
+<p class="lbl">Why it matters</p>
+<p>H2 predicts that higher within person valence goes with higher FAA.</p>
+<p class="lbl">The honest scientific status</p>
+<p><span class="status">supported but debated</span> Three points you must be able to explain:</p>
+<ol>
+<li><b>Approach versus valence.</b> Later work argues that FAA tracks approach motivation, not pleasantness. Anger is unpleasant but approach related, and it is associated with relatively more left frontal activity (Harmon Jones and Gable, 2018). If FAA tracks approach, valence ratings may be the wrong predictor.</li>
+<li><b>Measurement issues.</b> FAA depends on the reference, the choice of electrodes, and whether you use absolute or relative power (Allen, Coan and Nazarian, 2004; Smith et al., 2017).</li>
+<li><b>Mixed replication.</b> In depression research, a meta analysis found inconsistent effects (Thibodeau, Jorgensen and Kim, 2006), and a multiverse analysis of five datasets found no reliable relationship (Ko&#322;odziej et al., 2021). Music studies have reported FAA tracking valence (Schmidt and Trainor, 2001), but with small samples.</li>
+</ol>
+<p class="lbl">Picture it</p>
+<p>A seesaw with the left frontal cortex on one side and the right on the other. FAA tells you which way it tilts, not how heavy either side is.</p>
+<p class="lbl">In your project</p>
+<p>If F3 or F4 is flagged as bad, FAA is missing for that trial. Your FAA uses only one electrode pair. A common robustness check also uses F7 and F8, or AF3 and AF4.</p>
+<p class="lbl">Common mistakes</p>
+<p>Getting the sign backwards. Higher FAA here means more left activity, because higher alpha means less activity. Draw the seesaw every time.</p>
+<p class="lbl">Check yourself</p>
+<p>Q5.3 F4 alpha is 4 µV², F3 alpha is 2 µV². Compute FAA and say which side is relatively more active.</p>
+</div>
+
+<!-- PART 6 -->
+<h1>Part 6. Research design (Stage 6)</h1>
+
+<div class="concept"><h4>6.1 Variables, hypotheses and the unit of analysis <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>The <b>outcome</b> is what you measure and try to explain (posterior alpha, FAA). The <b>predictor</b> is what you think goes with it (arousal, valence). The <b>unit of analysis</b> is what one row of data represents: here one person listening to one song, a "trial". There are 20 people and 20 songs, so up to 400 trials, of which 395 were analysed.</p>
+<table>
+<tr><th>Hypothesis</th><th>Outcome</th><th>Predictor</th><th>Predicted direction</th></tr>
+<tr><td>H1</td><td>Posterior log10 alpha</td><td>Within person arousal</td><td>Negative</td></tr>
+<tr><td>H2</td><td>FAA</td><td>Within person valence</td><td>Positive</td></tr>
+<tr><td>H3</td><td>The H1 and H2 slopes</td><td>Person</td><td>Slopes vary between people</td></tr>
+</table>
+<p class="lbl">Check yourself</p>
+<p>Q6.1 Why is the unit of analysis not "one 2 second epoch"?</p>
+</div>
+
+<div class="concept"><h4>6.2 Confounding, and the stimulus problem <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>A confound is a third thing that drives both your predictor and your outcome, creating a relationship between them that is not the one you care about. In music studies, the biggest confound is the music itself. Fast, loud songs are rated as more arousing, and fast, loud sound also changes the EEG through hearing and attention, whatever anyone feels.</p>
+<p class="lbl">Picture it</p>
+<p>Ice cream sales and drowning both rise in summer. Ice cream does not cause drowning; hot weather drives both.</p>
+<figure>
+<svg viewBox="0 0 620 200" width="80%" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="a3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6475"/></marker></defs>
+<g font-size="12" text-anchor="middle">
+<rect x="230" y="10" width="160" height="50" rx="8" fill="#f6ece6" stroke="#8a4b2f"/><text x="310" y="32">Song acoustics</text><text x="310" y="49">(tempo, loudness)</text>
+<rect x="20" y="130" width="170" height="50" rx="8" fill="#e8eef6" stroke="#2f5d8a"/><text x="105" y="152">Arousal rating</text><text x="105" y="169">(predictor)</text>
+<rect x="430" y="130" width="170" height="50" rx="8" fill="#e8f2e6" stroke="#3d7a4a"/><text x="515" y="152">Alpha power</text><text x="515" y="169">(outcome)</text>
+</g>
+<g stroke="#5a6475" stroke-width="1.6" marker-end="url(#a3)"><line x1="270" y1="60" x2="130" y2="128"/><line x1="350" y1="60" x2="490" y2="128"/></g>
+<line x1="190" y1="155" x2="428" y2="155" stroke="#8a4b2f" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="310" y="148" font-size="11" text-anchor="middle" fill="#8a4b2f">relationship you see</text>
+<text x="310" y="195" font-size="11" text-anchor="middle" fill="#5a6475">could be produced entirely by the shared cause above</text>
+</svg>
+<figcaption>Figure 6.1. Why "arousal goes with alpha" could be a song acoustics effect.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>This is the heart of your design. Section 6.3 explains how you deal with it.</p>
+<p class="lbl">Check yourself</p>
+<p>Q6.2 Name one acoustic feature other than loudness that could affect both arousal ratings and EEG.</p>
+</div>
+
+<div class="concept"><h4>6.3 Song consensus and personal deviation <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>For every person and song, the rating is split into two parts:</p>
+<p style="text-align:center"><b>rating = song consensus + personal deviation</b></p>
+<p>The <b>song consensus</b> is the average rating the <i>other 19</i> listeners gave that song (a "leave one out" mean, so your own rating does not leak into it). The <b>personal deviation</b> is your rating minus that consensus.</p>
+<p class="lbl">Why it matters</p>
+<p>Everyone heard the same sound. So if EEG tracks the personal deviation, the sound alone cannot explain the link. This is the strictest test of "subjective experience" that this design allows.</p>
+<p class="lbl">Picture it</p>
+<p>The other listeners rate a song 7 on average; you rate it 9. Your deviation is plus 2. Your data really do this: for participant 01 and song t01, the valence consensus is 7.89 (the other 19 ratings sum to 150, and 150 divided by 19 is 7.89), and their rating of 7 gives a deviation of minus 0.89.</p>
+<figure>
+<svg viewBox="0 0 620 120" width="85%" xmlns="http://www.w3.org/2000/svg">
+<rect x="20" y="40" width="390" height="40" fill="#d6e4f2" stroke="#2f5d8a"/><text x="215" y="65" font-size="13" text-anchor="middle">song consensus: mean of the other 19 listeners</text>
+<rect x="410" y="40" width="120" height="40" fill="#f6d9c8" stroke="#8a4b2f"/><text x="470" y="58" font-size="12" text-anchor="middle">personal</text><text x="470" y="73" font-size="12" text-anchor="middle">deviation</text>
+<text x="20" y="28" font-size="12">your rating of the song</text>
+<line x1="20" y1="32" x2="530" y2="32" stroke="#333"/><line x1="20" y1="28" x2="20" y2="36" stroke="#333"/><line x1="530" y1="28" x2="530" y2="36" stroke="#333"/>
+<text x="20" y="105" font-size="11" fill="#5a6475">The consensus mixes acoustics and shared reactions; the deviation is personal reaction plus measurement noise.</text>
+</svg>
+<figcaption>Figure 6.2. Splitting a rating.</figcaption>
+</figure>
+<p class="lbl">What it cannot do</p>
+<ul>
+<li>The consensus slope is confounded with acoustics, which is why your preregistration labels it descriptive only.</li>
+<li>The deviation contains measurement noise as well as personal experience. Noise in a predictor weakens (attenuates) any true relationship, making it harder to detect.</li>
+<li>The personal deviation could still reflect personal <i>attention</i> to the song rather than emotion. "Personal" is not the same as "emotional".</li>
+</ul>
+<p class="lbl">Check yourself</p>
+<p>Q6.3 Why does the consensus leave the person's own rating out?</p>
+</div>
+
+<div class="concept"><h4>6.4 Preregistration <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>A preregistration is a timestamped plan written <i>before</i> looking at the results that matter. It lists the hypotheses, the exact analyses, the exclusion rules and the decision rules. It protects against the "garden of forking paths": trying many reasonable analyses until one comes out significant.</p>
+<p class="lbl">In your project</p>
+<p>Your preregistration is detailed and honest about what had already been done (Phases 1 to 3). Two things to tighten: its header still says "DRAFT", and it lives only in git. Git commit times can be edited, so a public registry such as OSF gives a stronger timestamp. You cannot backdate a registration now, but you can register the existing document and state the git commit hash and date openly. Also, <code>04_stats.R</code> refuses to run unless the preregistration is committed. That is a neat safeguard, and you should mention it in your methods.</p>
+<p class="lbl">Common mistakes</p>
+<p>Hiding deviations. Any change after preregistration is fine <i>if reported</i> as a deviation with a reason.</p>
+<p class="lbl">Check yourself</p>
+<p>Q6.4 Give one example of a forking path that your preregistration closes off.</p>
+</div>
+
+<!-- PART 7 -->
+<h1>Part 7. Statistics for repeated measures (Stage 7)</h1>
+<p>This is the longest stage. Go slowly. Each concept builds on the one before.</p>
+
+<div class="concept"><h4>7.1 Pseudoreplication: 400 trials are not 400 people <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Ordinary statistics assume every data point is independent. Your 395 trials are not: about 20 come from each person, and trials from the same person share that person's skull thickness, electrode contact, typical alpha level and rating habits. Treating them as independent is called pseudoreplication (Hurlbert, 1984). It makes you far too confident.</p>
+<p class="lbl">Picture it</p>
+<p>Asking one friend the same question twenty times does not give you twenty opinions.</p>
+<p class="lbl">In your project</p>
+<p>Phase 4, step 17 shows three analyses of the same question side by side: (a) naive pooling of all trials (invalid), (b) a two stage approach (one correlation per person, then a test across the 20 people), and (c) person averages (a different, between person question). For H1, the naive analysis gives r = 0.009 with n = 395, the two stage within person analysis gives r = 0.076 with a 95% CI of minus 0.07 to 0.22 based on n = 20, and the between person analysis gives r = 0.03 with a very wide CI of minus 0.42 to 0.47.</p>
+<figure>
+<img src="../../04_phase4_statistics/outputs/figures/p4_step17_pooling.png" alt="Pooling demonstration">
+<figcaption>Figure 7.1. Your step 17 figure. Note: in your data the naive analysis happens not to create a false positive. The lesson is that its CI is built on the wrong sample size, not that it always gives the wrong answer.</figcaption>
+</figure>
+<p class="lbl">Common mistakes</p>
+<p>Your README says pooling "inflates the test statistic". With these numbers it did not. Rephrase to "treats correlated trials as independent, so its uncertainty is wrong".</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.1 What is the effective sample size for generalising to people in your study, roughly?</p>
+</div>
+
+<div class="concept"><h4>7.2 Within person versus between person, and centring <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Any rating mixes two kinds of information: who you are (do you rate everything high?) and how this song differed for you (was this one higher than <i>your</i> usual?). Person mean centring separates them:</p>
+<ul>
+<li><b>x_within</b> = rating minus that person's own mean rating</li>
+<li><b>x_between</b> = that person's mean minus the grand mean</li>
+</ul>
+<p>Putting both in the model lets the within person slope answer only the within person question (Enders and Tofighi, 2007; Curran and Bauer, 2011). <span class="status">established</span></p>
+<p class="lbl">Why it matters</p>
+<p>Within and between relationships can even point in opposite directions (Simpson's paradox).</p>
+<figure>
+<svg viewBox="0 0 560 230" width="72%" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="200" x2="540" y2="200" stroke="#333"/><line x1="40" y1="200" x2="40" y2="15" stroke="#333"/>
+<text x="290" y="222" font-size="11" text-anchor="middle">rating</text><text x="12" y="110" font-size="11" transform="rotate(270 12 110)">EEG outcome</text>
+<g fill="#2f5d8a"><circle cx="80" cy="60" r="4"/><circle cx="100" cy="72" r="4"/><circle cx="120" cy="84" r="4"/><circle cx="140" cy="96" r="4"/></g>
+<line x1="70" y1="54" x2="150" y2="102" stroke="#2f5d8a"/>
+<g fill="#3d7a4a"><circle cx="230" cy="100" r="4"/><circle cx="250" cy="112" r="4"/><circle cx="270" cy="124" r="4"/><circle cx="290" cy="136" r="4"/></g>
+<line x1="220" y1="94" x2="300" y2="142" stroke="#3d7a4a"/>
+<g fill="#8a4b2f"><circle cx="380" cy="140" r="4"/><circle cx="400" cy="152" r="4"/><circle cx="420" cy="164" r="4"/><circle cx="440" cy="176" r="4"/></g>
+<line x1="370" y1="134" x2="450" y2="182" stroke="#8a4b2f"/>
+<line x1="60" y1="40" x2="480" y2="140" stroke="#999" stroke-dasharray="6 4"/>
+<text x="330" y="40" font-size="11" fill="#555">each colour = one person</text>
+<text x="330" y="56" font-size="11" fill="#555">within each person: downhill</text>
+<text x="330" y="72" font-size="11" fill="#555">dashed, pooled: much flatter</text>
+</svg>
+<figcaption>Figure 7.2. Within person slopes can differ from what pooled data suggest. Separating within from between avoids this trap.</figcaption>
+</figure>
+<p class="lbl">In your project</p>
+<p>The <code>prepare()</code> function in <code>04_stats.R</code> creates <code>x_within</code> and <code>x_between</code>. The confirmatory test is about <code>x_within</code>; <code>x_between</code> is reported only descriptively, because with 20 people it has almost no power.</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.2 Someone's arousal ratings are 3, 5 and 7. What are their x_within values?</p>
+</div>
+
+<div class="concept"><h4>7.3 Mixed effects models <span class="tag tT">Technical</span></h4>
+<p class="lbl">In plain words</p>
+<p>A mixed effects model is a regression that knows the data come in groups. <b>Fixed effects</b> are the averages you care about, such as the typical within person slope. <b>Random effects</b> describe how groups vary around those averages, such as each person having their own baseline alpha level (random intercept) or their own slope (random slope). The R package lme4 fits these models (Bates et al., 2015), and lmerTest adds p values using Satterthwaite degrees of freedom (Kuznetsova, Brockhoff and Christensen, 2017).</p>
+<p class="lbl">Reading your H1 formula aloud</p>
+<pre>post_alpha ~ arousal_within + arousal_between + (1 + arousal_within | participant_id)</pre>
+<p>"Predict posterior alpha from within person arousal and between person arousal. Let each participant have their own baseline (the 1) and their own arousal slope (arousal_within), around the group averages."</p>
+<p class="lbl">Picture it</p>
+<p>Instead of drawing one line through everyone's points, or 20 separate lines that each use only 20 noisy points, the mixed model draws 20 lines that "borrow strength" from each other. Noisy individual lines are pulled toward the group line. This is called shrinkage, and your forest plot (<code>p4_step20_forest.png</code>) shows it.</p>
+<p class="lbl">Why not just a regular regression?</p>
+<p>Because of 7.1. A regular regression would treat the 395 trials as independent.</p>
+<p class="lbl">Common mistakes</p>
+<ul><li>Treating random effects as "noise to ignore". They encode the structure of your design.</li>
+<li>Including a variable as a random effect with very few levels (for example, 3). You have 20 people and 20 songs, which is workable but small.</li></ul>
+<p class="lbl">Check yourself</p>
+<p>Q7.3 In <code>(1 + x_within | participant_id)</code>, what does the 1 mean, and what does the vertical bar mean?</p>
+</div>
+
+<div class="concept"><h4>7.4 Crossed random effects: songs are a sample too <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>Your 20 songs are a sample from all possible songs, just as your 20 people are a sample from all people. If you want conclusions about "music" and not "these 20 songs", the songs should be treated as a random factor too (Judd, Westfall and Kenny, 2012). In lme4 that is <code>(1 | song_id)</code> alongside <code>(1 | participant_id)</code>. People and songs are "crossed" because every person heard every song.</p>
+<p class="lbl">In your project</p>
+<p>Phase 1's variance decomposition and the consensus and deviation models use crossed random effects. The confirmatory H1 and H2 models do not include a song effect. That was the preregistered choice, so keep it as primary, but add a sensitivity model with <code>(1 | song_id)</code> and report it as a deviation (Part 12).</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.4 Why might leaving out the song effect make your p values too small?</p>
+</div>
+
+<div class="concept"><h4>7.5 Singular fits and the random effects fallback <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>Sometimes the data cannot support the random effects you asked for. The model then estimates a variance of zero or a correlation of exactly plus or minus 1. That is called a singular fit. It is not an error message to silence. It is the model telling you "I cannot see this source of variation in these data."</p>
+<p class="lbl">The debate</p>
+<p>Barr et al. (2013) argued for "keep it maximal": include all random effects the design justifies, to protect against false positives. Matuschek et al. (2017) and Bates et al. (2015, "Parsimonious mixed models") showed that overly complex models lose power and can be uninterpretable, and they recommend simplifying when the data do not support complexity. <span class="status">open; your preregistered fallback is a reasonable middle path</span></p>
+<p class="lbl">In your project</p>
+<p><code>fit_with_fallback()</code> tries the full model, then the model without the slope and intercept correlation (<code>||</code>), then intercept only. For both H1 and H2, it ended at <b>intercept only</b>. In plain words: the data showed no detectable person to person differences in slopes. That is consistent with the H3 results.</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.5 What does it mean if the random slope SD is estimated as 0.0003 for H1?</p>
+</div>
+
+<div class="concept"><h4>7.6 Confidence intervals, p values and the decision rule <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>A 95% confidence interval is a range built by a procedure that, across many repetitions of the study, would contain the true value 95% of the time. The p value is the probability of a result at least as extreme as yours <i>if the true effect were exactly zero</i>. Neither one is "the probability that the hypothesis is true".</p>
+<p class="lbl">In your project</p>
+<p>The decision rule: the predicted sign and a two sided p below .025. The .025 comes from Bonferroni correction: .05 divided by 2 hypotheses (H1 and H2). Your CIs use profile likelihood, a more accurate method than the simple estimate plus or minus 1.96 standard errors, with a fallback to the simple (Wald) method if profiling fails. Treat profile likelihood as an implementation detail.</p>
+<p class="lbl">Common mistakes</p>
+<ul><li>"p = .35 means a 35% chance the hypothesis is false." Wrong.</li>
+<li>"Not significant means no effect." Wrong. See 8.1.</li></ul>
+<p class="lbl">Check yourself</p>
+<p>Q7.6 Your preregistration uses .025 for H1 and H2 but .05 for H3. Why the difference?</p>
+</div>
+
+<div class="concept"><h4>7.7 Testing whether people differ (H3) <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>H3 compares two models: one where everyone shares a slope, and one where each person has their own slope. The likelihood ratio test asks whether the extra flexibility improves fit more than chance would. Because a variance cannot go below zero, the usual chi squared reference distribution is too conservative. The standard correction uses a 50:50 mixture of chi squared distributions with 1 and 2 degrees of freedom (Stram and Lee, 1994).</p>
+<p class="lbl">In your project</p>
+<p><code>h3_test()</code> does exactly this. Both p values were large (.95 for H1 and .42 for H2), and the full models were singular. The confidence intervals for the slope SDs are missing (NA) because profiling failed at the boundary. That is a known problem: a parametric bootstrap would give an interval (Part 12).</p>
+<p class="lbl">Common mistakes</p>
+<p>Concluding "everyone has the same slope". With about 20 trials per person, your study has little power to detect slope differences. Say "no evidence of", not "evidence of no".</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.7 Why does a variance being unable to go below zero change the p value calculation?</p>
+</div>
+
+<div class="concept"><h4>7.8 Many tests: Bonferroni and the false discovery rate <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>Run 100 tests on pure noise at p below .05 and you expect about 5 "hits". <b>Bonferroni</b> divides alpha by the number of tests: strict, and appropriate for a small confirmatory family. The <b>Benjamini Hochberg false discovery rate (FDR)</b> controls the expected proportion of false hits among the things you call discoveries (Benjamini and Hochberg, 1995). It is less strict and suits a large exploratory grid.</p>
+<p class="lbl">In your project</p>
+<p>The exploratory grid is 5 bands times 7 regions times 3 predictors, which makes 105 tests, with FDR at q below .05. None survived. Your README text and heatmap caption mention 35 tests in one place; 105 is the correct number, because 35 is the number of band and region pairs per predictor.</p>
+<figure>
+<img src="../../04_phase4_statistics/outputs/figures/p4_step21_exploratory_heatmap.png" alt="Exploratory heatmap">
+<figcaption>Figure 7.3. Your exploratory heatmap. Bright cells are ideas at best, not findings.</figcaption>
+</figure>
+<p class="lbl">Check yourself</p>
+<p>Q7.8 With 105 independent null tests at .05, about how many uncorrected "significant" results would you expect?</p>
+</div>
+
+<div class="concept"><h4>7.9 Effect sizes, power and equivalence <span class="tag tM">Methodology</span></h4>
+<p class="lbl">In plain words</p>
+<p>An <b>effect size</b> tells you how big a relationship is, in units people can interpret. Your standardized effect is: how many within person SDs the outcome changes for a one within person SD change in the rating. <b>Power</b> is the chance your study detects an effect of a given size if it exists. An <b>equivalence test</b> asks whether the effect is reliably smaller than a "smallest effect size of interest" (Lakens, 2017). It is the formal way to argue an effect is negligible.</p>
+<p class="lbl">In your project</p>
+<p>The standardized CIs are about plus or minus 0.10 to 0.15 around zero. That is information: effects larger than that are unlikely. To make a formal claim, you need to set and justify a smallest effect of interest, then run an equivalence test. A simulation based power analysis using your fitted variance components would tell you what effect you could reliably have detected.</p>
+<p class="lbl">Check yourself</p>
+<p>Q7.9 Why is "the study was underpowered" not a complete explanation for a null result when the confidence interval is narrow?</p>
+</div>
+
+<!-- PART 8 -->
+<h1>Part 8. Interpretation and honesty (Stage 8)</h1>
+
+<div class="concept"><h4>8.1 Absence of evidence is not evidence of absence <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>A nonsignificant result means the data were compatible with zero. They may also be compatible with a modest real effect. What tells you which effects are ruled out is the confidence interval.</p>
+<p class="lbl">In your project</p>
+<p>H1 predicted a <b>negative</b> slope. The standardized 95% CI runs from minus 0.05 to 0.15. So a within person decrease in alpha larger than about 0.05 within person SDs per SD of arousal is not supported by these data. That is a meaningful, fairly tight statement. Write it that way, not as "no effect".</p>
+</div>
+
+<div class="concept"><h4>8.2 Correlation, causation and the direction of time <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Even if you had found a relationship, it could not show that feeling causes the EEG change, or the reverse. In your design, ratings came after each song and EEG was averaged across the two minutes, so neither can be said to cause the other. Both could be caused by a third factor such as attention, fatigue or acoustics.</p>
+</div>
+
+<div class="concept"><h4>8.3 Reverse inference <span class="tag tC">Conceptual</span></h4>
+<p class="lbl">In plain words</p>
+<p>Reverse inference means reasoning "alpha went down, therefore the person was aroused". It is weak, because alpha goes down for many reasons (Poldrack, 2006). Your design goes the safer way: from ratings to EEG. In your discussion, avoid writing as if EEG features reveal emotions.</p>
+</div>
+
+<div class="concept"><h4>8.4 What your data can establish, suggest, and not establish <span class="tag tC">Conceptual</span></h4>
+<table>
+<tr><th style="width:33%">Can establish (with stated uncertainty)</th><th style="width:33%">Can suggest</th><th>Cannot establish</th></tr>
+<tr><td>How large the within person rating and band power associations are in this sample, with CIs</td><td>That if such associations exist, they are small relative to trial to trial EEG variability</td><td>That emotion causes or does not cause EEG changes</td></tr>
+<tr><td>How much rating variance is song versus person versus residual</td><td>That personal reactions to music are substantial</td><td>That the residual is purely "personal experience" (it includes noise)</td></tr>
+<tr><td>That the EEG pipeline produces physiologically plausible features (alpha posterior, 1/f shape)</td><td>That FAA may not be a useful within person index of valence during music</td><td>That FAA is invalid in general</td></tr>
+<tr><td>That results are robust to the preregistered sensitivity choices</td><td>That people do not differ much in their slopes</td><td>That everyone has the same slope (power is low)</td></tr>
+</table>
+</div>
+
+<!-- PART 9 -->
+<h1>Part 9. Your dataset, file by file</h1>
+<h2>9.1 What the dataset is</h2>
+<p><b>MET: Music Induced Emotion EEG Dataset</b>, OpenNeuro accession ds008701, version 1.0.4, author listed as Weng Lam Cheang (2026). The dataset page describes 20 participants, 20 music listening sessions each, one per song, with session labels t01 to t20 (the folder names join the word "ses" and the label with a dash character), SAM ratings after each song, an original 128 channel recording at 1000 Hz reduced to 66 channels after preprocessing and channel selection, and organisation following the Brain Imaging Data Structure (BIDS) standard (Pernet et al., 2019). I did not find a journal article describing the dataset.</p>
+
+<h2>9.2 How the folders map onto your analysis</h2>
+<table>
+<tr><th style="width:32%">File</th><th>What it contains</th><th style="width:28%">Used by</th></tr>
+<tr><td><code>participants.tsv</code></td><td>One row per participant: demographics</td><td>Report (ages 21 to 29, 10 women, 10 men)</td></tr>
+<tr><td><code>ratings.tsv</code></td><td>One row per participant and song: valence, arousal, likeability, familiarity, song category, remarks</td><td>Phase 1</td></tr>
+<tr><td>EEG data file per session</td><td>The voltages: 67 rows (66 EEG plus EOG) by about 131,000 samples</td><td><code>read_set()</code></td></tr>
+<tr><td><code>*_channels.tsv</code></td><td>Channel names, types, units, status</td><td>Fallback reader; Phase 2 checks</td></tr>
+<tr><td><code>*_events.tsv</code></td><td>Annotated events, including "bad" 1 second segments (onset, duration)</td><td><code>read_bad_mask()</code></td></tr>
+<tr><td><code>*_electrodes.tsv</code></td><td>3D electrode positions</td><td>Topography plot</td></tr>
+<tr><td><code>*_scans.tsv</code></td><td>Acquisition time per file</td><td>Phase 1 presentation order check</td></tr>
+</table>
+
+<h2>9.3 Discrepancies you found, and one I found</h2>
+<table>
+<tr><th style="width:22%">Item</th><th style="width:26%">Dataset page says</th><th>What your files show</th></tr>
+<tr><td>Format</td><td>BrainVision (.eeg, .vhdr, .vmrk)</td><td>EEGLAB .set, read with R.matlab</td></tr>
+<tr><td>Duration</td><td>130 s: 5 s silence, 120 s music, 5 s silence</td><td>131,000 samples at 1000 Hz (131 s)</td></tr>
+<tr><td>Units</td><td>The README says µV</td><td>channels.tsv says V; magnitudes show µV</td></tr>
+<tr><td>Onset marker</td><td>Not mentioned</td><td>None; 5 to 125 s is assumed</td></tr>
+<tr><td>Filtering</td><td>"Preprocessing" not detailed on the page</td><td>0.5 to 70 Hz plus an undocumented 50 Hz notch</td></tr>
+<tr><td>Channel status</td><td>All "good"</td><td>Some flat channels</td></tr>
+<tr><td>Completeness</td><td>(not stated)</td><td>Participant 17, song t17 missing; participant 12, song t05 truncated</td></tr>
+<tr><td>Presentation order</td><td>(not stated)</td><td>Overview PDF says timestamps repeat and order is not recoverable, but <code>analysis_trials.csv</code> contains a <code>trial_order</code> column. Reconcile these.</td></tr>
+</table>
+<div class="box flag"><b class="h">Action: pin the dataset version</b>
+The format and duration differences suggest your local copy may come from an earlier release than the current page describes. Open <code>dataset_description.json</code> and <code>CHANGES</code> in your local copy and record the version. Cite exactly that version's DOI. If the current release really is BrainVision, a reader trying to reproduce your work would need a different reader function. Note this in your README.</div>
+
+<!-- PART 10 -->
+<h1>Part 10. Your code, script by script</h1>
+<div class="box note"><b class="h">How to use this part</b>
+Open each file next to this guide. For each one: read the header comment, run it section by section (in RStudio, place the cursor in a section and press Ctrl+Enter, or Cmd+Enter on a Mac), and look at every object it creates. The "Try this" boxes are small, safe experiments. In code shown here I use <code>=</code> for assignment because of your no dash style rule. Your files use the arrow form; in this context both do the same thing.</div>
+
+<h2>10.1 R concepts you will meet first</h2>
+<table>
+<tr><th style="width:24%">Concept</th><th>Plain explanation</th><th style="width:26%">Where you see it</th></tr>
+<tr><td>R project and <code>here()</code></td><td><code>here::here("folder", "file")</code> builds a path from the project root, so code works on any computer</td><td>Every script; <code>config.R</code></td></tr>
+<tr><td>tibble</td><td>A data table: rows are observations, columns are variables</td><td>Everywhere</td></tr>
+<tr><td>The pipe <code>|&gt;</code></td><td>"Take this, then do that". <code>x |&gt; f()</code> means <code>f(x)</code></td><td>All tidyverse code</td></tr>
+<tr><td><code>filter</code>, <code>select</code>, <code>mutate</code>, <code>group_by</code>, <code>summarise</code></td><td>Keep rows; keep columns; make new columns; work within groups; collapse groups into summaries</td><td><code>prepare()</code>, QC tables</td></tr>
+<tr><td>Joins and <code>pivot_wider</code></td><td>Combine tables by matching keys; reshape long tables into wide ones</td><td><code>roi_features()</code>, trial table</td></tr>
+<tr><td>Matrices and arrays</td><td>A matrix is a 2D grid (channels by samples). An array adds a third dimension (channels by samples by epochs)</td><td><code>preprocess()</code>, <code>epoch_psd()</code></td></tr>
+<tr><td>Functions</td><td>Reusable recipes with inputs (arguments) and an output (the last value, or <code>return()</code>)</td><td><code>eeg_functions.R</code></td></tr>
+<tr><td><code>purrr::map</code></td><td>Apply a function to every element of a list, like a tidy loop</td><td><code>compute_features()</code></td></tr>
+<tr><td><code>tryCatch</code></td><td>Try something; if it fails, do a backup plan instead of crashing</td><td><code>read_set()</code>, CI extraction</td></tr>
+<tr><td>NA</td><td>R's code for "missing". Most summaries need <code>na.rm = TRUE</code> to skip it</td><td>Bad channels, ROI averages</td></tr>
+<tr><td>Model formula</td><td><code>y ~ x + (1 | g)</code> describes a model; Part 7 explains it</td><td><code>04_stats.R</code></td></tr>
+</table>
+
+<h2>10.2 <code>00_setup/config.R</code></h2>
+<p><b>Purpose.</b> The only file with a machine specific path (<code>dataset_path</code>). It defines output folders for each phase and creates them if missing.</p>
+<p><b>Issue.</b> The path is hard coded to your Mac. Anyone else must edit it. A friendlier option is reading it from an environment variable, with a clear error message if it is missing (Part 12).</p>
+
+<h2>10.3 <code>00_setup/eeg_functions.R</code>: the heart of the pipeline</h2>
+<table>
+<tr><th style="width:24%">Section and function</th><th>What it does, in plain words</th><th style="width:16%">Depth</th></tr>
+<tr><td>0. Fixed settings</td><td>All analysis numbers in one place: the music window (5 to 125 s), epoch length (2 s), bad channel rules (0.5 µV, robust z of 3), amplitude thresholds (100 and 75 µV), minimum epochs (30), band edges, and the seven ROIs. Changing anything here after preregistration is a deviation.</td><td>Must understand</td></tr>
+<tr><td>1. <code>read_set()</code></td><td>Reads one EEGLAB file with <code>R.matlab::readMat</code>, attaches channel names, and records the reference and the number of stored ICA weights.</td><td>Understand the output</td></tr>
+<tr><td>1B. <code>read_set_binary()</code></td><td>A fallback that reads the data matrix straight from the file's bytes when <code>readMat</code> fails. It also detects truncated files.</td><td>Black box</td></tr>
+<tr><td>2. <code>read_bad_mask()</code></td><td>Turns the "bad" rows in events.tsv into a TRUE or FALSE value for every sample.</td><td>Must understand</td></tr>
+<tr><td>3. <code>detect_bad_channels()</code></td><td>Applies the flat and robust z rules to clean music window samples only.</td><td>Must understand</td></tr>
+<tr><td>4. <code>preprocess()</code></td><td>The full cleaning recipe for one recording (Figure 4.1). Returns a list including <code>channel_qc</code>, <code>epochs</code> (a 3D array) and <code>epoch_info</code> (one row per epoch).</td><td>Must understand and run</td></tr>
+<tr><td>5. <code>epoch_psd()</code></td><td>For each channel and epoch: remove the mean, apply the Hann window, FFT, square the magnitude, scale to µV² per Hz, keep the one sided spectrum.</td><td>Concept yes, constants no</td></tr>
+<tr><td>6. <code>band_power_table()</code></td><td>Sums the PSD in each band times the bin width; also log10 and relative power.</td><td>Must understand</td></tr>
+<tr><td>7. <code>compute_features()</code></td><td>Applies the amplitude thresholds, averages the kept epoch spectra (Welch), and returns features and a QC row per threshold.</td><td>Must understand</td></tr>
+<tr><td>8. <code>parse_ids()</code>, <code>roi_features()</code></td><td>Extracts participant and song IDs from file paths; averages channels into ROIs; computes FAA from F3 and F4.</td><td>Must understand</td></tr>
+</table>
+<div class="box good"><b class="h">Try this (Stage 4 checkpoint)</b>
+<pre>source(here::here("00_setup", "config.R"))
+source(here::here("00_setup", "eeg_functions.R"))
+files = list.files(dataset_path, pattern = "\\.set$", recursive = TRUE, full.names = TRUE)
+pp = preprocess(files[1])
+str(pp, max.level = 1)     # what is inside?
+pp$channel_qc |&gt; dplyr::filter(flagged)
+table(pp$epoch_info$overlaps_bad)
+summary(pp$epoch_info$max_abs_uv)</pre>
+Before running, write down your predictions: how many epochs, how many flagged channels, the typical maximum amplitude. Then compare.</div>
+
+<h2>10.4 <code>01_phase1_ratings/01_ratings.R</code></h2>
+<p><b>Purpose.</b> Understand the ratings before touching EEG. Its 33 numbered sections answer seven questions:</p>
+<ol>
+<li><b>Are the ratings valid?</b> (sections 1 to 5) Range checks, remarks, and the zero coded likeability and familiarity for participant 01, song t27, which leads to excluding that trial.</li>
+<li><b>Do people use the scales differently?</b> (6 to 9) Per person means, SDs and the number of distinct values used.</li>
+<li><b>Are valence and arousal related?</b> (10 and 11) Pooled and per person correlations.</li>
+<li><b>Did the song categories work?</b> (12 to 15) The manipulation check and the song map.</li>
+<li><b>Song versus person?</b> (16 to 18) Two crossed random effects models (<code>Valence ~ 1 + (1 | participant_id) + (1 | song_id)</code>, and the same for arousal), with variances turned into percentages.</li>
+<li><b>Consensus and deviation</b> (19 to 22) Leave one out song means, then each rating's deviation.</li>
+<li><b>Presentation order</b> (23 to 32) An attempt to recover the order songs were played from file timestamps.</li>
+</ol>
+<div class="box good"><b class="h">Try this</b>Change one participant's rating of one song in a copy of the data and recompute that song's consensus for the <i>other</i> participants. Which consensus values change, and which do not? This makes leave one out concrete.</div>
+
+<h2>10.5 <code>02_phase2_eeg_inspection/02_eeg_inspect.R</code></h2>
+<p><b>Purpose.</b> Get to know one recording deeply: what is in a .set file (section 6), channels, units, time axis and bad segments (7), what clean EEG and artefacts look like (8), reference, line noise and the first spectrum (9), bad channels (10), and a test of <code>preprocess()</code> on four recordings (11). This is where the inherited preprocessing facts in your preregistration were discovered.</p>
+<figure>
+<img src="../../02_phase2_eeg_inspection/outputs/figures/p2_raw_clean.png" alt="Raw EEG">
+<figcaption>Figure 10.1. Clean EEG versus an annotated bad segment, from Phase 2.</figcaption>
+</figure>
+
+<h2>10.6 <code>03_phase3_features/03_features.R</code></h2>
+<p><b>Purpose.</b> Validate the spectrum code on a known sine wave (section 13), define the features (14), run all 399 recordings and build the QC table (15), and run EEG only sanity checks with no ratings involved (16). Outputs: <code>bandpower_channels.csv</code>, <code>bandpower_roi.csv</code>, <code>faa.csv</code>, <code>qc_table.csv</code> and six figures.</p>
+<p><b>Read the QC table.</b> Each row is one participant and song: which reader was used, the reference, the number of ICA weights, seconds of clean data, flagged channels, epoch counts at each stage, and whether it was included. 396 trials passed the EEG rules. One more was removed for the ratings problem, leaving 395 in the analysis.</p>
+
+<h2>10.7 <code>04_phase4_statistics/04_stats.R</code></h2>
+<table>
+<tr><th style="width:22%">Section</th><th>What it does</th></tr>
+<tr><td>0. Preregistration check</td><td>Stops unless <code>PREREGISTRATION.md</code> is committed in git.</td></tr>
+<tr><td>1. Trial table</td><td>Joins ratings with ROI power and FAA: one row per participant and song.</td></tr>
+<tr><td>2. <code>prepare()</code>, <code>prepare_deviation()</code></td><td>Builds y, x_within and x_between; applies the zero SD exclusion; builds the centred consensus and deviation predictors.</td></tr>
+<tr><td>17. Pooling demonstration</td><td>Naive, two stage and between person analyses side by side.</td></tr>
+<tr><td>18. H1 and H2</td><td><code>fit_with_fallback()</code> plus <code>extract_effect()</code>: estimate, profile CI, standardized effect, decision.</td></tr>
+<tr><td>19. Consensus versus deviation</td><td>The same models, with consensus and deviation predictors plus a song random intercept.</td></tr>
+<tr><td>20. H3</td><td><code>h3_test()</code>: likelihood ratio test with the mixture p value; forest plot of separate versus shrunken slopes.</td></tr>
+<tr><td>21. Exploratory grid</td><td>105 models, BH FDR, muscle flag for gamma.</td></tr>
+<tr><td>22. Diagnostics and sensitivity</td><td>Residual plots, leave one subject out, presentation order, and four alternative specifications.</td></tr>
+</table>
+<div class="box good"><b class="h">Try this (Stage 7 checkpoint)</b>
+<pre>library(lmerTest)
+trials = readr::read_csv(here::here("04_phase4_statistics", "outputs", "tables", "analysis_trials.csv"))
+d = trials |&gt;
+  dplyr::group_by(participant_id) |&gt;
+  dplyr::mutate(a_within = as.numeric(scale(Arousal, scale = FALSE)), a_pmean = mean(Arousal)) |&gt;
+  dplyr::ungroup() |&gt;
+  dplyr::mutate(a_between = as.numeric(scale(a_pmean, scale = FALSE)))
+m = lmer(post_alpha ~ a_within + a_between + (1 | participant_id), data = d)
+summary(m)</pre>
+Here <code>scale(x, scale = FALSE)</code> subtracts the mean, which is what centring means. Find the a_within estimate. It should be close to 0.0026. Then add <code>+ (1 | song_id)</code> and see what changes. Note: a_between here is centred on the mean of person means rather than the mean of all trials. With nearly balanced data the two are almost identical; can you explain why?</div>
+
+<h2>10.8 <code>05_phase5_report/05_final_outputs.R</code>, <code>report.qmd</code> and <code>run_all.R</code></h2>
+<p><code>05_final_outputs.R</code> assembles one tidy results table and creates the interpretation worksheet, whose four columns (what the data show, what the statistics show, what we infer, what remains uncertain) are still empty. <code>report.qmd</code> is a Quarto document that pulls numbers and figures directly from the output folders, so the report always matches the analysis. Every [WRITE] block is still empty. <code>run_all.R</code> reruns all five phases, each in a fresh environment, then renders the report. That is your reproducibility test.</p>
+
+<!-- PART 11 -->
+<h1>Part 11. Your results, explained</h1>
+<p>All numbers below come from your output tables in <code>04_phase4_statistics/outputs/tables/</code>. Units: posterior alpha is log10 µV²; FAA is a difference of natural logs; ratings are scale points.</p>
+<table>
+<tr><th style="width:30%">Test</th><th>Raw slope and 95% CI</th><th>Standardized and 95% CI</th><th>p</th><th>Supported?</th></tr>
+<tr><td>H1: alpha and within person arousal (predicted negative)</td><td>0.0026, from minus 0.0029 to 0.0080</td><td>0.05, from minus 0.05 to 0.15</td><td>.355</td><td>No (wrong sign, and p above .025)</td></tr>
+<tr><td>H2: FAA and within person valence (predicted positive)</td><td>0.0006, from minus 0.0095 to 0.0107</td><td>0.01, from minus 0.10 to 0.11</td><td>.903</td><td>No</td></tr>
+<tr><td>H1 personal deviation</td><td>0.0046, from minus 0.0049 to 0.0142</td><td>0.05, from minus 0.05 to 0.15</td><td>.342</td><td>No</td></tr>
+<tr><td>H2 personal deviation</td><td>0.0062, from minus 0.0078 to 0.0202</td><td>0.04, from minus 0.06 to 0.15</td><td>.386</td><td>No</td></tr>
+<tr><td>H3 for H1 (slopes vary?)</td><td colspan="2">LR statistic 0.014; slope SD 0.0003; CI not estimable</td><td>.949</td><td>No</td></tr>
+<tr><td>H3 for H2</td><td colspan="2">LR statistic 1.15; slope SD 0.006; CI not estimable</td><td>.424</td><td>No</td></tr>
+<tr><td>Exploratory grid</td><td colspan="2">105 tests, BH FDR</td><td></td><td>0 survive</td></tr>
+</table>
+<p>Both confirmatory models used the intercept only random structure after the preregistered fallback.</p>
+
+<h2>11.1 Reading these results in plain words</h2>
+<ol>
+<li><b>No support for H1 or H2.</b> When a person felt more aroused or more positive than their own average, their posterior alpha and frontal asymmetry did not change in any detectable way.</li>
+<li><b>The intervals are fairly narrow.</b> In standardized terms, effects bigger than about 0.15 within person SDs in either direction are unlikely given these data, and for H1 the predicted negative direction is limited to about minus 0.05. This is the most important sentence for your discussion.</li>
+<li><b>Same story for the personal part.</b> The deviation analyses add nothing different.</li>
+<li><b>No evidence that people differ in their slopes</b>, but with about 20 trials per person, that test has little power.</li>
+<li><b>Robust.</b> Adding the other rating, adding liking and familiarity, using relative power, or using the 75 µV threshold all gave similar near zero estimates (<code>step22_sensitivity.csv</code>), and leaving out any single participant did not change the picture (<code>p4_step22_loso.png</code>).</li>
+</ol>
+<figure>
+<img src="../../04_phase4_statistics/outputs/figures/p4_step22_sensitivity.png" alt="Sensitivity analyses">
+<figcaption>Figure 11.1. Your sensitivity analyses: every specification lands near zero.</figcaption>
+</figure>
+
+<h2>11.2 Possible explanations to discuss (not to assert)</h2>
+<ul>
+<li>The relationship may genuinely be very small at the level of two minute averages.</li>
+<li>Two minute averaging could wash out brief emotional moments, and one retrospective rating may not capture them.</li>
+<li>Valence variation was compressed, which limits H2.</li>
+<li>Eye state, attention and fatigue add trial to trial alpha noise unrelated to emotion.</li>
+<li>FAA may track approach motivation rather than pleasantness.</li>
+<li>The average reference and inherited preprocessing may not be ideal for asymmetry.</li>
+</ul>
+
+<!-- PART 12 -->
+<h1>Part 12. Methods review: issues found and how to fix them</h1>
+<p>I read every script and output. The pipeline is careful and mostly sound. Below are the issues, ordered by importance. "Report only" means you keep the preregistered analysis and add a sentence or a sensitivity analysis.</p>
+<table>
+<tr><th style="width:4%">#</th><th style="width:27%">Issue</th><th>Why it matters, and the fix</th><th style="width:12%">Type</th></tr>
+<tr><td>1</td><td>README cites the dataset as Koelsch et al. (2019)</td><td>Incorrect attribution. Cite Cheang, W. L. (2026), MET Music Induced Emotion EEG Dataset, OpenNeuro ds008701, version 1.0.4, with its DOI.</td><td>Fix now</td></tr>
+<tr><td>2</td><td>README results table does not match outputs</td><td>Readers will see wrong numbers. Regenerate it from <code>final_results_table.csv</code>, ideally automatically.</td><td>Fix now</td></tr>
+<tr><td>3</td><td>Dataset version and format mismatch</td><td>Record the exact version you used (Part 9). Reproducibility depends on it.</td><td>Fix now</td></tr>
+<tr><td>4</td><td>Preregistration header still says DRAFT; overview PDF says it is not committed</td><td>Update the status, state the commit hash and date, and consider registering it on OSF with an honest note about timing.</td><td>Fix now</td></tr>
+<tr><td>5</td><td>Confirmatory H1 and H2 models have no song random effect</td><td>Songs are a sample (Judd et al., 2012). Add a sensitivity model with <code>(1 | song_id)</code>; report it as an added analysis, not a replacement.</td><td>Report only</td></tr>
+<tr><td>6</td><td>H3 slope SD intervals are NA</td><td>Profiling fails at the zero boundary. Use a parametric bootstrap (<code>lme4::bootMer</code>) or report that the upper bound could not be estimated, and say why.</td><td>Add analysis</td></tr>
+<tr><td>7</td><td>No formal equivalence or power analysis</td><td>Needed to make a strong claim about small effects. Set a smallest effect size of interest with a justification, run a TOST style test on the standardized slope, and run a simulation based sensitivity power analysis using your fitted variances.</td><td>Add analysis</td></tr>
+<tr><td>8</td><td>FAA depends on the reference and a single electrode pair</td><td>Add F7 and F8 (and AF3 and AF4) as sensitivity checks; discuss the average reference limitation (Smith et al., 2017).</td><td>Report only</td></tr>
+<tr><td>9</td><td>Band power mixes oscillatory and aperiodic activity</td><td>Optional robustness: fit the aperiodic component and test alpha peak power above it (Donoghue et al., 2020).</td><td>Extension</td></tr>
+<tr><td>10</td><td>Music window is assumed (5 to 125 s)</td><td>Rerun H1 and H2 with a shifted window, for example 10 to 120 s, to show that onset uncertainty does not matter.</td><td>Report only</td></tr>
+<tr><td>11</td><td>Presentation order: conflicting statements</td><td>The overview PDF says order is unrecoverable, but <code>trial_order</code> exists in the analysis table. Check how it was built and whether it is valid; then either use it as a sensitivity covariate or delete it.</td><td>Clarify</td></tr>
+<tr><td>12</td><td>Four tests at .025</td><td>The preregistration applies .025 to H1, H2 and both deviation tests. State the family explicitly so readers do not think only two tests were run.</td><td>Report only</td></tr>
+<tr><td>13</td><td>Ordinal ratings treated as numeric</td><td>Common and usually harmless, but name it as a limitation; optionally rerun with rank transformed ratings.</td><td>Report only</td></tr>
+<tr><td>14</td><td>Flagged channels not interpolated</td><td>ROI averages use different channel sets across trials. Report how often each ROI lost channels; optionally rerun with only trials where all ROI channels are present.</td><td>Report only</td></tr>
+<tr><td>15</td><td>No dependency lock, hard coded path, no licence file</td><td>Add <code>renv</code>, an environment variable for the data path, a LICENSE file, and a CITATION file.</td><td>Housekeeping</td></tr>
+<tr><td>16</td><td>Eye state during listening unknown</td><td>Strongly affects posterior alpha. Search the dataset description and contact the dataset author if needed; otherwise list as a limitation.</td><td>Clarify</td></tr>
+</table>
+<div class="box note"><b class="h">What I did not find</b>
+I did not find errors in the core computations: the centring, the leave one out consensus, the band integration, the FAA sign convention, the mixture p value formula and the Bonferroni rule all match what the preregistration says and what the literature recommends. I could not run the code (the raw data are not in the repository), so this review is based on reading the code and its saved outputs.</div>
+
+<!-- PART 13 -->
+<h1>Part 13. Common mistakes and how to avoid them</h1>
+<table>
+<tr><th style="width:34%">Mistake</th><th>How to avoid it</th></tr>
+<tr><td>Saying "EEG measures emotion"</td><td>Say "EEG band power was associated with self reported ratings".</td></tr>
+<tr><td>Writing "no effect" after p above .05</td><td>Report the CI and say which effect sizes it rules out.</td></tr>
+<tr><td>Treating trials as independent</td><td>Use mixed models or two stage analyses; know your effective N.</td></tr>
+<tr><td>Mixing within and between person effects</td><td>Person mean centre; report them separately.</td></tr>
+<tr><td>Forgetting that songs are a sample</td><td>Include song as a random effect, at least in a sensitivity model.</td></tr>
+<tr><td>Interpreting the consensus slope as an emotion effect</td><td>It is confounded with acoustics; descriptive only.</td></tr>
+<tr><td>Flipping the FAA sign</td><td>Higher F4 minus F3 log alpha means relatively more <i>left</i> activity. Draw the seesaw.</td></tr>
+<tr><td>Calling gamma a brain effect</td><td>Gamma at the scalp is often muscle (Muthukumaraswamy, 2013).</td></tr>
+<tr><td>Silencing a singular fit warning</td><td>Read it as information; follow the preregistered fallback and report the final structure.</td></tr>
+<tr><td>Changing thresholds after seeing results</td><td>Any change is a deviation; report the original analysis too.</td></tr>
+<tr><td>Reverse inference ("alpha fell, so they were aroused")</td><td>Reason from manipulated or rated states to EEG, not the other way.</td></tr>
+<tr><td>Trusting documentation over data</td><td>Keep doing what Phase 2 did: check units, reference, filters and durations yourself.</td></tr>
+<tr><td>Copying AI generated code you cannot explain</td><td>For every function you keep, write one sentence in your own words saying what it takes in and what it returns.</td></tr>
+<tr><td>Citing papers you have not opened</td><td>Read at least the abstract and the relevant section; check the DOI resolves.</td></tr>
+</table>
+
+<!-- PART 14 -->
+<h1>Part 14. Exercises, checkpoints and the first lessons</h1>
+<h2>14.1 Staged exercises</h2>
+<table>
+<tr><th style="width:9%">Stage</th><th>Exercise</th></tr>
+<tr><td>0</td><td>Load <code>analysis_trials.csv</code>. How many rows? How many distinct participants and songs? Plot each person's mean arousal as a bar chart.</td></tr>
+<tr><td>1</td><td>Using the same file, plot each song's mean valence against mean arousal and colour by <code>Song Catergory</code> (note the spelling in your column name). Does it match <code>p1_song_map.png</code>?</td></tr>
+<tr><td>2</td><td>From <code>qc_table.csv</code>, which channels are flagged most often across recordings? Are they at the edge of the cap?</td></tr>
+<tr><td>3</td><td>Generate a 10 Hz sine wave of amplitude 2 µV sampled at 1000 Hz for 2 s; compute its spectrum with <code>epoch_psd()</code>; find the peak. Then change it to 10.25 Hz and see leakage.</td></tr>
+<tr><td>4</td><td>Run <code>preprocess()</code> on one file at 100 µV and at 75 µV. How many extra epochs are lost?</td></tr>
+<tr><td>5</td><td>From <code>bandpower_channels.csv</code>, compute FAA by hand for participant 01, song t01, and compare with <code>faa.csv</code>.</td></tr>
+<tr><td>6</td><td>Write half a page defending the consensus and deviation split against a reviewer who says "the deviation is just noise".</td></tr>
+<tr><td>7</td><td>Fit the H1 model with and without <code>(1 | song_id)</code>. Compare the estimate, SE and p.</td></tr>
+<tr><td>8</td><td>Write the H1 results paragraph using the CI to say which effects are ruled out.</td></tr>
+<tr><td>9</td><td>Fill the interpretation worksheet rows for H1 and H2.</td></tr>
+</table>
+
+<h2>14.2 How we will work together from here</h2>
+<p>We will go one stage at a time. For each lesson I will: (1) explain one concept using your files, (2) give you a small task to run, (3) ask you two or three questions, and (4) only move on once you can answer them in your own words. You do the typing; I explain, check and correct.</p>
+<div class="box good"><b class="h">Lesson 1 (Stage 0 and Stage 1 together)</b>
+<ol>
+<li>Open the project file (the file ending in <code>.Rproj</code> in the repository root) in RStudio.</li>
+<li>Run the Stage 0 exercise above.</li>
+<li>Answer self checks Q1.1 to Q1.5 in a learning log, without looking at the answers.</li>
+<li>Bring me your plot, your answers, and one thing that confused you.</li>
+</ol></div>
+
+<!-- PART 15 -->
+<h1>Part 15. Glossary in plain English</h1>
+<dl class="gl">
+<dt>1/f (aperiodic) component</dt><dd>The smooth background of the spectrum where power falls as frequency rises; not a rhythm.</dd>
+<dt>Alpha</dt><dd>8 to 13 Hz rhythm, strongest at the back of the head when relaxed; decreases with visual input and attention.</dd>
+<dt>Arousal</dt><dd>How activated or energised a feeling is, from calm to excited.</dd>
+<dt>Artefact</dt><dd>Any signal in the recording not produced by the brain: blinks, muscles, line noise, bad contacts.</dd>
+<dt>Average reference</dt><dd>Using the mean of all electrodes as the zero point.</dd>
+<dt>Band power</dt><dd>Area under the spectrum between two frequencies.</dd>
+<dt>BIDS</dt><dd>Brain Imaging Data Structure: a standard way of naming and organising neuroimaging files.</dd>
+<dt>Bonferroni correction</dt><dd>Dividing the significance threshold by the number of tests.</dd>
+<dt>Confound</dt><dd>A third variable that influences both predictor and outcome.</dd>
+<dt>Confidence interval</dt><dd>A range from a procedure that captures the true value a stated percentage of the time across repetitions.</dd>
+<dt>Consensus (song)</dt><dd>The average rating of a song by the other listeners.</dd>
+<dt>Crossed random effects</dt><dd>Random effects for two factors where every level of one meets every level of the other (people and songs).</dd>
+<dt>Deviation (personal)</dt><dd>A person's rating minus the song consensus.</dd>
+<dt>EEG</dt><dd>Electroencephalography: recording voltage differences on the scalp produced mainly by synchronised cortical activity.</dd>
+<dt>EOG</dt><dd>Electrooculogram: a channel recording eye movements and blinks.</dd>
+<dt>Epoch</dt><dd>A short segment of continuous data; here 2 seconds.</dd>
+<dt>Equivalence test</dt><dd>A test of whether an effect is reliably smaller than a chosen smallest effect of interest.</dd>
+<dt>FAA (frontal alpha asymmetry)</dt><dd>ln(alpha at F4) minus ln(alpha at F3); higher means relatively more left frontal activity.</dd>
+<dt>FDR (false discovery rate)</dt><dd>The expected proportion of false positives among results called significant.</dd>
+<dt>FFT</dt><dd>Fast Fourier transform: an efficient algorithm for computing a spectrum.</dd>
+<dt>Fixed effect</dt><dd>A population average relationship estimated by a model.</dd>
+<dt>Hann window</dt><dd>A bell shaped taper applied to each epoch to reduce spectral leakage.</dd>
+<dt>ICA</dt><dd>Independent component analysis: splits EEG into independent sources so artefacts can be removed.</dd>
+<dt>Leakage</dt><dd>Energy spreading into neighbouring frequency bins because a segment was cut abruptly.</dd>
+<dt>Likelihood ratio test</dt><dd>Compares how well two nested models fit.</dd>
+<dt>MAD</dt><dd>Median absolute deviation: a spread measure that resists outliers.</dd>
+<dt>Mixed effects model</dt><dd>A regression with fixed effects and random effects for grouped data.</dd>
+<dt>Notch filter</dt><dd>A filter that removes a narrow frequency band such as 50 Hz.</dd>
+<dt>Nyquist frequency</dt><dd>Half the sampling rate: the highest frequency the data can represent.</dd>
+<dt>p value</dt><dd>The probability of data at least this extreme if the true effect were zero.</dd>
+<dt>Power (statistical)</dt><dd>The probability of detecting an effect of a given size if it exists.</dd>
+<dt>Preregistration</dt><dd>A timestamped analysis plan written before seeing the key results.</dd>
+<dt>Profile likelihood CI</dt><dd>A confidence interval found by tracing how fit worsens as a parameter moves.</dd>
+<dt>Pseudoreplication</dt><dd>Treating non independent observations as independent.</dd>
+<dt>PSD</dt><dd>Power spectral density: power per unit frequency.</dd>
+<dt>Random intercept or slope</dt><dd>Allowing each group its own baseline or its own relationship.</dd>
+<dt>REML</dt><dd>Restricted maximum likelihood: the default way lme4 estimates variances.</dd>
+<dt>ROI</dt><dd>Region of interest: a set of channels averaged together.</dd>
+<dt>Robust z</dt><dd>A z score using the median and MAD instead of the mean and SD.</dd>
+<dt>SAM</dt><dd>Self Assessment Manikin: a pictorial rating scale for pleasure, arousal and dominance.</dd>
+<dt>Sampling rate</dt><dd>Samples recorded per second (here 1000 Hz).</dd>
+<dt>Shrinkage</dt><dd>Pulling noisy individual estimates toward the group average in a mixed model.</dd>
+<dt>Singular fit</dt><dd>A mixed model whose estimated variance is zero or whose correlation is plus or minus 1.</dd>
+<dt>Valence</dt><dd>How pleasant or unpleasant a feeling is.</dd>
+<dt>Volume conduction</dt><dd>Spread of electrical activity through the head, so each electrode mixes many sources.</dd>
+<dt>Welch's method</dt><dd>Averaging spectra from many short segments to get a stable spectrum.</dd>
+<dt>Within person centring</dt><dd>Subtracting each person's own mean so the predictor reflects change relative to that person.</dd>
+</dl>
+
+<!-- PART 16 -->
+<h1>Part 16. Annotated bibliography and learning resources</h1>
+<div class="box note"><b class="h">How to read this list</b>
+Each entry says what the source contributes and how solid its claim is. I confirmed each article in a bibliographic database (PubMed, the publisher or an institutional repository) while writing this guide, except where marked "not checked online". "Link" opens the DOI or the stable page. Because of your style rule, dashes inside titles are shown as spaces, and page ranges use "to".</div>
+
+<h2>16.1 Your dataset and data standards</h2>
+<div class="bib">
+<p>Cheang, W. L. (2026). <i>MET: Music Induced Emotion EEG Dataset</i> (version 1.0.4). OpenNeuro, ds008701. <a href="https://doi.org/10.18112/openneuro.ds008701.v1.0.4">Link</a> and <a href="https://openneuro.org/datasets/ds008701">dataset page</a>.
+<span class="ann">Your primary source. Read the README and the CHANGES file of the exact version you downloaded.</span></p>
+<p>Pernet, C. R., Appelhoff, S., Gorgolewski, K. J., Flandin, G., Phillips, C., Delorme, A., and Oostenveld, R. (2019). EEG BIDS, an extension to the brain imaging data structure for electroencephalography. <i>Scientific Data, 6</i>, 103. <a href="https://doi.org/10.1038/s41597-019-0104-8">Link</a>.
+<span class="ann">Explains the folder and file conventions your dataset follows. Skim the tables.</span></p>
+<p>Appelhoff, S., et al. (2019). MNE BIDS: Organizing electrophysiological data into the BIDS format and facilitating their analysis. <i>Journal of Open Source Software, 4</i>, 1896. <a href="https://doi.org/10.21105/joss.01896">Link</a>.
+<span class="ann">The Python tool the dataset authors suggest for loading data. Useful if you ever cross check with Python.</span></p>
+</div>
+
+<h2>16.2 Emotion and music</h2>
+<div class="bib">
+<p>Russell, J. A. (1980). A circumplex model of affect. <i>Journal of Personality and Social Psychology, 39</i>(6), 1161 to 1178. <a href="https://doi.org/10.1037/h0077714">Link</a>.
+<span class="ann">The origin of the valence and arousal map. <span class="status">foundational; widely used; completeness debated</span></span></p>
+<p>Bradley, M. M., and Lang, P. J. (1994). Measuring emotion: The Self Assessment Manikin and the semantic differential. <i>Journal of Behavior Therapy and Experimental Psychiatry, 25</i>(1), 49 to 59. PMID 7962581. <a href="https://doi.org/10.1016/0005-7916(94)90063-9">Link</a>.
+<span class="ann">Describes and validates the SAM scale used in your dataset.</span></p>
+<p>Gabrielsson, A. (2002). Emotion perceived and emotion felt: Same or different? <i>Musicae Scientiae, 5</i>(1 suppl), 123 to 147. (Not checked online; widely cited.)
+<span class="ann">The classic discussion of felt versus perceived emotion in music.</span></p>
+<p>Juslin, P. N., and V&auml;stfj&auml;ll, D. (2008). Emotional responses to music: The need to consider underlying mechanisms. <i>Behavioral and Brain Sciences, 31</i>(5), 559 to 575. PMID 18826699. <a href="https://doi.org/10.1017/S0140525X08005293">Link</a>.
+<span class="ann">Six mechanisms by which music induces emotion. The theoretical reason the consensus and deviation split makes sense.</span></p>
+<p>Koelsch, S. (2014). Brain correlates of music evoked emotions. <i>Nature Reviews Neuroscience, 15</i>(3), 170 to 180. <a href="https://doi.org/10.1038/nrn3666">Link</a>. (Not checked online in this session.)
+<span class="ann">Review of the brain structures involved, many of which scalp EEG cannot see. Note: this is a review by Koelsch, not the dataset citation.</span></p>
+</div>
+
+<h2>16.3 EEG fundamentals and spectral analysis</h2>
+<div class="bib">
+<p>Cohen, M. X. (2014). <i>Analyzing Neural Time Series Data: Theory and Practice</i>. MIT Press.
+<span class="ann">The best single book for your signal processing stage. Chapters on the Fourier transform and on spectral analysis map directly onto <code>epoch_psd()</code>. His free online lectures cover the same material.</span></p>
+<p>Nunez, P. L., and Srinivasan, R. (2006). <i>Electric Fields of the Brain: The Neurophysics of EEG</i> (2nd ed.). Oxford University Press.
+<span class="ann">Where the EEG signal comes from, references and volume conduction. Read selectively.</span></p>
+<p>Welch, P. D. (1967). The use of fast Fourier transform for the estimation of power spectra. <i>IEEE Transactions on Audio and Electroacoustics, 15</i>(2), 70 to 73. (Not checked online.)
+<span class="ann">The original Welch method paper. Cite it in your methods.</span></p>
+<p>Klimesch, W. (1999). EEG alpha and theta oscillations reflect cognitive and memory performance: A review and analysis. <i>Brain Research Reviews, 29</i>(2 and 3), 169 to 195. PMID 10209231. <a href="https://doi.org/10.1016/s0165-0173(98)00056-3">Link</a>.
+<span class="ann">Classic review of what alpha and theta reflect. <span class="status">established</span></span></p>
+<p>Jensen, O., and Mazaheri, A. (2010). Shaping functional architecture by oscillatory alpha activity: Gating by inhibition. <i>Frontiers in Human Neuroscience, 4</i>, 186. PMID 21119777. <a href="https://doi.org/10.3389/fnhum.2010.00186">Link</a>.
+<span class="ann">The influential "alpha as inhibition" account. <span class="status">widely supported framework</span></span></p>
+<p>Muthukumaraswamy, S. D. (2013). High frequency brain activity and muscle artifacts in MEG/EEG: A review and recommendations. <i>Frontiers in Human Neuroscience, 7</i>, 138. PMID 23596409. <a href="https://doi.org/10.3389/fnhum.2013.00138">Link</a>.
+<span class="ann">Why your gamma results carry a muscle flag.</span></p>
+<p>Donoghue, T., et al. (2020). Parameterizing neural power spectra into periodic and aperiodic components. <i>Nature Neuroscience, 23</i>(12), 1655 to 1665. PMID 33230329. <a href="https://doi.org/10.1038/s41593-020-00744-x">Link</a>.
+<span class="ann">Why band power can confuse rhythm changes with background changes. Basis for an extension analysis.</span></p>
+<p>Delorme, A., and Makeig, S. (2004). EEGLAB: An open source toolbox for analysis of single trial EEG dynamics including independent component analysis. <i>Journal of Neuroscience Methods, 134</i>(1), 9 to 21. (Not checked online.)
+<span class="ann">The software that wrote your .set files. Cite it when describing the file format.</span></p>
+</div>
+
+<h2>16.4 Alpha, asymmetry and emotion</h2>
+<div class="bib">
+<p>Davidson, R. J. (1992). Anterior cerebral asymmetry and the nature of emotion. <i>Brain and Cognition, 20</i>(1), 125 to 151. PMID 1389117. <a href="https://doi.org/10.1016/0278-2626(92)90065-t">Link</a>.
+<span class="ann">Origin of the approach and withdrawal asymmetry model behind H2.</span></p>
+<p>Coan, J. A., and Allen, J. J. B. (2004). Frontal EEG asymmetry as a moderator and mediator of emotion. <i>Biological Psychology, 67</i>(1 and 2), 7 to 49. (Not checked online in this session; cited in Reznik and Allen, 2018.)
+<span class="ann">The major review your README cites. Read the sections on state versus trait asymmetry.</span></p>
+<p>Allen, J. J. B., Coan, J. A., and Nazarian, M. (2004). Issues and assumptions on the road from raw signals to metrics of frontal EEG asymmetry in emotion. <i>Biological Psychology, 67</i>(1 and 2), 183 to 218. PMID 15130531. <a href="https://doi.org/10.1016/j.biopsycho.2004.03.007">Link</a>.
+<span class="ann">Methodological choices (reference, power type, electrode pairs) that change FAA.</span></p>
+<p>Smith, E. E., Reznik, S. J., Stewart, J. L., and Allen, J. J. B. (2017). Assessing and conceptualizing frontal EEG asymmetry: An updated primer on recording, processing, analyzing, and interpreting frontal alpha asymmetry. <i>International Journal of Psychophysiology, 111</i>, 98 to 114. PMID 27865882. <a href="https://doi.org/10.1016/j.ijpsycho.2016.11.005">Link</a>.
+<span class="ann">The practical how to for FAA. Use it to plan your FAA sensitivity checks.</span></p>
+<p>Reznik, S. J., and Allen, J. J. B. (2018). Frontal asymmetry as a mediator and moderator of emotion: An updated review. <i>Psychophysiology, 55</i>(1), e12965. PMID 28776710. <a href="https://doi.org/10.1111/psyp.12965">Link</a>.
+<span class="ann">Up to date evidence summary. <span class="status">supported but debated</span></span></p>
+<p>Harmon Jones, E., and Gable, P. A. (2018). On the role of asymmetric frontal cortical activity in approach and withdrawal motivation: An updated review of the evidence. <i>Psychophysiology, 55</i>(1), e12879. PMID 28459501. <a href="https://doi.org/10.1111/psyp.12879">Link</a>.
+<span class="ann">The motivation (not valence) interpretation of FAA. Important for your discussion of H2.</span></p>
+<p>Thibodeau, R., Jorgensen, R. S., and Kim, S. (2006). Depression, anxiety, and resting frontal EEG asymmetry: A meta analytic review. <i>Journal of Abnormal Psychology, 115</i>(4), 715 to 729. PMID 17100529. <a href="https://doi.org/10.1037/0021-843X.115.4.715">Link</a>.
+<span class="ann">Shows heterogeneous effects across studies.</span></p>
+<p>Ko&#322;odziej, A., Magnuski, M., Ruban, A., and Brzezicka, A. (2021). No relationship between frontal alpha asymmetry and depressive disorders in a multiverse analysis of five studies. <i>eLife, 10</i>, e60595. PMID 34037520. <a href="https://doi.org/10.7554/eLife.60595">Link</a>.
+<span class="ann">A model for the kind of robustness analysis you are doing, and a reason a null FAA result is plausible.</span></p>
+<p>Schmidt, L. A., and Trainor, L. J. (2001). Frontal brain electrical activity (EEG) distinguishes valence and intensity of musical emotions. <i>Cognition and Emotion, 15</i>(4), 487 to 500. <a href="https://trainorlab.mcmaster.ca/publications/SchmidtTrainor2001">Lab page</a>. (Two DOIs appear in online records; verify before citing.)
+<span class="ann">The classic music study supporting FAA and valence. Small sample, between condition design, so compare carefully with your within person design.</span></p>
+<p>Rogenmoser, L., Zollinger, N., Elmer, S., and J&auml;ncke, L. (2016). Independent component processes underlying emotions during natural music listening. <i>Social Cognitive and Affective Neuroscience, 11</i>(9), 1428 to 1439. PMID 27217116. <a href="https://doi.org/10.1093/scan/nsw048">Link</a>.
+<span class="ann">Found arousal associated with alpha suppression during natural music. The closest prior support for H1; compare its design and analysis with yours.</span></p>
+<p>Sammler, D., Grigutsch, M., Fritz, T., and Koelsch, S. (2007). Music and emotion: Electrophysiological correlates of the processing of pleasant and unpleasant music. <i>Psychophysiology, 44</i>(2), 293 to 304. PMID 17343712. <a href="https://doi.org/10.1111/j.1469-8986.2007.00497.x">Link</a>.
+<span class="ann">Reports frontal midline theta increases for pleasant music. Relevant to your exploratory theta results.</span></p>
+<p>Poldrack, R. A. (2006). Can cognitive processes be inferred from neuroimaging data? <i>Trends in Cognitive Sciences, 10</i>(2), 59 to 63. PMID 16406760. <a href="https://doi.org/10.1016/j.tics.2005.12.004">Link</a>.
+<span class="ann">The standard reference on reverse inference.</span></p>
+</div>
+
+<h2>16.5 Statistics</h2>
+<div class="bib">
+<p>Hurlbert, S. H. (1984). Pseudoreplication and the design of ecological field experiments. <i>Ecological Monographs, 54</i>(2), 187 to 211. (Not checked online.)
+<span class="ann">The origin of the term pseudoreplication.</span></p>
+<p>Enders, C. K., and Tofighi, D. (2007). Centering predictor variables in cross sectional multilevel models: A new look at an old issue. <i>Psychological Methods, 12</i>(2), 121 to 138. PMID 17563168. <a href="https://doi.org/10.1037/1082-989X.12.2.121">Link</a>.
+<span class="ann">Why person mean centring answers the within person question.</span></p>
+<p>Curran, P. J., and Bauer, D. J. (2011). The disaggregation of within person and between person effects in longitudinal models of change. <i>Annual Review of Psychology, 62</i>, 583 to 619. PMID 19575624. <a href="https://doi.org/10.1146/annurev.psych.093008.100356">Link</a>.
+<span class="ann">Clear treatment of within versus between effects.</span></p>
+<p>Bates, D., M&auml;chler, M., Bolker, B., and Walker, S. (2015). Fitting linear mixed effects models using lme4. <i>Journal of Statistical Software, 67</i>(1). <a href="https://doi.org/10.18637/jss.v067.i01">Link</a>.
+<span class="ann">The lme4 paper. Sections 1 and 2 are readable for beginners.</span></p>
+<p>Kuznetsova, A., Brockhoff, P. B., and Christensen, R. H. B. (2017). lmerTest package: Tests in linear mixed effects models. <i>Journal of Statistical Software, 82</i>(13). <a href="https://doi.org/10.18637/jss.v082.i13">Link</a>. (Not checked online.)
+<span class="ann">Where your p values and Satterthwaite degrees of freedom come from.</span></p>
+<p>Barr, D. J., Levy, R., Scheepers, C., and Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. <i>Journal of Memory and Language, 68</i>(3), 255 to 278. PMID 24403724. <a href="https://doi.org/10.1016/j.jml.2012.11.001">Link</a>.
+<span class="ann">Argument for maximal random effects. <span class="status">influential; debated</span></span></p>
+<p>Matuschek, H., Kliegl, R., Vasishth, S., Baayen, H., and Bates, D. (2017). Balancing Type I error and power in linear mixed models. <i>Journal of Memory and Language, 94</i>, 305 to 315. Preprint: <a href="https://arxiv.org/abs/1511.01864">arXiv 1511.01864</a>.
+<span class="ann">The counterargument: simplify when the data do not support complexity.</span></p>
+<p>Bates, D., Kliegl, R., Vasishth, S., and Baayen, H. (2015). Parsimonious mixed models. Preprint, <a href="https://arxiv.org/abs/1506.04967">arXiv 1506.04967</a>.
+<span class="ann">Diagnosing overparameterised models; background for your singular fit fallback.</span></p>
+<p>Judd, C. M., Westfall, J., and Kenny, D. A. (2012). Treating stimuli as a random factor in social psychology: A new and comprehensive solution to a pervasive but largely ignored problem. <i>Journal of Personality and Social Psychology, 103</i>(1), 54 to 69. (DOI not confirmed online.)
+<span class="ann">Why songs should be a random factor if you want to generalise beyond these 20 songs.</span></p>
+<p>Stram, D. O., and Lee, J. W. (1994). Variance components testing in the longitudinal mixed effects model. <i>Biometrics, 50</i>(4), 1171 to 1177. PMID 7786999.
+<span class="ann">Justifies the 50:50 chi squared mixture used for H3.</span></p>
+<p>Benjamini, Y., and Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. <i>Journal of the Royal Statistical Society, Series B, 57</i>(1), 289 to 300. (Not checked online.)
+<span class="ann">The FDR procedure used for your exploratory grid.</span></p>
+<p>Lakens, D. (2017). Equivalence tests: A practical primer for t tests, correlations, and meta analyses. <i>Social Psychological and Personality Science, 8</i>(4), 355 to 362. PMID 28736600. <a href="https://doi.org/10.1177/1948550617697177">Link</a>.
+<span class="ann">How to argue an effect is negligible. Essential for writing up nulls.</span></p>
+</div>
+
+<h2>16.6 Learning resources (free unless noted)</h2>
+<table>
+<tr><th style="width:30%">Resource</th><th>Use it for</th><th style="width:10%">Stage</th></tr>
+<tr><td><a href="https://r4ds.hadley.nz">R for Data Science, 2nd edition</a> (Wickham, &Ccedil;etinkaya Rundel and Grolemund)</td><td>tibbles, dplyr, ggplot2, the pipe. Chapters 1 to 7 first.</td><td>0</td></tr>
+<tr><td><a href="https://psyteachr.github.io/stat-models-v1/">Learning Statistical Models Through Simulation in R</a> (Barr and DeBruine, psyTeachR)</td><td>Mixed models taught by simulation, including crossed random effects for subjects and stimuli. Ideal for Stage 7.</td><td>7</td></tr>
+<tr><td><a href="https://lakens.github.io/statistical_inferences/">Improving Your Statistical Inferences</a> (Lakens)</td><td>p values, CIs, power, equivalence tests, preregistration.</td><td>7, 8</td></tr>
+<tr><td>3Blue1Brown, "But what is the Fourier Transform? A visual introduction" (YouTube)</td><td>Intuition for frequency analysis before reading Cohen.</td><td>3</td></tr>
+<tr><td>Mike X Cohen, <i>Analyzing Neural Time Series Data</i> (book; paid) and his free online lectures</td><td>Spectral analysis at research depth.</td><td>3, 4</td></tr>
+<tr><td><a href="https://mne.tools/stable/auto_tutorials/index.html">MNE Python tutorials</a></td><td>Well illustrated walkthroughs of filtering, artefacts, references and spectra, even if you work in R.</td><td>2, 4</td></tr>
+<tr><td><a href="https://eeglab.org/tutorials/">EEGLAB tutorials</a></td><td>Understanding .set files, ICA and artefact removal.</td><td>4</td></tr>
+<tr><td>Luck, S. J., <i>Applied Event Related Potential Data Analysis</i> (free online textbook, LibreTexts)</td><td>Practical EEG preprocessing reasoning; focused on ERPs but the filtering and artefact chapters apply to you.</td><td>4</td></tr>
+<tr><td><a href="https://bids-specification.readthedocs.io">BIDS specification</a></td><td>Looking up what each sidecar file means.</td><td>Part 9</td></tr>
+<tr><td><a href="https://quarto.org/docs/get-started/">Quarto get started guide</a></td><td>Rendering your report.</td><td>9</td></tr>
+</table>
+<p class="small">Links were current when this guide was written. If one moves, search for the exact title.</p>
+
+<!-- APPENDIX -->
+<h1>Appendix. Answers to the self checks</h1>
+<div class="ans">
+<p><b>Q1.1</b> Pleasant and calm, the lower right quadrant: a likely HVLA song.</p>
+<p><b>Q1.2</b> Memory distortion (the end of the song or its peak moment dominates); the person's general scale habits; feelings that changed during the song; rating what the music expressed instead of what they felt.</p>
+<p><b>Q1.3</b> Perceived emotion (sadness expressed by the music) can differ from felt emotion (pleasure from listening, being moved).</p>
+<p><b>Q1.4</b> Episodic memory and evaluative conditioning, because they depend on each person's history; brain stem reflexes vary least.</p>
+<p><b>Q1.5</b> "Posterior alpha power tends to decrease in states of higher engagement, and some studies find it is lower during music rated as more arousing."</p>
+<p><b>Q2.1</b> It is deep, small, and its cell geometry does not produce a large field that sums coherently at the scalp.</p>
+<p><b>Q2.2</b> PO4 is right parieto occipital. T7 is on the left (odd number).</p>
+<p><b>Q2.3</b> 2,000 samples.</p>
+<p><b>Q2.4</b> It would remove it entirely, because the mean of all channels would contain the same rhythm and subtracting it leaves nothing. This is why the reference matters.</p>
+<p><b>Q2.5</b> Gamma (and high beta) for muscle; delta (and the frontal channels in general) for eye movements.</p>
+<p><b>Q3.1</b> 12.5 Hz, which is in alpha (8 up to 13 Hz).</p>
+<p><b>Q3.2</b> Thirty epochs instead of sixty (noisier average) and 0.25 Hz resolution (finer).</p>
+<p><b>Q3.3</b> 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0 and 7.5 Hz.</p>
+<p><b>Q3.4</b> Broadband muscle activity raises power across many frequencies, and it can also tilt the aperiodic background.</p>
+<p><b>Q3.5</b> By a factor of 10.</p>
+<p><b>Q4.1</b> 50 Hz is above your highest band edge (45 Hz).</p>
+<p><b>Q4.2</b> SDs are skewed; logs make them closer to symmetric so a z threshold behaves sensibly.</p>
+<p><b>Q4.3</b> 60 minus 25 minus 8 = 27 kept epochs, below 30, so it is excluded.</p>
+<p><b>Q5.1</b> Absolute power is in µV²; relative power is a fraction of total power. Skull thickness scales all frequencies, so it largely cancels in the ratio.</p>
+<p><b>Q5.2</b> Eye state or visual input; attention or drowsiness; loudness or acoustic features; fatigue over the session.</p>
+<p><b>Q5.3</b> ln(4) minus ln(2) = 0.69. More alpha on the right means relatively less right activity, so relatively more left frontal activity.</p>
+<p><b>Q6.1</b> Ratings are given per song, and epochs within a trial are not independent; the rating is the unit of measurement.</p>
+<p><b>Q6.2</b> Tempo, rhythmic complexity, timbre brightness, dissonance or sudden changes.</p>
+<p><b>Q6.3</b> To stop the person's own rating from leaking into the consensus, which would make deviation and consensus artificially related.</p>
+<p><b>Q6.4</b> Trying several thresholds, ROIs or bands for H1 and reporting the best one.</p>
+<p><b>Q7.1</b> Closer to 20 (people) than 395 (trials).</p>
+<p><b>Q7.2</b> Their mean is 5, so minus 2, 0 and plus 2.</p>
+<p><b>Q7.3</b> The 1 is a random intercept; the bar means "varying by" the grouping factor on the right.</p>
+<p><b>Q7.4</b> Song level EEG differences that are shared across people would be treated as independent information, understating uncertainty.</p>
+<p><b>Q7.5</b> Practically no detectable person to person slope variation; the estimate sits at the boundary.</p>
+<p><b>Q7.6</b> H1 and H2 form one family of two confirmatory tests (Bonferroni); H3 was preregistered as a separate question at .05 per hypothesis.</p>
+<p><b>Q7.7</b> The null value (zero) is at the edge of the allowed range, so the test statistic's distribution changes; half the time it behaves like chi squared with fewer degrees of freedom.</p>
+<p><b>Q7.8</b> About 5.</p>
+<p><b>Q7.9</b> A narrow CI already shows which effects are unlikely; low power is relevant only for effects inside the CI.</p>
+</div>
+
+<div class="box note" style="margin-top:18pt">
+<b class="h">A closing note</b>
+You built something genuinely careful. The goal now is to make it yours: to be able to stand at a whiteboard and explain why each step exists, what would happen if you changed it, and what your results do and do not mean. Work through the stages in order, and bring me your answers. We will go one step at a time.
+</div>
+
+</body>
+</html>
