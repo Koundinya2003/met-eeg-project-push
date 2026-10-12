@@ -499,7 +499,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">Picture it</p>
 <p>Measuring how tall a hill is by its height above sea level, when what you care about is its height above the plain it sits on.</p>
 <figure>
-<img src="../../02_phase2_eeg_inspection/outputs/figures/p2_first_psd.png" alt="Power spectrum from Phase 2">
+<img src="../../results/figures/eeg_inspection/p2_first_psd.png" alt="Power spectrum from Phase 2">
 <figcaption>Figure 3.2. Your Phase 2 spectrum. Note the downward sloping background, the alpha bump near 10 Hz (stronger at O1 than at Fz), and the dip at 50 Hz from an undocumented notch filter.</figcaption>
 </figure>
 <p class="lbl">In your project</p>
@@ -521,7 +521,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 
 <!-- PART 4 -->
 <h1>Part 4. Cleaning EEG: preprocessing (Stage 4)</h1>
-<p>Preprocessing means every step between the raw file and the numbers you analyse. Each step is a decision, and each decision could in principle change the result. That is why your project fixed them in advance, in one file (<code>00_setup/eeg_functions.R</code>), and wrote them into the preregistration.</p>
+<p>Preprocessing means every step between the raw file and the numbers you analyse. Each step is a decision, and each decision could in principle change the result. That is why your project fixed them in advance, in one file (<code>analysis/setup/eeg_functions.R</code>), and wrote them into the preregistration.</p>
 
 <figure>
 <svg viewBox="0 0 760 150" width="100%" xmlns="http://www.w3.org/2000/svg">
@@ -594,7 +594,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">In your project</p>
 <p><code>band_power_table()</code> does the area calculation and also computes relative power (band power divided by total 1 to 45 Hz power). <code>roi_features()</code> averages log10 power over the available channels in each of seven ROIs.</p>
 <figure>
-<img src="../../03_phase3_features/outputs/figures/p3_band_by_roi.png" alt="Band power by ROI">
+<img src="../../results/figures/features/p3_band_by_roi.png" alt="Band power by ROI">
 <figcaption>Figure 5.1. Your Phase 3 band power by region. A sanity check, not a result: it confirms the features look like real EEG.</figcaption>
 </figure>
 <p class="lbl">Check yourself</p>
@@ -609,7 +609,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">Picture it</p>
 <p>Alpha is like an idling engine. When you put your foot down (engage), the idle hum gives way to other sounds.</p>
 <figure>
-<img src="../../03_phase3_features/outputs/figures/p3_alpha_topography.png" alt="Alpha topography">
+<img src="../../results/figures/features/p3_alpha_topography.png" alt="Alpha topography">
 <figcaption>Figure 5.2. Your alpha topography: strongest at the back, as expected. This is a key validity check for the pipeline.</figcaption>
 </figure>
 <p class="lbl">In your project</p>
@@ -717,7 +717,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">In plain words</p>
 <p>A preregistration is a timestamped plan written <i>before</i> looking at the results that matter. It lists the hypotheses, the exact analyses, the exclusion rules and the decision rules. It protects against the "garden of forking paths": trying many reasonable analyses until one comes out significant.</p>
 <p class="lbl">In your project</p>
-<p>Your preregistration is detailed and honest about what had already been done (Phases 1 to 3). Two things to tighten: its header still says "DRAFT", and it lives only in git. Git commit times can be edited, so a public registry such as OSF gives a stronger timestamp. You cannot backdate a registration now, but you can register the existing document and state the git commit hash and date openly. Also, <code>04_stats.R</code> refuses to run unless the preregistration is committed. That is a neat safeguard, and you should mention it in your methods.</p>
+<p>Your preregistration is detailed and honest about what had already been done (Phases 1 to 3). Two things to tighten: its header still says "DRAFT", and it lives only in git. Git commit times can be edited, so a public registry such as OSF gives a stronger timestamp. You cannot backdate a registration now, but you can register the existing document and state the git commit hash and date openly. Also, <code>04_statistics.R</code> refuses to run unless the preregistration is committed. That is a neat safeguard, and you should mention it in your methods.</p>
 <p class="lbl">Common mistakes</p>
 <p>Hiding deviations. Any change after preregistration is fine <i>if reported</i> as a deviation with a reason.</p>
 <p class="lbl">Check yourself</p>
@@ -736,7 +736,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">In your project</p>
 <p>Phase 4, step 17 shows three analyses of the same question side by side: (a) naive pooling of all trials (invalid), (b) a two stage approach (one correlation per person, then a test across the 20 people), and (c) person averages (a different, between person question). For H1, the naive analysis gives r = 0.009 with n = 395, the two stage within person analysis gives r = 0.076 with a 95% CI of minus 0.07 to 0.22 based on n = 20, and the between person analysis gives r = 0.03 with a very wide CI of minus 0.42 to 0.47.</p>
 <figure>
-<img src="../../04_phase4_statistics/outputs/figures/p4_step17_pooling.png" alt="Pooling demonstration">
+<img src="../../results/figures/statistics/p4_step17_pooling.png" alt="Pooling demonstration">
 <figcaption>Figure 7.1. Your step 17 figure. Note: in your data the naive analysis happens not to create a false positive. The lesson is that its CI is built on the wrong sample size, not that it always gives the wrong answer.</figcaption>
 </figure>
 <p class="lbl">Common mistakes</p>
@@ -773,7 +773,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <figcaption>Figure 7.2. Within person slopes can differ from what pooled data suggest. Separating within from between avoids this trap.</figcaption>
 </figure>
 <p class="lbl">In your project</p>
-<p>The <code>prepare()</code> function in <code>04_stats.R</code> creates <code>x_within</code> and <code>x_between</code>. The confirmatory test is about <code>x_within</code>; <code>x_between</code> is reported only descriptively, because with 20 people it has almost no power.</p>
+<p>The <code>prepare()</code> function in <code>04_statistics.R</code> creates <code>x_within</code> and <code>x_between</code>. The confirmatory test is about <code>x_within</code>; <code>x_between</code> is reported only descriptively, because with 20 people it has almost no power.</p>
 <p class="lbl">Check yourself</p>
 <p>Q7.2 Someone's arousal ratings are 3, 5 and 7. What are their x_within values?</p>
 </div>
@@ -844,7 +844,7 @@ Read the concept here. Open the matching file. Run a small piece. Look at the ou
 <p class="lbl">In your project</p>
 <p>The exploratory grid is 5 bands times 7 regions times 3 predictors, which makes 105 tests, with FDR at q below .05. None survived. Your README text and heatmap caption mention 35 tests in one place; 105 is the correct number, because 35 is the number of band and region pairs per predictor.</p>
 <figure>
-<img src="../../04_phase4_statistics/outputs/figures/p4_step21_exploratory_heatmap.png" alt="Exploratory heatmap">
+<img src="../../results/figures/statistics/p4_step21_exploratory_heatmap.png" alt="Exploratory heatmap">
 <figcaption>Figure 7.3. Your exploratory heatmap. Bright cells are ideas at best, not findings.</figcaption>
 </figure>
 <p class="lbl">Check yourself</p>
@@ -940,14 +940,14 @@ Open each file next to this guide. For each one: read the header comment, run it
 <tr><td><code>purrr::map</code></td><td>Apply a function to every element of a list, like a tidy loop</td><td><code>compute_features()</code></td></tr>
 <tr><td><code>tryCatch</code></td><td>Try something; if it fails, do a backup plan instead of crashing</td><td><code>read_set()</code>, CI extraction</td></tr>
 <tr><td>NA</td><td>R's code for "missing". Most summaries need <code>na.rm = TRUE</code> to skip it</td><td>Bad channels, ROI averages</td></tr>
-<tr><td>Model formula</td><td><code>y ~ x + (1 | g)</code> describes a model; Part 7 explains it</td><td><code>04_stats.R</code></td></tr>
+<tr><td>Model formula</td><td><code>y ~ x + (1 | g)</code> describes a model; Part 7 explains it</td><td><code>04_statistics.R</code></td></tr>
 </table>
 
-<h2>10.2 <code>00_setup/config.R</code></h2>
+<h2>10.2 <code>analysis/setup/config.R</code></h2>
 <p><b>Purpose.</b> The only file with a machine specific path (<code>dataset_path</code>). It defines output folders for each phase and creates them if missing.</p>
 <p><b>Issue.</b> The path is hard coded to your Mac. Anyone else must edit it. A friendlier option is reading it from an environment variable, with a clear error message if it is missing (Part 12).</p>
 
-<h2>10.3 <code>00_setup/eeg_functions.R</code>: the heart of the pipeline</h2>
+<h2>10.3 <code>analysis/setup/eeg_functions.R</code>: the heart of the pipeline</h2>
 <table>
 <tr><th style="width:24%">Section and function</th><th>What it does, in plain words</th><th style="width:16%">Depth</th></tr>
 <tr><td>0. Fixed settings</td><td>All analysis numbers in one place: the music window (5 to 125 s), epoch length (2 s), bad channel rules (0.5 µV, robust z of 3), amplitude thresholds (100 and 75 µV), minimum epochs (30), band edges, and the seven ROIs. Changing anything here after preregistration is a deviation.</td><td>Must understand</td></tr>
@@ -962,8 +962,8 @@ Open each file next to this guide. For each one: read the header comment, run it
 <tr><td>8. <code>parse_ids()</code>, <code>roi_features()</code></td><td>Extracts participant and song IDs from file paths; averages channels into ROIs; computes FAA from F3 and F4.</td><td>Must understand</td></tr>
 </table>
 <div class="box good"><b class="h">Try this (Stage 4 checkpoint)</b>
-<pre>source(here::here("00_setup", "config.R"))
-source(here::here("00_setup", "eeg_functions.R"))
+<pre>source(here::here("analysis", "setup", "config.R"))
+source(here::here("analysis", "setup", "eeg_functions.R"))
 files = list.files(dataset_path, pattern = "\\.set$", recursive = TRUE, full.names = TRUE)
 pp = preprocess(files[1])
 str(pp, max.level = 1)     # what is inside?
@@ -972,7 +972,7 @@ table(pp$epoch_info$overlaps_bad)
 summary(pp$epoch_info$max_abs_uv)</pre>
 Before running, write down your predictions: how many epochs, how many flagged channels, the typical maximum amplitude. Then compare.</div>
 
-<h2>10.4 <code>01_phase1_ratings/01_ratings.R</code></h2>
+<h2>10.4 <code>analysis/01_ratings.R</code></h2>
 <p><b>Purpose.</b> Understand the ratings before touching EEG. Its 33 numbered sections answer seven questions:</p>
 <ol>
 <li><b>Are the ratings valid?</b> (sections 1 to 5) Range checks, remarks, and the zero coded likeability and familiarity for participant 01, song t27, which leads to excluding that trial.</li>
@@ -985,18 +985,18 @@ Before running, write down your predictions: how many epochs, how many flagged c
 </ol>
 <div class="box good"><b class="h">Try this</b>Change one participant's rating of one song in a copy of the data and recompute that song's consensus for the <i>other</i> participants. Which consensus values change, and which do not? This makes leave one out concrete.</div>
 
-<h2>10.5 <code>02_phase2_eeg_inspection/02_eeg_inspect.R</code></h2>
+<h2>10.5 <code>analysis/02_eeg_inspection.R</code></h2>
 <p><b>Purpose.</b> Get to know one recording deeply: what is in a .set file (section 6), channels, units, time axis and bad segments (7), what clean EEG and artefacts look like (8), reference, line noise and the first spectrum (9), bad channels (10), and a test of <code>preprocess()</code> on four recordings (11). This is where the inherited preprocessing facts in your preregistration were discovered.</p>
 <figure>
-<img src="../../02_phase2_eeg_inspection/outputs/figures/p2_raw_clean.png" alt="Raw EEG">
+<img src="../../results/figures/eeg_inspection/p2_raw_clean.png" alt="Raw EEG">
 <figcaption>Figure 10.1. Clean EEG versus an annotated bad segment, from Phase 2.</figcaption>
 </figure>
 
-<h2>10.6 <code>03_phase3_features/03_features.R</code></h2>
+<h2>10.6 <code>analysis/03_feature_extraction.R</code></h2>
 <p><b>Purpose.</b> Validate the spectrum code on a known sine wave (section 13), define the features (14), run all 399 recordings and build the QC table (15), and run EEG only sanity checks with no ratings involved (16). Outputs: <code>bandpower_channels.csv</code>, <code>bandpower_roi.csv</code>, <code>faa.csv</code>, <code>qc_table.csv</code> and six figures.</p>
 <p><b>Read the QC table.</b> Each row is one participant and song: which reader was used, the reference, the number of ICA weights, seconds of clean data, flagged channels, epoch counts at each stage, and whether it was included. 396 trials passed the EEG rules. One more was removed for the ratings problem, leaving 395 in the analysis.</p>
 
-<h2>10.7 <code>04_phase4_statistics/04_stats.R</code></h2>
+<h2>10.7 <code>analysis/04_statistics.R</code></h2>
 <table>
 <tr><th style="width:22%">Section</th><th>What it does</th></tr>
 <tr><td>0. Preregistration check</td><td>Stops unless <code>PREREGISTRATION.md</code> is committed in git.</td></tr>
@@ -1011,7 +1011,7 @@ Before running, write down your predictions: how many epochs, how many flagged c
 </table>
 <div class="box good"><b class="h">Try this (Stage 7 checkpoint)</b>
 <pre>library(lmerTest)
-trials = readr::read_csv(here::here("04_phase4_statistics", "outputs", "tables", "analysis_trials.csv"))
+trials = readr::read_csv(here::here("results", "tables", "statistics", "analysis_trials.csv"))
 d = trials |&gt;
   dplyr::group_by(participant_id) |&gt;
   dplyr::mutate(a_within = as.numeric(scale(Arousal, scale = FALSE)), a_pmean = mean(Arousal)) |&gt;
@@ -1021,12 +1021,12 @@ m = lmer(post_alpha ~ a_within + a_between + (1 | participant_id), data = d)
 summary(m)</pre>
 Here <code>scale(x, scale = FALSE)</code> subtracts the mean, which is what centring means. Find the a_within estimate. It should be close to 0.0026. Then add <code>+ (1 | song_id)</code> and see what changes. Note: a_between here is centred on the mean of person means rather than the mean of all trials. With nearly balanced data the two are almost identical; can you explain why?</div>
 
-<h2>10.8 <code>05_phase5_report/05_final_outputs.R</code>, <code>report.qmd</code> and <code>run_all.R</code></h2>
-<p><code>05_final_outputs.R</code> assembles one tidy results table and creates the interpretation worksheet, whose four columns (what the data show, what the statistics show, what we infer, what remains uncertain) are still empty. <code>report.qmd</code> is a Quarto document that pulls numbers and figures directly from the output folders, so the report always matches the analysis. Every [WRITE] block is still empty. <code>run_all.R</code> reruns all five phases, each in a fresh environment, then renders the report. That is your reproducibility test.</p>
+<h2>10.8 <code>analysis/05_final_tables.R</code>, <code>report.qmd</code> and <code>run_all.R</code></h2>
+<p><code>05_final_tables.R</code> assembles one tidy results table and creates the interpretation worksheet, whose four columns (what the data show, what the statistics show, what we infer, what remains uncertain) are still empty. <code>report.qmd</code> is a Quarto document that pulls numbers and figures directly from the output folders, so the report always matches the analysis. Every [WRITE] block is still empty. <code>run_all.R</code> reruns all five phases, each in a fresh environment, then renders the report. That is your reproducibility test.</p>
 
 <!-- PART 11 -->
 <h1>Part 11. Your results, explained</h1>
-<p>All numbers below come from your output tables in <code>04_phase4_statistics/outputs/tables/</code>. Units: posterior alpha is log10 µV²; FAA is a difference of natural logs; ratings are scale points.</p>
+<p>All numbers below come from your output tables in <code>results/tables/statistics/</code>. Units: posterior alpha is log10 µV²; FAA is a difference of natural logs; ratings are scale points.</p>
 <table>
 <tr><th style="width:30%">Test</th><th>Raw slope and 95% CI</th><th>Standardized and 95% CI</th><th>p</th><th>Supported?</th></tr>
 <tr><td>H1: alpha and within person arousal (predicted negative)</td><td>0.0026, from minus 0.0029 to 0.0080</td><td>0.05, from minus 0.05 to 0.15</td><td>.355</td><td>No (wrong sign, and p above .025)</td></tr>
@@ -1048,7 +1048,7 @@ Here <code>scale(x, scale = FALSE)</code> subtracts the mean, which is what cent
 <li><b>Robust.</b> Adding the other rating, adding liking and familiarity, using relative power, or using the 75 µV threshold all gave similar near zero estimates (<code>step22_sensitivity.csv</code>), and leaving out any single participant did not change the picture (<code>p4_step22_loso.png</code>).</li>
 </ol>
 <figure>
-<img src="../../04_phase4_statistics/outputs/figures/p4_step22_sensitivity.png" alt="Sensitivity analyses">
+<img src="../../results/figures/statistics/p4_step22_sensitivity.png" alt="Sensitivity analyses">
 <figcaption>Figure 11.1. Your sensitivity analyses: every specification lands near zero.</figcaption>
 </figure>
 

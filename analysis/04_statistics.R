@@ -27,19 +27,19 @@
 # 0. START + PREREGISTRATION CHECK
 # ============================================================
 
-source(here::here("00_setup", "config.R"))
-source(here::here("00_setup", "eeg_functions.R"))
+source(here::here("analysis", "setup", "config.R"))
+source(here::here("analysis", "setup", "eeg_functions.R"))
 
 library(tidyverse)
 library(lme4)
 library(lmerTest)
 
-p3_tables <- file.path(P3_OUT, "tables")      # inputs from Phase 3
-fig_dir   <- file.path(P4_OUT, "figures")     # outputs of this phase
-table_dir <- file.path(P4_OUT, "tables")
+p3_tables <- TAB_FEATURES   # inputs from 03_feature_extraction.R
+fig_dir   <- FIG_STATS      # outputs of this script
+table_dir <- TAB_STATS
 
 prereg_file <- PREREG_FILE
-prereg_rel  <- "02_phase2_eeg_inspection/PREREGISTRATION.md"
+prereg_rel  <- "preregistration/PREREGISTRATION.md"
 
 if (!file.exists(prereg_file)) {
   stop("PREREGISTRATION.md not found. Write and commit it before Phase 4.")
@@ -47,7 +47,12 @@ if (!file.exists(prereg_file)) {
 
 prereg_commit <- suppressWarnings(system2(
   "git",
-  c("-C", shQuote(here::here()), "log", "-1", "--format=%cI", "--", prereg_rel),
+  # --follow tracks the file through renames (it was moved into
+  # preregistration/ when the project was reorganised). The rename
+  # itself does not change the text, so --diff-filter=AM skips it and
+  # reports the last commit that actually added or edited the content.
+  c("-C", shQuote(here::here()), "log", "--follow", "--diff-filter=AM",
+    "-1", "--format=%cI", "--", prereg_rel),
   stdout = TRUE, stderr = FALSE
 ))
 
@@ -79,7 +84,7 @@ cat("Preregistration committed at:", prereg_commit[1], "\n")
 qc          <- read_csv(file.path(p3_tables, "qc_table.csv"), show_col_types = FALSE)
 roi         <- read_csv(file.path(p3_tables, "bandpower_roi.csv"), show_col_types = FALSE)
 faa         <- read_csv(file.path(p3_tables, "faa.csv"), show_col_types = FALSE)
-ratings_dev <- read_tsv(file.path(P1_OUT, "tables", "ratings_with_consensus_deviation.tsv"),
+ratings_dev <- read_tsv(file.path(TAB_RATINGS, "ratings_with_consensus_deviation.tsv"),
                         show_col_types = FALSE)
 
 
@@ -853,7 +858,7 @@ write_csv(trials, file.path(table_dir, "analysis_trials.csv"))
 #                 END OF PHASE 4
 # ============================================================
 #
-# Tables and figures: 04_phase4_statistics/outputs/
+# Tables and figures: results/tables/statistics/ and results/figures/statistics/
 #
 # BEFORE INTERPRETING, ask for every result:
 #   - Was it confirmatory or exploratory?

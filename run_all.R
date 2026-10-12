@@ -15,20 +15,20 @@
 start <- Sys.time()
 
 # Each script runs in its OWN clean environment so no object
-# from one phase can silently leak into the next.
-run_phase <- function(folder, file) {
-  message("\n==== Running ", folder, "/", file, " ====\n")
-  source(here::here(folder, file), local = new.env())
+# from one script can silently leak into the next.
+run_script <- function(file) {
+  message("\n==== Running analysis/", file, " ====\n")
+  source(here::here("analysis", file), local = new.env())
 }
 
-run_phase("01_phase1_ratings",        "01_ratings.R")         # ratings
-run_phase("02_phase2_eeg_inspection", "02_eeg_inspect.R")     # one-recording inspection
-run_phase("03_phase3_features",       "03_features.R")        # all 399 recordings + QC (~10 min)
-run_phase("04_phase4_statistics",     "04_stats.R")           # stops if preregistration not committed
-run_phase("05_phase5_report",         "05_final_outputs.R")   # final tables + worksheet
+run_script("01_ratings.R")             # song ratings
+run_script("02_eeg_inspection.R")      # inspect one EEG recording
+run_script("03_feature_extraction.R")  # band power from all 399 recordings + QC (~10 min)
+run_script("04_statistics.R")          # hypothesis tests; stops if preregistration not committed
+run_script("05_final_tables.R")        # final tables + worksheet
 
 # The report
-quarto::quarto_render(here::here("05_phase5_report", "report.qmd"))
+quarto::quarto_render(here::here("report", "report.qmd"))
 
 Sys.time() - start
 

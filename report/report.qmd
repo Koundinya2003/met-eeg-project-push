@@ -18,10 +18,10 @@ execute:
 library(tidyverse)
 library(knitr)
 
-source(here::here("00_setup", "config.R"))
+source(here::here("analysis", "setup", "config.R"))
 
-p3_tab <- file.path(P3_OUT, "tables")
-p4_tab <- file.path(P4_OUT, "tables")
+p3_tab <- TAB_FEATURES
+p4_tab <- TAB_STATS
 
 qc           <- read_csv(file.path(p3_tab, "qc_table.csv"), show_col_types = FALSE)
 trials       <- read_csv(file.path(p4_tab, "analysis_trials.csv"), show_col_types = FALSE)
@@ -31,10 +31,10 @@ h3           <- read_csv(file.path(p4_tab, "step20_H3_random_slopes.csv"), show_
 exploratory  <- read_csv(file.path(p4_tab, "step21_exploratory_grid.csv"), show_col_types = FALSE)
 sensitivity  <- read_csv(file.path(p4_tab, "step22_sensitivity.csv"), show_col_types = FALSE)
 step17       <- read_csv(file.path(p4_tab, "step17_pooling_demo.csv"), show_col_types = FALSE)
-final_tbl    <- read_csv(file.path(P5_OUT, "tables", "final_results_table.csv"), show_col_types = FALSE)
+final_tbl    <- read_csv(file.path(TAB_SUMMARY, "final_results_table.csv"), show_col_types = FALSE)
 
-# fig(phase_output_folder, file name)
-fig <- function(out_dir, name) knitr::include_graphics(file.path(out_dir, "figures", name))
+# fig(figure_folder, file name), e.g. fig(FIG_RATINGS, "p1_song_map.png")
+fig <- function(fig_dir, name) knitr::include_graphics(file.path(fig_dir, name))
 
 h1 <- confirmatory |> filter(str_starts(hypothesis, "H1:"))
 h2 <- confirmatory |> filter(str_starts(hypothesis, "H2:"))
@@ -44,7 +44,7 @@ ci_txt <- function(row, d = 3) sprintf(paste0("%.", d, "f, 95%% CI [%.", d, "f, 
 
 <!--
 HOW TO USE THIS TEMPLATE
-- Numbers, tables and figures update automatically from each phase's outputs/ folder.
+- Numbers, tables and figures update automatically from the results/ folder.
 - All former writing blocks have been filled in; edit the prose freely in your own words.
 - Keep four things apart: what the data show / what the statistics show /
   what we infer / what remains uncertain.
@@ -64,7 +64,7 @@ Within individuals, is self-reported emotional experience (valence and arousal) 
 
 # Hypotheses
 
-Preregistered (see `02_phase2_eeg_inspection/PREREGISTRATION.md`, committed before any EEG–rating analysis):
+Preregistered (see `preregistration/PREREGISTRATION.md`, committed before any EEG–rating analysis):
 
 - **H1:** higher within-person arousal is associated with lower posterior alpha (8–13 Hz) power.
 - **H2:** higher within-person valence is associated with greater relative left-frontal activity (higher FAA).
@@ -150,7 +150,7 @@ The exploratory grid (5 bands × 7 regions × 3 ratings = 105 models with random
 ```{r}
 #| out-width: 80%
 #| fig-cap: "Song-level mean ratings coloured by intended category (manipulation check)."
-fig(P1_OUT, "p1_song_map.png")
+fig(FIG_RATINGS, "p1_song_map.png")
 ```
 
 The song explained 49% of the variance in valence and 67% in arousal, the person's general rating habit about 4% for each, and the residual (the personal reaction to a particular song, plus rating noise) 47% for valence and 29% for arousal. Ratings are thus largely driven by the stimulus, which confirms the acoustic confound risk, but a substantial personal component remains, especially for valence. Valence and arousal were only weakly correlated (Spearman ρ ≈ 0.19 pooled; mean within person ρ = 0.18, range −0.22 to 0.60), so H1 and H2 address different aspects of experience. The manipulation check shows that arousal separated the intended categories clearly, whereas valence was compressed: no song averaged below 3.1, so the "negative" songs were mildly unpleasant at most, and the "neutral" songs were mildly positive and calm.
@@ -160,8 +160,8 @@ These results are **descriptive**.
 ## EEG data quality and sanity checks
 ```{r}
 #| layout-ncol: 2
-fig(P3_OUT, "p3_band_by_roi.png")
-fig(P3_OUT, "p3_alpha_topography.png")
+fig(FIG_FEATURES, "p3_band_by_roi.png")
+fig(FIG_FEATURES, "p3_alpha_topography.png")
 ```
 
 Yes. Alpha power is strongest over occipital and parietal sites and the spectra show the expected 1/f shape with a peak near 10 Hz, which supports the pipeline (it also recovered a synthetic 10 Hz sine exactly). Between person differences are very large: about 94% of the variance in posterior alpha lies between participants and only about 6% varies from song to song within a person. Any within person effect must therefore be detected in a small slice of the total variance.
@@ -184,7 +184,7 @@ final_tbl |> kable(caption = "All confirmatory tests (alpha = .025 for H1/H2; .0
 
 ```{r}
 #| out-width: 90%
-fig(P5_OUT, "p5_confirmatory_summary.png")
+fig(FIG_SUMMARY, "p5_confirmatory_summary.png")
 ```
 
 ## Person-specific experience vs. song consensus
@@ -200,7 +200,7 @@ The deviation slopes were small and not significant for both outcomes (H1: stand
 ## Individual differences (H3)
 ```{r}
 #| out-width: 100%
-fig(P4_OUT, "p4_step20_forest.png")
+fig(FIG_STATS, "p4_step20_forest.png")
 ```
 
 The estimated slope SD was 0.000 for H1 (LR = 0.01, mixture p = .949) and 0.006 for H2 (LR = 1.15, p = .424). Both random slope models were singular, so confidence intervals for the SD could not be estimated. Shrinkage (partial pooling) pulls each person's slope toward the group mean in proportion to how unreliable it is; with about 20 trials per person the individual slopes are very noisy, and here they are pulled almost entirely to the mean. The apparent spread of the raw slopes in the forest plot is therefore consistent with sampling noise, and there is no evidence that people truly differ in these relationships. H3 is not supported.
@@ -208,7 +208,7 @@ The estimated slope SD was 0.000 for H1 (LR = 0.01, mixture p = .949) and 0.006 
 ## Exploratory analyses (not confirmatory)
 ```{r}
 #| out-width: 100%
-fig(P4_OUT, "p4_step21_exploratory_heatmap.png")
+fig(FIG_STATS, "p4_step21_exploratory_heatmap.png")
 ```
 
 ```{r}
@@ -222,7 +222,7 @@ exploratory |>
 ## Robustness
 ```{r}
 #| out-width: 100%
-fig(P4_OUT, "p4_step22_sensitivity.png")
+fig(FIG_STATS, "p4_step22_sensitivity.png")
 ```
 
 No. Across the four alternative specifications the standardized H1 slope ranged from 0.03 to 0.06 (all p > .25) and the H2 slope from −0.01 to 0.05 (all p > .50). Leaving out each participant in turn gave raw H1 slopes between 0.0016 and 0.0037 and H2 slopes between −0.0015 and 0.0028; no single participant drives the result. In the exploratory grid only 3 of 105 tests had uncorrected p < .05, about the number expected by chance, and none survived FDR correction (smallest q = 0.996).

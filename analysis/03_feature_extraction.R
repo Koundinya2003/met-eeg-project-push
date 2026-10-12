@@ -24,13 +24,13 @@
 # 0. START
 # ============================================================
 
-source(here::here("00_setup", "config.R"))
-source(here::here("00_setup", "eeg_functions.R"))
+source(here::here("analysis", "setup", "config.R"))
+source(here::here("analysis", "setup", "eeg_functions.R"))
 
 library(tidyverse)
 
-fig_dir <- file.path(P3_OUT, "figures")
-res_dir <- file.path(P3_OUT, "tables")
+fig_dir <- FIG_FEATURES
+res_dir <- TAB_FEATURES
 
 
 
@@ -487,7 +487,7 @@ roi_primary |>
 # ------------------------------------------------------------
 
 ratings_dev <- read_tsv(
-  file.path(P1_OUT, "tables", "ratings_with_consensus_deviation.tsv"),
+  file.path(TAB_RATINGS, "ratings_with_consensus_deviation.tsv"),
   show_col_types = FALSE
 )
 
@@ -505,10 +505,10 @@ count(analysis_trials, participant_id) |> arrange(n)   # trials per person
 # ============================================================
 #
 # Saved:
-#   03_phase3_features/outputs/tables/bandpower_channels.csv
-#   03_phase3_features/outputs/tables/bandpower_roi.csv
-#   03_phase3_features/outputs/tables/faa.csv
-#   03_phase3_features/outputs/tables/qc_table.csv  (all 400 participant-songs)
+#   results/tables/features/bandpower_channels.csv
+#   results/tables/features/bandpower_roi.csv
+#   results/tables/features/faa.csv
+#   results/tables/features/qc_table.csv  (all 400 participant-songs)
 #
 # NEXT:
 # PREREGISTRATION.md must be COMMITTED before Phase 4.

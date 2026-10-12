@@ -22,7 +22,7 @@ Check and correct each of the following:
 
 7. README QC table: add the 396 recordings that passed EEG QC, the four exclusions (subject 12 t05 truncated in the published dataset, subject 14 t06 26 clean epochs, subject 18 t17 0 clean epochs, subject 17 t17 missing) and the extra rating exclusion (subject 01 t27) that gives 395 analysed trials.
 
-8. qc_summary.csv says excluded = 0; qc_table.csv shows 4 excluded. Fix the file and make 05_final_outputs.R also write analysed_trials.
+8. qc_summary.csv says excluded = 0; qc_table.csv shows 4 excluded. Fix the file and make 05_final_tables.R also write analysed_trials.
 
 9. README dataset citation wrongly says Koelsch et al. (2019). The correct citation is Cheang, W. L. (2026), MET: Music Induced EEG Dataset, version 1.0.4, OpenNeuro, doi:10.18112/openneuro.ds008701.v1.0.4. Complete the Coan and Allen (2004) reference with pages 7 to 49.
 
@@ -30,7 +30,7 @@ Check and correct each of the following:
 
 11. README limitations: add the truncated and missing recordings, the dataset metadata errors (files are EEGLAB .set not BrainVision, channels.tsv says V but values are µV, flat channels labelled good, undocumented 50 Hz notch) and the unrecoverable presentation order.
 
-12. Label MET_project_overview.pdf as written before results were seen (it says results have not been seen).
+12. Label project_overview.pdf as written before results were seen (it says results have not been seen).
 
 13. interpretation_worksheet.csv is empty. Fill all four columns for all 12 findings, using confidence intervals to say which effect sizes are ruled out, never "no effect", and no reverse inference.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Download the MET EEG dataset (OpenNeuro ds008701, version 1.0.4, about 14 GB)
-# into data/ds008701. Run from the project folder:  bash 00_setup/download_data.sh
+# into data/ds008701. Run from the project folder:  bash analysis/setup/download_data.sh
 #
 # Preferred route: DataLad (pins the exact version used in the analysis).
 #   Install: pip install datalad   (also needs git-annex: brew install git-annex)

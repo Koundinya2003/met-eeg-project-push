@@ -26,12 +26,12 @@
 # 0. START
 # ============================================================
 
-source(here::here("00_setup", "config.R"))          # dataset_path
-source(here::here("00_setup", "eeg_functions.R"))   # our EEG functions + settings
+source(here::here("analysis", "setup", "config.R"))          # dataset_path
+source(here::here("analysis", "setup", "eeg_functions.R"))   # our EEG functions + settings
 
 library(tidyverse)
 
-fig_dir <- file.path(P2_OUT, "figures")
+fig_dir <- FIG_EEG_INSPECTION
 
 
 # The recording we inspect in detail
@@ -456,5 +456,5 @@ epoch_test
 # - Flag channels: flat (SD < 0.5 uV) or |robust z| > 3 -> set to NA.
 #
 # NEXT (Step 12):
-# Review and COMMIT 02_phase2_eeg_inspection/PREREGISTRATION.md before Phase 4.
+# Review and COMMIT preregistration/PREREGISTRATION.md before Phase 4.
 # ============================================================

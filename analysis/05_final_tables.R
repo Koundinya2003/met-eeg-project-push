@@ -21,15 +21,15 @@
 # 0. START
 # ============================================================
 
-source(here::here("00_setup", "config.R"))
-source(here::here("00_setup", "eeg_functions.R"))
+source(here::here("analysis", "setup", "config.R"))
+source(here::here("analysis", "setup", "eeg_functions.R"))
 
 library(tidyverse)
 library(patchwork)
 
-p4_tables <- file.path(P4_OUT, "tables")      # inputs from Phase 4
-fig_dir   <- file.path(P5_OUT, "figures")     # outputs of this phase
-table_dir <- file.path(P5_OUT, "tables")
+p4_tables <- TAB_STATS      # inputs from 04_statistics.R
+fig_dir   <- FIG_SUMMARY    # outputs of this script
+table_dir <- TAB_SUMMARY
 
 
 
@@ -50,7 +50,7 @@ exploratory  <- read_csv(file.path(p4_tables, "step21_exploratory_grid.csv"),
                          show_col_types = FALSE)
 sensitivity  <- read_csv(file.path(p4_tables, "step22_sensitivity.csv"),
                          show_col_types = FALSE)
-qc           <- read_csv(file.path(P3_OUT, "tables", "qc_table.csv"), show_col_types = FALSE)
+qc           <- read_csv(file.path(TAB_FEATURES, "qc_table.csv"), show_col_types = FALSE)
 
 
 fmt_ci <- function(est, lo, hi, digits = 3) {
@@ -184,6 +184,6 @@ worksheet_file   # open in RStudio / Excel and fill it in
 # ============================================================
 #
 # NEXT:
-#   Step 25: write 05_phase5_report/report.qmd
+#   Step 25: write report/report.qmd
 #   Step 26: Session > Restart R, then source("run_all.R")
 # ============================================================

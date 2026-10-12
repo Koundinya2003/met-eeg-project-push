@@ -29,7 +29,7 @@
 # Load the project settings.
 # This tells R where the EEG dataset is stored.
 
-source(here::here("00_setup", "config.R"))
+source(here::here("analysis", "setup", "config.R"))
 
 
 # Load the packages we need.
@@ -485,7 +485,7 @@ ggplot(
 
 # Save this figure for the report
 ggsave(
-  file.path(P1_OUT, "figures", "p1_song_map.png"),
+  file.path(FIG_RATINGS, "p1_song_map.png"),
   width = 8, height = 5
 )
 
@@ -1110,7 +1110,7 @@ ratings_order |>
 
 readr::write_tsv(
   ratings_deviation,
-  file.path(P1_OUT, "tables", "ratings_with_consensus_deviation.tsv")
+  file.path(TAB_RATINGS, "ratings_with_consensus_deviation.tsv")
 )
 
 
