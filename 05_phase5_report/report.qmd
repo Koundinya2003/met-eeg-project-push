@@ -45,18 +45,18 @@ ci_txt <- function(row, d = 3) sprintf(paste0("%.", d, "f, 95%% CI [%.", d, "f, 
 <!--
 HOW TO USE THIS TEMPLATE
 - Numbers, tables and figures update automatically from each phase's outputs/ folder.
-- Every "[WRITE]" block is yours. Replace it with your own words.
+- All former writing blocks have been filled in; edit the prose freely in your own words.
 - Keep four things apart: what the data show / what the statistics show /
   what we infer / what remains uncertain.
 -->
 
 # Introduction
 
-**[WRITE]** 2–3 paragraphs. Cover:
-- music as an emotion inducer
-- the valence/arousal (circumplex) framework and the SAM scale
-- what scalp EEG measures (summed postsynaptic potentials of aligned cortical pyramidal cells) and what it does not (deep structures such as the amygdala; "emotion" itself)
-- why alpha power and frontal alpha asymmetry have been proposed as correlates of arousal and of approach/withdrawal motivation, and the mixed replication record of FAA
+Music is one of the most reliable everyday inducers of emotion. Listeners report strong feelings to music that has no direct consequence for them, and these responses arise through several mechanisms, from brainstem reflexes to arousal in the acoustic signal to expectancy and memory (Juslin & Västfjäll, 2008). A common way to describe such experiences is the circumplex model, in which affect varies along two broad dimensions, valence (pleasant to unpleasant) and arousal (calm to excited) (Russell, 1980). The Self Assessment Manikin (SAM) is a quick pictorial scale that measures both dimensions after a stimulus (Bradley & Lang, 1994).
+
+Scalp EEG records the summed postsynaptic potentials of large populations of similarly oriented cortical pyramidal cells. It has excellent timing but poor spatial resolution, and it cannot see deep structures such as the amygdala that are central to emotion. EEG therefore never measures "emotion" directly; any link between a rhythm and a feeling is an inference.
+
+Two EEG measures have been proposed as correlates of the circumplex dimensions. Alpha power (8 to 13 Hz) over posterior cortex decreases with cortical activation and alertness (Klimesch, 1999), which suggests that more arousing experiences should come with lower posterior alpha. Frontal alpha asymmetry (FAA) has been linked to approach and withdrawal motivation, with relatively greater left frontal activity (lower left alpha) associated with approach and positive affect (Davidson, 1992; Coan & Allen, 2004). The FAA literature, however, has a mixed replication record and is sensitive to methodological choices such as the reference (Allen, Coan & Nazarian, 2004). Most music studies also compare songs, not people's personal experience of the same song, which leaves acoustic differences as a confound. This study asks whether the EEG tracks a person's own experience, within individuals.
 
 # Research question
 
@@ -77,22 +77,20 @@ Preregistered (see `02_phase2_eeg_inspection/PREREGISTRATION.md`, committed befo
 - **Song set:** four songs in each intended category (HVHA, HVLA, LVHA, LVLA, Neutral).
 - **Ratings:** after each song, participants rated valence (1–9), arousal (1–9), liking (1–5) and familiarity (1–5).
 - **EEG:** 66 channels plus EOG, sampled at 1000 Hz, provided already preprocessed.
-- **Available data:** `r sum(!is.na(qc$file))` recordings. The EEG for sub-17/song t17 is missing.
+- **Available data:** `r sum(!is.na(qc$file))` recordings. The EEG for sub-17/song t17 is missing, and sub-12/song t05 is truncated in the published files (62% of samples).
 
 **Documented discrepancies between the metadata and the data:**
 - The files are EEGLAB `.set`, not BrainVision as the README states.
 - Amplitudes are in µV, although `channels.tsv` says V.
 - There is no music-onset marker.
 - Flat channels are labelled "good" in `channels.tsv`.
+- A 50 Hz notch filter was applied but is not documented.
+- Presentation order is not recoverable, because acquisition timestamps repeat.
 
 # Methods
 
 ## Ratings analysis
-**[WRITE]** Describe:
-- the range checks and the exclusion of sub-01/t27
-- the scale-use descriptives
-- the crossed random-effects variance decomposition
-- the leave-one-out song consensus and the personal deviation
+All 400 ratings were checked against their scale ranges. One trial (sub-01, song t27) had liking and familiarity coded as 0, which is outside the 1 to 5 scale and is documented as a missing data code, so the whole trial was excluded. Scale use was described per participant (mean, SD, number of distinct values); two participants used only four distinct valence values but, as preregistered, nobody was excluded for restricted range. Each rating was decomposed into person, song and residual variance with a crossed random effects model (`rating ~ 1 + (1 | participant) + (1 | song)`). Finally, each rating was split into a song consensus (the leave one out mean of the other 19 listeners for that song, grand mean centred) and a personal deviation (rating minus consensus, then centred within participant), which separates what is shared across listeners from what is specific to the person.
 
 ## EEG preprocessing
 
@@ -118,6 +116,7 @@ qc |>
     `EEG recordings`         = sum(!is.na(file)),
     Included                 = sum(included),
     Excluded                 = sum(!included),
+    `Analysed trials (also minus sub-01 t27)` = nrow(trials),
     `Recordings with flagged channels` = sum(!is.na(flagged_channels) & flagged_channels != "")
   ) |>
   kable(caption = "Quality control summary")
@@ -137,14 +136,13 @@ qc |>
 - **H2 outcome:** FAA = ln(α F4) − ln(α F3).
 
 ## Statistical analysis
-**[WRITE]** In your own words, explain:
-- why trials are not independent (pseudoreplication)
-- the split into within- and between-person parts
-- the mixed models and the singular-fit fallback
-- the consensus/deviation model with song as a crossed random effect
-- the H3 likelihood-ratio test
-- the exploratory FDR correction
-- the sensitivity analyses
+Each participant contributes about 20 trials, and trials from the same person share a baseline (94% of the variance in posterior alpha is between people). Treating 395 trials as independent observations would therefore overstate precision, a problem known as pseudoreplication (Hurlbert, 1984). Each rating was split into a within person part (the rating minus the person's mean, which asks "did this person rate this song higher than usual?") and a between person part (the person's mean minus the grand mean). Only the within person slope tests the hypotheses.
+
+H1 and H2 were tested with linear mixed models in lme4 (Bates et al., 2015) with REML and Satterthwaite degrees of freedom, with a random intercept and a random within person slope for each participant, following the advice to keep the random structure maximal (Barr et al., 2013). If the participant random structure was singular, the preregistered fallback first removed the slope and intercept correlation and then removed the random slope. A hypothesis was supported only if the slope had the predicted sign and p < .025 (Bonferroni across H1 and H2). Standardized effects are the slope times the within person SD of the rating divided by the within person SD of the outcome.
+
+To answer the second half of the research question, each outcome was modelled from the song consensus and the personal deviation, with song as a crossed random effect to absorb shared acoustic influences. The deviation slope is the person specific effect; the consensus slope is reported only descriptively because it is confounded with acoustics. H3 compared the random slope model with the random intercept model by a likelihood ratio test, using a 50:50 mixture of χ²(1) and χ²(2) because a variance cannot be negative.
+
+The exploratory grid (5 bands × 7 regions × 3 ratings = 105 models with random intercepts for participant and song) was corrected with the Benjamini and Hochberg false discovery rate (Benjamini & Hochberg, 1995). Sensitivity analyses refit the confirmatory models with both ratings together, with liking and familiarity added, with relative instead of absolute power, and with a stricter ±75 µV threshold, and repeated the primary models leaving out each participant in turn. A presentation order analysis was preregistered but could not be run, because the acquisition timestamps repeat and the order is not recoverable.
 
 # Results
 
@@ -155,10 +153,7 @@ qc |>
 fig(P1_OUT, "p1_song_map.png")
 ```
 
-**[WRITE]** Describe:
-- the variance proportions (song vs. person vs. residual) for valence and arousal
-- the valence–arousal correlation (pooled and within-person)
-- the manipulation check
+The song explained 49% of the variance in valence and 67% in arousal, the person's general rating habit about 4% for each, and the residual (the personal reaction to a particular song, plus rating noise) 47% for valence and 29% for arousal. Ratings are thus largely driven by the stimulus, which confirms the acoustic confound risk, but a substantial personal component remains, especially for valence. Valence and arousal were only weakly correlated (Spearman ρ ≈ 0.19 pooled; mean within person ρ = 0.18, range −0.22 to 0.60), so H1 and H2 address different aspects of experience. The manipulation check shows that arousal separated the intended categories clearly, whereas valence was compressed: no song averaged below 3.1, so the "negative" songs were mildly unpleasant at most, and the "neutral" songs were mildly positive and calm.
 
 These results are **descriptive**.
 
@@ -169,7 +164,7 @@ fig(P3_OUT, "p3_band_by_roi.png")
 fig(P3_OUT, "p3_alpha_topography.png")
 ```
 
-**[WRITE]** Is alpha posterior-dominant? How large are the between-person differences?
+Yes. Alpha power is strongest over occipital and parietal sites and the spectra show the expected 1/f shape with a peak near 10 Hz, which supports the pipeline (it also recovered a synthetic 10 Hz sine exactly). Between person differences are very large: about 94% of the variance in posterior alpha lies between participants and only about 6% varies from song to song within a person. Any within person effect must therefore be detected in a small slice of the total variance.
 
 ## Why pooling misleads
 ```{r}
@@ -200,7 +195,7 @@ deviation |>
   kable()
 ```
 
-**[WRITE]** Explain what the **deviation** slopes say about the person-specific experience. Explain why the **consensus** slopes cannot be separated from acoustics.
+The deviation slopes were small and not significant for both outcomes (H1: standardized 0.05, 95% CI [−0.05, 0.15], p = .342; H2: 0.04, [−0.06, 0.15], p = .386). When a person found a song more arousing or more pleasant than other listeners did, their posterior alpha and FAA did not change detectably. The consensus slopes were also near zero (p = .625 and .507), but they cannot be interpreted as emotion effects in any case: the consensus is a property of the song, so it varies together with tempo, loudness, timbre and every other acoustic feature that could alter the EEG directly.
 
 ## Individual differences (H3)
 ```{r}
@@ -208,7 +203,7 @@ deviation |>
 fig(P4_OUT, "p4_step20_forest.png")
 ```
 
-**[WRITE]** Give the slope SD and its CI, and the mixture p-value. Explain shrinkage. Is there evidence that people truly differ, or is the spread consistent with noise from about 20 trials per person?
+The estimated slope SD was 0.000 for H1 (LR = 0.01, mixture p = .949) and 0.006 for H2 (LR = 1.15, p = .424). Both random slope models were singular, so confidence intervals for the SD could not be estimated. Shrinkage (partial pooling) pulls each person's slope toward the group mean in proportion to how unreliable it is; with about 20 trials per person the individual slopes are very noisy, and here they are pulled almost entirely to the mean. The apparent spread of the raw slopes in the forest plot is therefore consistent with sampling noise, and there is no evidence that people truly differ in these relationships. H3 is not supported.
 
 ## Exploratory analyses (not confirmatory)
 ```{r}
@@ -230,26 +225,28 @@ exploratory |>
 fig(P4_OUT, "p4_step22_sensitivity.png")
 ```
 
-**[WRITE]** Do the conclusions change across the sensitivity models or the leave-one-subject-out analyses?
+No. Across the four alternative specifications the standardized H1 slope ranged from 0.03 to 0.06 (all p > .25) and the H2 slope from −0.01 to 0.05 (all p > .50). Leaving out each participant in turn gave raw H1 slopes between 0.0016 and 0.0037 and H2 slopes between −0.0015 and 0.0028; no single participant drives the result. In the exploratory grid only 3 of 105 tests had uncorrected p < .05, about the number expected by chance, and none survived FDR correction (smallest q = 0.996).
 
 # Discussion
 
-**[WRITE]** Write 3–5 paragraphs, using `05_phase5_report/outputs/tables/interpretation_worksheet.csv` as your outline.
+This study asked whether, within individuals, self reported emotional experience during two minute music excerpts is associated with EEG band power, and whether any association survives for the person specific part of the experience. In this sample the answer is no detectable association. Neither preregistered hypothesis was supported: within person arousal was not associated with lower posterior alpha (the observed slope was slightly positive), and within person valence was not associated with frontal alpha asymmetry. The person specific deviation slopes were equally null, and there was no evidence that participants differ in these relationships.
 
-- Answer the research question directly.
-- For a null result, state which effect sizes the CI rules out. Don't write "no effect".
-- Compare with the literature on alpha and arousal and on FAA and valence.
-- Avoid reverse inference.
-- Correlation is not causation: ratings were given *after* each song and EEG is averaged over 2 minutes, so neither causes the other in this design.
+A non significant result is not evidence of no effect, but the confidence intervals are informative. For H1, the standardized interval [−0.05, 0.15] makes a negative within person effect larger than about 0.05 SD unlikely; in other words, a one SD increase in a person's arousal rating is unlikely to lower their posterior alpha by more than a twentieth of its within person SD. For H2, the interval [−0.10, 0.11] makes effects larger than about 0.11 SD in either direction unlikely. These are small bounds, so if such relationships exist at the level of two minute averages, they are small.
+
+These results fit uneasily with the classic view that alpha tracks arousal (Klimesch, 1999) and that FAA tracks positive, approach related affect (Davidson, 1992), but they agree with the mixed replication record of FAA (Allen, Coan & Nazarian, 2004). One reason may be that most earlier evidence compared conditions or stimuli, where acoustic and attentional differences contribute, whereas this study isolated the within person part of the experience. Averaging 120 seconds of EEG may also wash out emotional responses that unfold at moments within a song, such as a climax or a key change.
+
+Two cautions apply. First, reverse inference must be avoided: even if alpha had dropped with arousal, lower alpha would not show that a person felt aroused, because alertness, visual attention and many other states lower alpha. Second, the design is correlational: ratings were given after each song and the EEG is averaged over two minutes, so neither causes the other here.
 
 # Limitations
 
-**[WRITE]** Cover at least the following:
+The main limitations are grouped below.
+
 - **Dataset:**
   - N = 20 and 20 songs
   - one retrospective rating per 2-minute excerpt (no moment-to-moment emotion)
   - compressed low-valence range
-  - presentation order (if not recoverable)
+  - presentation order is not recoverable (timestamps repeat), so order and fatigue effects could not be controlled
+  - one recording is truncated in the published dataset (sub-12 t05) and one is missing (sub-17 t17)
 - **Measurement:**
   - scalp EEG cannot see deep emotion circuitry
   - volume conduction
@@ -258,7 +255,7 @@ fig(P4_OUT, "p4_step22_sensitivity.png")
   - inherited, partly undocumented steps
   - no ICA
   - flagged channels dropped, not interpolated
-  - gamma is muscle-sensitive
+  - gamma is muscle-sensitive (Muthukumaraswamy, 2013)
 - **Statistics:**
   - power to detect small within-person effects
   - limited ability to estimate random slopes with about 20 trials per person
@@ -269,30 +266,37 @@ fig(P4_OUT, "p4_step22_sensitivity.png")
 
 # Conclusion
 
-**[WRITE]** One paragraph: what we can and cannot conclude.
+In 20 listeners and 395 analysable trials, neither posterior alpha nor frontal alpha asymmetry tracked how aroused or how pleasant a person found a piece of music relative to their own usual ratings, and the person specific part of the experience showed no association either. We can conclude that within person effects larger than about 0.05 SD (H1, in the predicted direction) or 0.11 SD (H2) are unlikely under these conditions. We cannot conclude that EEG is blind to musical emotion: the design used one retrospective rating per two minute excerpt, a compressed valence range, inherited preprocessing and scalp level averages, any of which could hide smaller or more time specific effects. Studies with continuous ratings, time resolved EEG and more trials per person are needed to test these questions more sensitively.
 
 # References
 
-**[WRITE]** Find and verify each one, then format consistently:
+Allen, J. J. B., Coan, J. A., & Nazarian, M. (2004). Issues and assumptions on the road from raw signals to metrics of frontal EEG asymmetry in emotion. *Biological Psychology, 67*(1–2), 183–218.
 
-- **Music and emotion:**
-  - Russell (1980), the circumplex model of affect
-  - Bradley & Lang (1994), the Self-Assessment Manikin
-  - Juslin & Västfjäll (2008), emotional responses to music
-- **EEG signals:**
-  - Klimesch (1999), EEG alpha and theta oscillations
-  - Muthukumaraswamy (2013), high-frequency brain activity and muscle artifacts
-- **Frontal asymmetry:**
-  - Davidson (1992), emotion and affective style: hemispheric substrates
-  - Allen, Coan & Nazarian (2004), issues and assumptions in frontal EEG asymmetry research
-- **Statistics:**
-  - Hurlbert (1984), pseudoreplication
-  - Bates, Mächler, Bolker & Walker (2015), lme4
-  - Barr, Levy, Scheepers & Tily (2013), random-effects structure
-  - Benjamini & Hochberg (1995), false discovery rate
-- **Data and tools:**
-  - Pernet et al. (2019), EEG-BIDS
-  - the MET dataset: Cheang, W. L., OpenNeuro ds008701, doi:10.18112/openneuro.ds008701.v1.0.4
+Barr, D. J., Levy, R., Scheepers, C., & Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. *Journal of Memory and Language, 68*(3), 255–278.
+
+Bates, D., Mächler, M., Bolker, B., & Walker, S. (2015). Fitting linear mixed-effects models using lme4. *Journal of Statistical Software, 67*(1), 1–48.
+
+Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B, 57*(1), 289–300.
+
+Bradley, M. M., & Lang, P. J. (1994). Measuring emotion: The Self-Assessment Manikin and the semantic differential. *Journal of Behavior Therapy and Experimental Psychiatry, 25*(1), 49–59.
+
+Cheang, W. L. (2026). *MET: Music-Induced EEG Dataset* (Version 1.0.4) [Data set]. OpenNeuro. https://doi.org/10.18112/openneuro.ds008701.v1.0.4
+
+Coan, J. A., & Allen, J. J. B. (2004). Frontal EEG asymmetry as a moderator and mediator of emotion. *Biological Psychology, 67*(1–2), 7–49.
+
+Davidson, R. J. (1992). Emotion and affective style: Hemispheric substrates. *Psychological Science, 3*(1), 39–43.
+
+Hurlbert, S. H. (1984). Pseudoreplication and the design of ecological field experiments. *Ecological Monographs, 54*(2), 187–211.
+
+Juslin, P. N., & Västfjäll, D. (2008). Emotional responses to music: The need to consider underlying mechanisms. *Behavioral and Brain Sciences, 31*(5), 559–575.
+
+Klimesch, W. (1999). EEG alpha and theta oscillations reflect cognitive and memory performance: A review and analysis. *Brain Research Reviews, 29*(2–3), 169–195.
+
+Muthukumaraswamy, S. D. (2013). High-frequency brain activity and muscle artifacts in MEG/EEG: A review and recommendations. *Frontiers in Human Neuroscience, 7*, 138.
+
+Pernet, C. R., Appelhoff, S., Gorgolewski, K. J., Flandin, G., Phillips, C., Delorme, A., & Oostenveld, R. (2019). EEG-BIDS, an extension to the brain imaging data structure for electroencephalography. *Scientific Data, 6*, 103.
+
+Russell, J. A. (1980). A circumplex model of affect. *Journal of Personality and Social Psychology, 39*(6), 1161–1178.
 
 # Appendix: software
 

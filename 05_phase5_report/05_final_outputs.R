@@ -91,7 +91,9 @@ qc_summary <- qc |>
     included               = sum(included),
     excluded               = sum(!included),
     recordings_with_flagged_channels = sum(!is.na(flagged_channels) & flagged_channels != "")
-  )
+  ) |>
+  mutate(analysed_trials = nrow(read_csv(file.path(p4_tables, "analysis_trials.csv"),
+                                         show_col_types = FALSE)))
 
 qc_summary
 

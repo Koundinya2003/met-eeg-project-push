@@ -1,2 +1,2 @@
-participant_song_pairs,eeg_recordings,included,excluded,recordings_with_flagged_channels
-400,399,396,0,213
+participant_song_pairs,eeg_recordings,included,excluded,recordings_with_flagged_channels,analysed_trials
+400,399,396,4,213,395

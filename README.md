@@ -64,8 +64,10 @@ Power in each band (δ, θ, α, β, γ) across seven regions. Posterior regions 
 | Stage | Count |
 |-------|-------|
 | Participant–song pairs | 400 |
-| EEG files present | 399 |
-| Clean, analysable | **395** |
+| EEG files present | 399 (sub-17 t17 missing from the dataset) |
+| Passed EEG quality control | 396 (excluded: sub-12 t05 truncated file, sub-14 t06 only 26 clean epochs, sub-18 t17 no clean epochs) |
+| Analysable trials | **395** (also excluding sub-01 t27, missing liking and familiarity) |
+| Recordings with at least one flagged channel | 213 (mostly edge sites F9, F10, T10; only 12 inside the H1 or H2 regions) |
 
 ---
 
@@ -74,22 +76,22 @@ Power in each band (δ, θ, α, β, γ) across seven regions. Posterior regions 
 #### Pseudoreplication problem: why 400 trials ≠ 400 people
 ![Pooling demo](04_phase4_statistics/outputs/figures/p4_step17_pooling.png)
 
-Pooling all 399 trials inflates the test statistic (red bar, wrong). Proper within-person analysis across 20 people (blue bar, correct) is much more conservative.
+Naive pooling treats all 395 trials as independent, which gives a confidence interval that is too narrow (H1: r = 0.009, 95% CI [−0.09, 0.11]). The correct two stage within person analysis treats the 20 people as the units and gives a wider, honest interval (H1: r = 0.08, 95% CI [−0.07, 0.22]). In these data no approach finds an effect; the point of the demo is the width of the interval, not the size of the statistic.
 
 #### Individual differences in slopes (H3)
 ![Forest plot](04_phase4_statistics/outputs/figures/p4_step20_forest.png)
 
-Each person's slope with 95% CI (left) and group mean (right, shrunken). Slopes vary, but with ~20 trials per person, estimates are noisy.
+Each person's slope with 95% CI (left) and the shrunken estimates (right). The raw slopes look different from person to person, but the random slope models were singular (estimated slope SD ≈ 0.000 for H1 and 0.006 for H2), so the spread is consistent with noise from about 20 trials per person. All confirmatory models therefore used the preregistered fallback to random intercepts only.
 
-#### Exploratory analysis (35 tests, FDR-corrected)
+#### Exploratory analysis (105 tests: 5 bands × 7 regions × 3 ratings, FDR corrected)
 ![Exploratory heatmap](04_phase4_statistics/outputs/figures/p4_step21_exploratory_heatmap.png)
 
-Effect sizes across all band–region pairs. Any bright spots are ideas for future work, not findings.
+Effect sizes across all band and region pairs. Only 3 of 105 tests had uncorrected p < .05 (about 5 would be expected by chance), and the smallest FDR q value was 0.996. Any bright spots are ideas for future work, not findings.
 
 #### Sensitivity: robustness across preprocessing choices
 ![Sensitivity analysis](04_phase4_statistics/outputs/figures/p4_step22_sensitivity.png)
 
-Main effects (black line) remain consistent under six analytic choices. No single decision drove the results.
+The main effects stay small and non significant under four alternative specifications (both ratings in one model; adding liking and familiarity; relative power; a ±75 µV threshold) and under leave one subject out estimation (H1 slope range 0.0016 to 0.0037; H2 range −0.0015 to 0.0028). The preregistered presentation order check could not be run because file timestamps repeat, so play order is not recoverable. No single decision drove the results.
 
 ---
 
@@ -97,15 +99,20 @@ Main effects (black line) remain consistent under six analytic choices. No singl
 
 | Hypothesis | Finding | Effect size | 95% CI | p |
 |---|---|---|---|---|
-| **H1:** Arousal → posterior α↓ | Not significant | −0.08 | [−0.24, 0.08] | 0.33 |
-| **H2:** Valence → FAA↑ | Not significant | 0.06 | [−0.10, 0.22] | 0.45 |
-| **H3:** Random slopes > 0 | χ²(1)=1.8, not sig. | — | — | 0.18 |
+| **H1:** Arousal → posterior α↓ | Not supported (observed sign is opposite to the prediction) | 0.05 | [−0.05, 0.15] | 0.355 |
+| **H2:** Valence → FAA↑ | Not supported | 0.01 | [−0.10, 0.11] | 0.903 |
+| **H1 person specific:** arousal deviation → posterior α | Not supported | 0.05 | [−0.05, 0.15] | 0.342 |
+| **H2 person specific:** valence deviation → FAA | Not supported | 0.04 | [−0.06, 0.15] | 0.386 |
+| **H3 for H1:** slopes vary between people | Not supported (LR = 0.01, slope SD ≈ 0.000, singular) | n/a | n/a | 0.949 |
+| **H3 for H2:** slopes vary between people | Not supported (LR = 1.15, slope SD = 0.006, singular) | n/a | n/a | 0.424 |
 
-**Exploratory tests (105 tests):** None survive FDR correction.
+Effect sizes are standardized within person slopes. H3 p values use the preregistered 50:50 mixture of χ²(1) and χ²(2). All H1 and H2 models fell back to random intercepts only because the random slope structure was singular.
 
-**Consensus vs. deviation:** Effects remain null whether testing song-consensus or personal-deviation ratings.
+**Exploratory tests (105 tests):** None survive FDR correction (smallest q = 0.996).
 
-**Interpretation:** No EEG–emotion association detected in this sample. Either the effect is small relative to within-person EEG noise, or it does not exist for these conditions.
+**Consensus vs. deviation:** Effects remain null whether testing song consensus or personal deviation ratings (consensus slopes are descriptive only, because they are confounded with acoustics).
+
+**Interpretation:** No EEG and emotion association was detected in this sample. This is not proof of no effect, but the confidence intervals make it unlikely that a one SD within person change in arousal shifts posterior alpha by more than about 0.05 SD in the predicted (negative) direction, or that a one SD change in valence shifts FAA by more than about 0.11 SD in either direction.
 
 ---
 
@@ -175,7 +182,7 @@ met-eeg-project/
 │   └── outputs/ → final_results_table.csv, interpretation_worksheet.csv
 ├── run_all.R                      Rebuild everything
 ├── README.md                      This file
-├── MET_project_overview.pdf       7-page plain-language overview
+├── MET_project_overview.pdf       7 page plain language overview (written before results were seen)
 └── met-eeg-project.Rproj
 ```
 
@@ -189,7 +196,9 @@ met-eeg-project/
 - Mixed-effects models with random intercepts per person and per song
 
 ### Preregistration
-All hypotheses and analysis choices are in `02_phase2_eeg_inspection/PREREGISTRATION.md`, committed to git before results were seen.
+All hypotheses and analysis choices are in `02_phase2_eeg_inspection/PREREGISTRATION.md`, committed to git (commit 3f16cb2, 6 Oct 2026 15:27 IST) before `04_stats.R` was run. The file still carries its original "Status: DRAFT" header; it has deliberately not been edited after the commit, so the committed version is the authoritative preregistration.
+
+**Deviations from the preregistration:** (1) all H1 and H2 models used the preregistered singular fit fallback (random intercepts only); (2) the presentation order sensitivity analysis (item 3) could not be run because acq_time values repeat; (3) H3 slope SD confidence intervals could not be computed because the random slope models were singular.
 
 ### Multiple comparisons
 - Confirmatory (H1, H2): Bonferroni α = .025
@@ -206,6 +215,9 @@ All hypotheses and analysis choices are in `02_phase2_eeg_inspection/PREREGISTRA
 5. Inherited upstream preprocessing (filtering, notch, possible ICA)
 6. Scalp-level EEG is spatially blurry
 7. Correlation ≠ causation
+8. One recording (sub-12 t05) is truncated in the published dataset itself (62% of samples), and another (sub-17 t17) is missing
+9. Dataset metadata errors: files are EEGLAB `.set`, not BrainVision as the dataset README says; `channels.tsv` lists units as V although values are µV; flat channels are labelled "good"; a 50 Hz notch is undocumented
+10. Presentation order is not recoverable, so order and fatigue effects cannot be controlled
 
 ---
 
@@ -223,9 +235,9 @@ The preregistration is committed. All code and data are versioned. Results are f
 
 ## References
 
-- **Data:** Koelsch, S., et al. (2019). OpenNeuro ds008701. https://openneuro.org/datasets/ds008701
+- **Data:** Cheang, W. L. (2026). *MET: Music-Induced EEG Dataset* (v1.0.4). OpenNeuro. doi:10.18112/openneuro.ds008701.v1.0.4
 - **Mixed-effects models:** Bates et al. (2015). *Journal of Statistical Software*, 67(1).
-- **Frontal alpha asymmetry:** Coan & Allen (2004). *Biological Psychology*, 67(1-2).
+- **Frontal alpha asymmetry:** Coan, J. A., & Allen, J. J. B. (2004). *Biological Psychology*, 67(1–2), 7–49.
 - **Pseudoreplication:** Barr et al. (2013). *Journal of Memory and Language*, 68(3).
 
 ---
