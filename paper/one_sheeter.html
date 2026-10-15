@@ -1,0 +1,679 @@
+<title>The Song or the Self?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: an EEG chart recorder sheet. Graph paper ground, ink traces, a red pen for verdicts; dense poster grid that prints to one A4 page. */
+:root {
+  --paper: #f4f6f1;
+  --grid: #dbe6dc;
+  --grid-major: #c7d8ca;
+  --ink: #18231e;
+  --muted: #56645c;
+  --panel: #fbfcf9;
+  --rule: #b9c8bd;
+  --song: #2f5fa6;
+  --self: #c8442f;
+  --pen: #c8442f;
+  --faint: #e3ebe4;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1714; --grid: #17241f; --grid-major: #1e2f28; --ink: #e4ece6; --muted: #98aaa0;
+    --panel: #131e1a; --rule: #2c4038; --song: #7fa7e8; --self: #f08068; --pen: #f08068; --faint: #1b2924;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1714; --grid: #17241f; --grid-major: #1e2f28; --ink: #e4ece6; --muted: #98aaa0;
+  --panel: #131e1a; --rule: #2c4038; --song: #7fa7e8; --self: #f08068; --pen: #f08068; --faint: #1b2924;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.sheet {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 28px 36px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- masthead ---------- */
+.mast {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: end;
+}
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+.kicker b { color: var(--pen); font-weight: 600; }
+h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(44px, 7.4vw, 86px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 10px 0 10px;
+  text-wrap: balance;
+}
+h1 .song { color: var(--song); }
+h1 .self { color: var(--self); font-style: normal; position: relative; }
+.sub {
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+  max-width: 34ch;
+}
+.byline {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.traces {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  padding: 10px 12px 8px;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.trace-row { display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: center; gap: 8px; }
+.trace-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.trace-label small { display: block; color: var(--muted); letter-spacing: 0.04em; text-transform: none; }
+.trace-row svg { width: 100%; height: 62px; display: block; overflow: hidden; }
+.trace-foot {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px dashed var(--rule);
+  padding-top: 5px;
+  margin-top: 2px;
+}
+
+/* ---------- verdict strip ---------- */
+.verdict {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 20px;
+}
+.stamp {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pen);
+  border: 2.5px solid var(--pen);
+  padding: 6px 10px;
+  transform: rotate(-3deg);
+  white-space: nowrap;
+}
+.verdict p { margin: 0; font-size: 17px; line-height: 1.4; }
+.verdict strong { font-family: var(--display); font-weight: 600; }
+
+/* ---------- panels ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  padding: 14px 16px 16px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; }
+.c7 { grid-column: span 7; } .c8 { grid-column: span 8; } .c12 { grid-column: span 12; }
+.label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+.panel p { margin: 0; }
+.note { font-size: 13px; color: var(--muted); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* setup numbers */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 2px;
+}
+.fact { border-top: 2px solid var(--ink); padding-top: 4px; }
+.fact b { display: block; font-family: var(--display); font-weight: 800; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
+.fact span { font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+
+/* split diagram */
+.split { display: grid; gap: 6px; margin-top: 4px; }
+.scale {
+  position: relative;
+  height: 46px;
+  border-bottom: 1px solid var(--ink);
+}
+.scale .tick {
+  position: absolute; bottom: -16px; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+}
+.scale .tick::before {
+  content: ""; position: absolute; left: 50%; top: -5px; width: 1px; height: 5px; background: var(--ink);
+}
+.marker {
+  position: absolute; bottom: 0; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  font-family: var(--mono); font-size: 10.5px; line-height: 1.1; text-align: center;
+}
+.marker i { display: block; width: 12px; height: 12px; border-radius: 50%; margin-top: 3px; margin-bottom: -6px; }
+.marker.cons { color: var(--song); } .marker.cons i { background: var(--song); }
+.marker.mine { color: var(--self); } .marker.mine i { background: var(--self); }
+.gap {
+  position: absolute; bottom: -1px; height: 3px; background: var(--self);
+}
+.split-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; font-size: 13.5px; }
+.split-legend div { padding-left: 10px; border-left: 3px solid var(--song); }
+.split-legend div + div { border-left-color: var(--self); }
+.split-legend b { font-family: var(--display); font-weight: 600; }
+
+/* variance bars */
+.vbars { display: grid; gap: 10px; margin-top: 2px; }
+.vrow { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; align-items: center; }
+.vrow > span { font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.2; }
+.bar { display: flex; height: 26px; border: 1px solid var(--ink); }
+.bar div {
+  display: flex; align-items: center; padding: 0 6px; overflow: hidden; white-space: nowrap;
+  font-family: var(--mono); font-size: 10.5px; font-variant-numeric: tabular-nums;
+}
+.b-song { background: var(--song); color: var(--panel); }
+.b-habit { background: var(--muted); color: var(--panel); }
+.b-self { background: repeating-linear-gradient(135deg, var(--self) 0 6px, color-mix(in srgb, var(--self) 78%, var(--panel)) 6px 12px); color: var(--panel); }
+.b-between { background: var(--faint); color: var(--ink); }
+.b-within { background: var(--pen); color: var(--panel); padding: 0 !important; }
+.vkey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+.vkey i { display: inline-block; width: 10px; height: 10px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--ink); }
+
+/* bets */
+.bets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.bet { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 3px solid var(--ink); min-width: 0; }
+.bet .tag { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.bet .tag b { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; }
+.bet .no {
+  font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--pen); border: 1.5px solid var(--pen); padding: 2px 6px; transform: rotate(-2deg); white-space: nowrap;
+}
+.bet h3 { font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 1.2; margin: 0; }
+.bet p { font-size: 14px; }
+.bet .stat { font-family: var(--mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.forest-wrap { overflow-x: auto; }
+.forest { width: 100%; min-width: 520px; height: auto; display: block; }
+.forest text { font-family: var(--mono); fill: var(--ink); }
+.forest .dim { fill: var(--muted); }
+
+/* dot matrix */
+.matrix { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 4px 10px; align-items: end; }
+.m-head { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); text-align: center; }
+.m-rows { display: grid; gap: 3px; }
+.m-rows span { font-family: var(--mono); font-size: 9.5px; color: var(--muted); height: 14px; line-height: 14px; text-align: right; white-space: nowrap; }
+.m-panel { display: grid; grid-template-columns: repeat(5, 14px); grid-auto-rows: 14px; gap: 3px; justify-content: center; }
+.m-panel i { border-radius: 50%; background: var(--faint); border: 1px solid var(--rule); }
+.m-panel i.hit { background: var(--pen); border-color: var(--pen); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pen) 25%, transparent); }
+.m-bands { display: grid; grid-template-columns: repeat(5, 14px); gap: 3px; justify-content: center; font-family: var(--mono); font-size: 10px; color: var(--muted); text-align: center; }
+.tally { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.tally div { border-top: 2px solid var(--ink); padding-top: 4px; }
+.tally b { display: block; font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; font-variant-numeric: tabular-nums; }
+.tally span { font-family: var(--mono); font-size: 10.5px; color: var(--muted); line-height: 1.25; display: block; }
+.tally .zero b { color: var(--pen); }
+
+/* counting */
+.count-rows { display: grid; gap: 6px; }
+.count-rows div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; font-size: 13.5px; border-bottom: 1px dotted var(--rule); padding-bottom: 4px; }
+.count-rows .mono { font-size: 12px; }
+.count-rows .bad { color: var(--pen); }
+
+/* reasons */
+.reasons { display: grid; gap: 10px; counter-reset: r; }
+.reasons div { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; font-size: 14px; }
+.reasons div::before {
+  counter-increment: r; content: counter(r);
+  font-family: var(--display); font-weight: 800; font-size: 20px; line-height: 1; color: var(--pen);
+}
+.reasons b { font-family: var(--display); font-weight: 600; }
+
+/* next */
+.next { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.next div { font-size: 14px; padding-left: 10px; border-left: 2px solid var(--song); }
+.next b { display: block; font-family: var(--display); font-weight: 600; font-size: 15px; }
+
+.rule-out {
+  font-family: var(--display); font-weight: 600; font-size: 19px; line-height: 1.25; text-wrap: balance;
+}
+.rule-out em { font-style: normal; color: var(--pen); }
+
+footer {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px;
+  font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+  border-top: 1px solid var(--ink); padding-top: 8px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .mast { grid-template-columns: minmax(0, 1fr); }
+  .c4, .c5, .c7, .c8 { grid-column: span 6; }
+  .bets { grid-template-columns: minmax(0, 1fr); }
+  .next { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .c4, .c5, .c6, .c7, .c8 { grid-column: span 12; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .verdict { grid-template-columns: minmax(0, 1fr); }
+  .stamp { justify-self: start; }
+  .next { grid-template-columns: minmax(0, 1fr); }
+  .split-legend { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pen-dot { display: none; }
+}
+
+/* ---------- print to one A4 sheet ---------- */
+@page { size: A4; margin: 8mm; }
+@media print {
+  :root { --paper: #ffffff; --panel: #ffffff; }
+  body { background: #ffffff; font-size: 10.5px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sheet { padding: 0; gap: 7px; max-width: none; }
+  h1 { font-size: 46px; margin: 4px 0; }
+  .sub { font-size: 13px; }
+  .grid { gap: 7px; }
+  .panel { padding: 7px 9px; gap: 4px; }
+  h2 { font-size: 14px; }
+  .bet p, .reasons div, .next div, .split-legend, .count-rows div { font-size: 10px; }
+  .verdict { padding: 7px 12px; }
+  .verdict p { font-size: 12px; }
+  .trace-row svg { height: 38px; }
+  .fact b, .tally b { font-size: 18px; }
+  .pen-dot { display: none; }
+}
+</style>
+
+<main class="sheet">
+
+  <header class="mast">
+    <div>
+      <div class="kicker"><span>One sheet summary</span><span>Preregistered</span><b>Null result</b></div>
+      <h1>The <span class="song">Song</span> or the <span class="self">Self?</span></h1>
+      <p class="sub">A preregistered search for personal musical emotion in scalp EEG</p>
+      <div class="byline">Aditya Koundinya · Independent researcher, Bengaluru · October 2026</div>
+    </div>
+    <figure class="traces" aria-label="Two illustrative EEG style traces: a strong rhythmic trace for the song and a flat noisy trace for the self">
+      <div class="trace-row">
+        <div class="trace-label" style="color: var(--song)">Song<small>in ratings</small></div>
+        <svg id="trace-song" viewBox="0 0 400 62" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="trace-row">
+        <div class="trace-label" style="color: var(--self)">Self<small>in alpha</small></div>
+        <svg id="trace-self" viewBox="0 0 400 62" preserveAspectRatio="none" aria-hidden="true"></svg>
+      </div>
+      <div class="trace-foot"><span>illustrative traces, not recorded data</span><span>8 to 13 Hz</span></div>
+    </figure>
+  </header>
+
+  <section class="verdict">
+    <div class="stamp">0 of 3 supported</div>
+    <p><strong>The short version.</strong> Twenty people heard the same twenty songs. When a song moved one listener more than it moved them usually, or more than it moved everyone else, their alpha rhythm showed no detectable change. The song is easy to find in the ratings. The self is much harder to find in the brain.</p>
+  </section>
+
+  <div class="grid">
+
+    <!-- setup -->
+    <section class="panel c5">
+      <div class="label">The setup</div>
+      <h2>Same songs, different feelings</h2>
+      <p>Music can make a whole room feel different things at once. If the brain carries a signature of emotion, it should follow what each listener actually felt, not only what the song was built to make them feel.</p>
+      <div class="facts">
+        <div class="fact"><b>20</b><span>listeners, aged 21 to 29</span></div>
+        <div class="fact"><b>20</b><span>songs, 2 minutes each</span></div>
+        <div class="fact"><b>66</b><span>EEG channels</span></div>
+        <div class="fact"><b>395</b><span>trials after quality control</span></div>
+      </div>
+      <p class="note">Public MET Music Induced EEG Dataset (OpenNeuro). After each song, listeners rated valence and arousal on a 1 to 9 scale.</p>
+    </section>
+
+    <!-- the split -->
+    <section class="panel c7">
+      <div class="label">The key move</div>
+      <h2>Split every rating into song and self</h2>
+      <p>Each rating was broken into the part everyone shared and the part only that listener had.</p>
+      <div class="split" aria-label="Example on the 1 to 9 arousal scale: the other 19 listeners averaged 5.5, this listener rated 7, so the personal deviation is 1.5 points">
+        <div class="scale">
+          <div class="gap" style="left: 56.25%; width: 18.75%"></div>
+          <div class="marker cons" style="left: 56.25%">others<br>5.5<i></i></div>
+          <div class="marker mine" style="left: 75%">you<br>7<i></i></div>
+          <span class="tick" style="left: 0%">1</span>
+          <span class="tick" style="left: 25%">3</span>
+          <span class="tick" style="left: 50%">5</span>
+          <span class="tick" style="left: 75%">7</span>
+          <span class="tick" style="left: 100%">9</span>
+        </div>
+      </div>
+      <div class="split-legend">
+        <div><b>Song consensus.</b> What the other 19 listeners gave the same song. Your own rating never enters it.</div>
+        <div><b>Personal deviation.</b> How far you landed from them. Here, 1.5 points: “this excited me more than it excited everyone else.”</div>
+      </div>
+      <p class="note">Example values for illustration. Arousal scale shown, 1 calm to 9 excited.</p>
+    </section>
+
+    <!-- three bets -->
+    <section class="panel c12">
+      <div class="label">Three bets, written down before looking</div>
+      <div class="bets">
+        <div class="bet">
+          <div class="tag"><b>H1</b><span class="no">NOT SUPPORTED</span></div>
+          <h3>More aroused than usual → lower posterior alpha</h3>
+          <p>Alpha, the 8 to 13 Hz rhythm at the back of the head, drops when the cortex gets busier. It did not drop. If anything it rose very slightly, the wrong way.</p>
+          <div class="stat">slope 0.05 · p = .355</div>
+        </div>
+        <div class="bet">
+          <div class="tag"><b>H2</b><span class="no">NOT SUPPORTED</span></div>
+          <h3>More pleasant than usual → more left frontal activity</h3>
+          <p>Frontal alpha asymmetry is the classic “approach and positive mood” marker. Its link to how pleasant a song felt sat almost exactly on zero.</p>
+          <div class="stat">slope 0.01 · p = .903</div>
+        </div>
+        <div class="bet">
+          <div class="tag"><b>H3</b><span class="no">NOT SUPPORTED</span></div>
+          <h3>People differ in how strong these links are</h3>
+          <p>Maybe the effect runs one way for some and the other way for others? The spread between people came out at essentially zero. What looked like individual differences was noise from only 20 songs each.</p>
+          <div class="stat">between person SD ≈ 0.000 (H1), 0.006 (H2)</div>
+        </div>
+      </div>
+      <div class="forest-wrap">
+        <svg class="forest" id="forest" viewBox="0 0 1000 200" role="img" aria-label="Estimates with 95 percent confidence intervals. All four intervals cross zero and none reaches the shaded predicted direction strongly."></svg>
+      </div>
+      <p class="note">Standardized within person effects with 95% intervals. The shaded side of each row is where the hypothesis predicted the dot would land. Every interval straddles zero, including the person specific tests that used only the personal deviation.</p>
+    </section>
+
+    <!-- variance -->
+    <section class="panel c6">
+      <div class="label">Where the variation lives</div>
+      <h2>Ratings are mostly the song. Alpha is mostly the person.</h2>
+      <div class="vbars">
+        <div class="vrow"><span>Valence ratings</span>
+          <div class="bar"><div class="b-song" style="width:49%">song 49%</div><div class="b-habit" style="width:4%"></div><div class="b-self" style="width:47%">personal 47%</div></div>
+        </div>
+        <div class="vrow"><span>Arousal ratings</span>
+          <div class="bar"><div class="b-song" style="width:67%">song 67%</div><div class="b-habit" style="width:4%"></div><div class="b-self" style="width:29%">personal 29%</div></div>
+        </div>
+        <div class="vrow"><span>Posterior alpha</span>
+          <div class="bar"><div class="b-between" style="width:94%">differences between people 94%</div><div class="b-within" style="width:6%"></div></div>
+        </div>
+        <div class="vkey"><span><i style="background:var(--song)"></i>the song</span><span><i style="background:var(--muted)"></i>rating habit 4%</span><span><i style="background:var(--self)"></i>personal reaction</span><span><i style="background:var(--pen)"></i>song to song, within a person 6%</span></div>
+      </div>
+      <p>There is plenty of personal feeling in the ratings, especially for valence. But any emotional effect in the brain had to show up in alpha’s thin <b>6% slice</b>, alongside alertness, fatigue and attention.</p>
+    </section>
+
+    <!-- exploratory -->
+    <section class="panel c6">
+      <div class="label">Casting a wider net</div>
+      <h2>105 more places to look. Nothing beyond chance.</h2>
+      <div class="matrix" id="matrix" aria-label="Grid of 105 exploratory tests: 5 frequency bands by 7 scalp regions by 3 ratings. Three tests passed an uncorrected threshold; none survived correction."></div>
+      <div class="tally">
+        <div><b>3</b><span>hits at uncorrected p &lt; .05</span></div>
+        <div><b>≈5</b><span>expected by pure chance</span></div>
+        <div class="zero"><b>0</b><span>survived correction (best q = 0.996)</span></div>
+      </div>
+    </section>
+
+    <!-- what it rules out -->
+    <section class="panel c4">
+      <div class="label">Why this null still says something</div>
+      <p class="rule-out">The intervals are narrow. A one standard deviation rise in how aroused you feel is unlikely to lower your posterior alpha by more than <em>about 0.05</em> standard deviations.</p>
+      <p class="note">For valence, effects larger than about 0.11 SD in either direction are unlikely. If these links exist at the level of whole songs, they are small.</p>
+    </section>
+
+    <!-- counting -->
+    <section class="panel c4">
+      <div class="label">A lesson in counting</div>
+      <h2>395 trials are not 395 people</h2>
+      <div class="count-rows">
+        <div><span class="bad">Pool every trial as if independent</span><span class="mono bad">r = 0.009, falsely tight</span></div>
+        <div><span>One slope per person, then combine</span><span class="mono">r = 0.08, honest width</span></div>
+        <div><span>Correlate 20 personal averages</span><span class="mono">a different question</span></div>
+      </div>
+      <p class="note">Treating trials as people (pseudoreplication) claims precision the data do not have. Mixed models with listeners as the unit fixed that.</p>
+    </section>
+
+    <!-- robustness -->
+    <section class="panel c4">
+      <div class="label">Pushing on the result</div>
+      <h2>It held every way it was poked</h2>
+      <div class="count-rows">
+        <div><span>Both ratings in one model</span><span class="mono">null</span></div>
+        <div><span>Adding liking and familiarity</span><span class="mono">null</span></div>
+        <div><span>Relative instead of absolute power</span><span class="mono">null</span></div>
+        <div><span>Stricter 75 µV artifact threshold</span><span class="mono">null</span></div>
+        <div><span>Leaving out each listener in turn (×20)</span><span class="mono">null</span></div>
+      </div>
+      <p class="note">H1 slope stayed between 0.03 and 0.06, every p above .25.</p>
+    </section>
+
+    <!-- why -->
+    <section class="panel c6">
+      <div class="label">Why the textbook effects may have vanished</div>
+      <div class="reasons">
+        <div><span><b>The comparison changed.</b> Older studies compared happy songs with sad ones, so tempo, loudness and timbre came along for the ride. Holding the song fixed strips that away.</span></div>
+        <div><span><b>The timescale is coarse.</b> One EEG value per two minutes and one rating after the music ends. A chill lasting a few seconds is diluted almost to nothing.</span></div>
+        <div><span><b>The signal is small next to the noise.</b> Alpha differs hugely between people, and no song was truly unpleasant (none averaged below 3.1 of 9), so valence had little room to act.</span></div>
+      </div>
+    </section>
+
+    <!-- honesty -->
+    <section class="panel c6">
+      <div class="label">What this does not show</div>
+      <p>It does not show that EEG is blind to musical emotion. It shows that two widely cited alpha markers, averaged over whole songs in twenty people, did not follow personal feeling. That is a narrower and more useful conclusion.</p>
+      <p class="note">Built in honesty: hypotheses, outcomes, exclusion rules and thresholds were committed to version control on 6 October 2026, before any EEG to rating analysis ran. Three deviations are reported openly. The data also had surprises (undocumented notch filter, a truncated and a missing recording, unrecoverable play order), all logged rather than hidden.</p>
+    </section>
+
+    <!-- next -->
+    <section class="panel c12">
+      <div class="label">The next experiment, in four moves</div>
+      <div class="next">
+        <div><b>Rate while listening</b>A continuous slider so the EEG can be aligned with moments of feeling, not whole songs.</div>
+        <div><b>Zoom in on peaks</b>Time resolved analyses of the seconds around a climax, a chord change, a voice entering.</div>
+        <div><b>More songs per person</b>Sharper personal slopes, and a real chance to learn whether people truly differ.</div>
+        <div><b>Truly unpleasant music</b>A wider valence range, with the song and self split reused to keep the two apart.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <span>Data: OpenNeuro ds008701, version 1.0.4</span>
+    <span>Models: linear mixed models (lme4), Bonferroni α = .025 for H1 and H2</span>
+    <span>Code, preregistration and figures: GitHub account Koundinya2003</span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  // seeded random so the traces look the same every load
+  function rng(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+
+  // ---------- hero traces ----------
+  function tracePath(fn, w, h) {
+    var d = "";
+    for (var x = 0; x <= w * 2; x += 2) {
+      var y = h / 2 - fn(x);
+      d += (x === 0 ? "M" : "L") + x + " " + y.toFixed(2) + " ";
+    }
+    return d;
+  }
+  function drawTrace(id, color, fn, speed) {
+    var svg = document.getElementById(id);
+    if (!svg) return;
+    el("line", { x1: 0, y1: 31, x2: 400, y2: 31, stroke: "var(--rule)", "stroke-width": 1, "stroke-dasharray": "2 4" }, svg);
+    var g = el("g", {}, svg);
+    el("path", { d: tracePath(fn, 400, 62), fill: "none", stroke: color, "stroke-width": 1.6, "stroke-linejoin": "round" }, g);
+    var dot = el("circle", { cx: 398, cy: 31, r: 3, fill: color, "class": "pen-dot" }, svg);
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    var off = 0, last = null;
+    function tick(t) {
+      if (last !== null) off = (off + (t - last) * speed) % 400;
+      last = t;
+      g.setAttribute("transform", "translate(" + (-off).toFixed(2) + " 0)");
+      dot.setAttribute("cy", (31 - fn(398 + off)).toFixed(2));
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var r1 = rng(7), noiseA = []; for (var i = 0; i < 900; i++) noiseA.push(r1() - 0.5);
+  var r2 = rng(19), noiseB = []; for (var j = 0; j < 900; j++) noiseB.push(r2() - 0.5);
+  function nz(arr, x) { var i = Math.floor(x / 2) % arr.length; return arr[i]; }
+  // song: strong, phrase shaped rhythm (period 400 so it loops cleanly)
+  drawTrace("trace-song", "var(--song)", function (x) {
+    var env = 0.55 + 0.45 * Math.sin(2 * Math.PI * x / 400);
+    return env * (19 * Math.sin(2 * Math.PI * x / 25) + 6 * Math.sin(2 * Math.PI * x / 8)) + 3 * nz(noiseA, x);
+  }, 0.035);
+  // self: low amplitude jitter, nothing that tracks the song
+  drawTrace("trace-self", "var(--self)", function (x) {
+    return 2.2 * Math.sin(2 * Math.PI * x / 25) + 7 * nz(noiseB, x);
+  }, 0.035);
+
+  // ---------- forest plot ----------
+  var f = document.getElementById("forest");
+  if (f) {
+    var rows = [
+      { h: "H1", name: "Arousal → posterior alpha", sub: "confirmatory", est: 0.05, lo: -0.05, hi: 0.15, p: ".355", pred: -1 },
+      { h: "H1", name: "Personal arousal deviation", sub: "person specific", est: 0.05, lo: -0.05, hi: 0.15, p: ".342", pred: -1 },
+      { h: "H2", name: "Valence → frontal asymmetry", sub: "confirmatory", est: 0.01, lo: -0.10, hi: 0.11, p: ".903", pred: 1 },
+      { h: "H2", name: "Personal valence deviation", sub: "person specific", est: 0.04, lo: -0.06, hi: 0.15, p: ".386", pred: 1 }
+    ];
+    var x0 = 330, x1 = 900, dmin = -0.2, dmax = 0.2;
+    function sx(v) { return x0 + (v - dmin) / (dmax - dmin) * (x1 - x0); }
+    var top = 14, rh = 36;
+    rows.forEach(function (r, i) {
+      var y = top + i * rh + rh / 2;
+      var shadeX = r.pred < 0 ? x0 : sx(0);
+      el("rect", { x: shadeX, y: y - rh / 2 + 3, width: sx(0) - x0, height: rh - 6, fill: "var(--faint)" }, f);
+      var lab = el("text", { x: 0, y: y - 2, "font-size": 15, "font-weight": 600 }, f);
+      lab.textContent = r.h + "  " + r.name;
+      var s = el("text", { x: 0, y: y + 14, "font-size": 12, "class": "dim" }, f);
+      s.textContent = r.sub + (r.pred < 0 ? " · predicted: left of zero" : " · predicted: right of zero");
+      el("line", { x1: sx(r.lo), y1: y, x2: sx(r.hi), y2: y, stroke: "var(--ink)", "stroke-width": 2 }, f);
+      el("line", { x1: sx(r.lo), y1: y - 6, x2: sx(r.lo), y2: y + 6, stroke: "var(--ink)", "stroke-width": 2 }, f);
+      el("line", { x1: sx(r.hi), y1: y - 6, x2: sx(r.hi), y2: y + 6, stroke: "var(--ink)", "stroke-width": 2 }, f);
+      el("circle", { cx: sx(r.est), cy: y, r: 6.5, fill: r.h === "H1" ? "var(--song)" : "var(--self)", stroke: "var(--panel)", "stroke-width": 2 }, f);
+      var pt = el("text", { x: 1000, y: y + 5, "font-size": 13, "text-anchor": "end", "class": "dim" }, f);
+      pt.textContent = "p = " + r.p;
+    });
+    var axisY = top + rows.length * rh + 4;
+    el("line", { x1: sx(0), y1: top, x2: sx(0), y2: axisY, stroke: "var(--pen)", "stroke-width": 1.5, "stroke-dasharray": "4 3" }, f);
+    el("line", { x1: x0, y1: axisY, x2: x1, y2: axisY, stroke: "var(--ink)", "stroke-width": 1 }, f);
+    [-0.2, -0.1, 0, 0.1, 0.2].forEach(function (v) {
+      el("line", { x1: sx(v), y1: axisY, x2: sx(v), y2: axisY + 5, stroke: "var(--ink)" }, f);
+      var t = el("text", { x: sx(v), y: axisY + 20, "font-size": 12, "text-anchor": "middle", "class": "dim" }, f);
+      t.textContent = v === 0 ? "0" : Math.abs(v).toFixed(1);
+    });
+    var lb = el("text", { x: x0, y: axisY + 38, "font-size": 12, "class": "dim" }, f);
+    lb.textContent = "← below zero";
+    var rb = el("text", { x: x1, y: axisY + 38, "font-size": 12, "text-anchor": "end", "class": "dim" }, f);
+    rb.textContent = "above zero →";
+    var z = el("text", { x: sx(0), y: axisY + 38, "font-size": 12, "text-anchor": "middle", fill: "var(--pen)" }, f);
+    z.textContent = "no effect";
+  }
+
+  // ---------- 105 test matrix ----------
+  var m = document.getElementById("matrix");
+  if (m) {
+    var regions = ["Posterior", "Central", "Left temporal", "Right temporal", "Left frontal", "Right frontal", "Frontal midline"];
+    var bands = ["δ", "θ", "α", "β", "γ"];
+    var panels = ["Valence", "Arousal", "Liking"];
+    var hits = { "Valence|Right temporal|γ": 1, "Arousal|Central|α": 1, "Arousal|Central|β": 1 };
+    function div(cls, text) { var d = document.createElement("div"); if (cls) d.className = cls; if (text) d.textContent = text; return d; }
+    m.appendChild(div("", ""));
+    panels.forEach(function (p) { m.appendChild(div("m-head", p)); });
+    var rowsCol = div("m-rows");
+    regions.forEach(function (r) { var s = document.createElement("span"); s.textContent = r; rowsCol.appendChild(s); });
+    m.appendChild(rowsCol);
+    panels.forEach(function (p) {
+      var g = div("m-panel");
+      regions.forEach(function (r) {
+        bands.forEach(function (b) {
+          var i = document.createElement("i");
+          var key = p + "|" + r + "|" + b;
+          if (hits[key]) { i.className = "hit"; i.title = p + ", " + r + ", " + b + ": uncorrected p < .05, did not survive correction"; }
+          else i.title = p + ", " + r + ", " + b;
+          g.appendChild(i);
+        });
+      });
+      m.appendChild(g);
+    });
+    m.appendChild(div("", ""));
+    panels.forEach(function () {
+      var bb = div("m-bands");
+      bands.forEach(function (b) { var s = document.createElement("span"); s.textContent = b; bb.appendChild(s); });
+      m.appendChild(bb);
+    });
+  }
+})();
+</script>
